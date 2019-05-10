@@ -7,7 +7,6 @@ import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 
 import './Landing.scss';
-
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
@@ -52,9 +51,8 @@ class Landing extends React.PureComponent {
             Start
           </BaseLink> */}
           <div className="gamebutton">
-            <a href="/">
-              <img src="../../assets/images/play-button.png" />
-            </a>
+            <img src={require('../../../src/assets/svg/plain-button.svg')} />
+            <img src="https://files.slack.com/files-pri/T026JTKEW-FJ8UYC16W/play-button.png" />
           </div>
         </div>
       </section>
