@@ -53,7 +53,7 @@ class Landing extends React.PureComponent {
           </BaseLink> */}
           <div className="gamebutton">
             <a href="/">
-              <img className="play-btn" src="" alt="Play" />
+              <img src="../../assets/images/play-button.png" />
             </a>
           </div>
         </div>
