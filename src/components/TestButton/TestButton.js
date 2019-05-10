@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import './TestButton.scss';
 
-import checkProps from '../../util/check-props';
+//import checkProps from '../../util/check-props';
 
 class TestButton extends React.PureComponent {
   state = {};
