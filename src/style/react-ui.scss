@@ -4,6 +4,8 @@
   .PageOverlay {
     @include z-index(page-overlay);
   }
+  // background-color: wheat;
+  background-image: url(https://files.slack.com/files-pri/T026JTKEW-FJ8SKEC3D/image.png);
 
   .MainTopNav {
     @include z-index(main-nav);
