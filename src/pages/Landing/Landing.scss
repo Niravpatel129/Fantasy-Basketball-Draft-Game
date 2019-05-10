@@ -1,0 +1,39 @@
+@import 'src/style/shared.scss';
+
+.Landing {
+  text-align: center;
+  padding: px-to-rem(20) $navbar-padding-mobile;
+
+  @media (min-width: $layout-large) {
+    padding: px-to-rem(20) $navbar-padding-desktop;
+  }
+
+  &-header {
+    background-color: $black;
+    padding: px-to-rem(20);
+    color: $white;
+  }
+
+  &-title {
+    font-size: 1.5em;
+  }
+
+  &-intro {
+    font-size: large;
+  }
+
+  &-resources {
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .resource {
+        margin: px-to-rem(5);
+        border: 1px solid $black;
+        padding: px-to-rem(10);
+        text-decoration: none;
+      }
+    }
+  }
+}
