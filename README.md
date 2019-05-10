@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # [Prj name]
 
 [Project brief description]
@@ -117,3 +118,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 
+=======
+# Tournament-Generator
+This is a react-redux based tournament generator
+>>>>>>> 148cb4bfde0fe3368e299010c8780351e0e912d5
