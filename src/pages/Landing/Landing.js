@@ -48,7 +48,7 @@ class Landing extends React.PureComponent {
     return (
       <section className={classnames('Landing', this.props.className)} ref={el => (this.container = el)}>
         <header className="Landing-header">
-          <h1 className="Landing-title">Jam3 Frontend Scaffolding</h1>
+          <h1 className="Landing-title">Tournament Generator</h1>
         </header>
         <section className="Landing-intro">
           <h2>What is it?</h2>

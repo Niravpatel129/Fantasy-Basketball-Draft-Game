@@ -1,19 +1,16 @@
-<<<<<<< HEAD
-# [Prj name]
-
 [Project brief description]
 
-* [Technical Information](#technical-information)
-* [Jam3 Generator](#jam3-generator)
-* [Getting Started](#getting-started)
-* [Running the tests](#running-the-tests)
-* [Environments](#environments)
-* [Deployment](#deployment)
-* [Accounts](#accounts)
-* [Contributing](#contributing)
-* [Versioning](#versioning)
-* [Authors](#authors)
-* [License](#license)
+- [Technical Information](#technical-information)
+- [Jam3 Generator](#jam3-generator)
+- [Getting Started](#getting-started)
+- [Running the tests](#running-the-tests)
+- [Environments](#environments)
+- [Deployment](#deployment)
+- [Accounts](#accounts)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [Authors](#authors)
+- [License](#license)
 
 ## Technical Information
 
@@ -56,11 +53,11 @@ The test runs automatically in the Continue Integration server, in order to exec
 
 ## Environments
 
-* Development : [Link]
-* Staging : [Link]
-* Release (UAT) : [Link]
-* Initial Production : [Link]
-* Production : [Link]
+- Development : [Link]
+- Staging : [Link]
+- Release (UAT) : [Link]
+- Initial Production : [Link]
+- Production : [Link]
 
 ## Deployment
 
@@ -95,11 +92,11 @@ Review the link in: #environments
 To be fully engaged in this project you will need access to the accounts and information below, please feel free to ask for access from the _Lead
 Developer_, _Producer_ or _Technical Director_
 
-* Analytic Tools Access
-* Environment Access
-* CI Access
-* Task Management Access
-* Team Collaboration Tool Access
+- Analytic Tools Access
+- Environment Access
+- CI Access
+- Task Management Access
+- Team Collaboration Tool Access
 
 ## Contributing
 
@@ -112,13 +109,15 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **[LD name]** - _Lead Developer_ - @[Github nickname] - [Email]
-* **[Dev name]** - _Frontend Developer_ - @[Github nickname] - [Email]
+- **[LD name]** - _Lead Developer_ - @[Github nickname] - [Email]
+- **[Dev name]** - _Frontend Developer_ - @[Github nickname] - [Email]
 
 ## License
 
-
 =======
+
 # Tournament-Generator
+
 This is a react-redux based tournament generator
->>>>>>> 148cb4bfde0fe3368e299010c8780351e0e912d5
+
+> > > > > > > 148cb4bfde0fe3368e299010c8780351e0e912d5
