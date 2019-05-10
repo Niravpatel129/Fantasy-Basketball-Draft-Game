@@ -32,6 +32,9 @@ const LazyRotateScreen =
 
 class App extends React.PureComponent {
   componentDidMount() {
+    this.getResponse().then(res => {
+      console.log(res.express);
+    });
     // Setup performance measure tooling
     if (process.env.NODE_ENV !== 'production') {
       const { whyDidYouUpdate } = require('why-did-you-update');
@@ -58,6 +61,11 @@ class App extends React.PureComponent {
     this.props.setLayout(window.innerWidth, window.innerHeight, layout.all);
   }, settings.resizeDebounceTime);
 
+  getResponse = async () => {
+    const response = await fetch('/api/hello');
+    const body = await response.json();
+    return body;
+  };
   render() {
     return (
       <Fragment>
