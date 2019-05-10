@@ -5,7 +5,11 @@
     @include z-index(page-overlay);
   }
   // background-color: wheat;
-  background-image: url(https://files.slack.com/files-pri/T026JTKEW-FJ8SKEC3D/image.png);
+  background-image: url(https://files.slack.com/files-pri/T026JTKEW-FJ8T04APM/image.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
   .MainTopNav {
     @include z-index(main-nav);

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
-import { BaseLink } from '@jam3/react-ui';
+// import classnames from 'classnames';
+// import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 
@@ -48,9 +48,14 @@ class Landing extends React.PureComponent {
     return (
       <section className="Landing-resources">
         <div className="container">
-          <BaseLink className="resource" link="https://generator.jam3.net/components">
+          {/* <BaseLink className="resource" link="https://generator.jam3.net/components">
             Start
-          </BaseLink>
+          </BaseLink> */}
+          <div className="gamebutton">
+            <a href="/">
+              <img className="play-btn" src="" alt="Play" />
+            </a>
+          </div>
         </div>
       </section>
     );
