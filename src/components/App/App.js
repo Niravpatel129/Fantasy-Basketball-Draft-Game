@@ -63,12 +63,12 @@ class App extends React.PureComponent {
       <Fragment>
         {this.props.ready && (
           <Fragment>
-            <MainTopNav
+            {/* <MainTopNav
               {...mainNavData}
               showHamburger={!this.props.layout.large}
               isMobileMenuOpen={this.props.isMobileMenuOpen}
               setIsMobileMenuOpen={this.props.setIsMobileMenuOpen}
-            />
+            /> */}
             {!this.props.layout.large && (
               <Fragment>
                 <PageOverlay
@@ -83,7 +83,7 @@ class App extends React.PureComponent {
               </Fragment>
             )}
             <Pages />
-            <Footer {...footerData} />
+            {/* <Footer {...footerData} /> */}
           </Fragment>
         )}
         {device.isMobile && (
