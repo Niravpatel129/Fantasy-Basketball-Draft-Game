@@ -72,7 +72,8 @@
     "react-router-dom": "4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
     "react-transition-group": "2.5.0",
-    "redux": "4.0.1"
+    "redux": "4.0.1",
+    "npm-run-all": "4.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "6.2.0",
@@ -103,7 +104,6 @@
     "json-sass-vars": "3.0.0",
     "lint-staged": "8.1.0",
     "node-sass": "4.9.3",
-    "npm-run-all": "4.1.2",
     "prettier": "1.15.3",
     "prop-types": "15.6.2",
     "react-scripts": "2.1.3",
