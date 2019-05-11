@@ -104,16 +104,12 @@
     "storybook-addon-jsx": "6.0.0",
     "stylelint": "9.10.0",
     "stylelint-config-jam3": "0.1.2",
-    "webpack-bundle-analyzer": "3.0.3"
-  },
-  "devDependencies": {
+    "webpack-bundle-analyzer": "3.0.3",
     "@commitlint/cli": "6.2.0",
     "@storybook/addon-actions": "4.1.4",
     "@storybook/addon-info": "4.1.4",
     "@storybook/addon-knobs": "4.1.4",
-    "@storybook/react": "4.1.4"
-  },
-  "optionalDependencies": {
+    "@storybook/react": "4.1.4",
     "chalk": "2.3.2",
     "license-checker": "16.0.0",
     "maxstache": "1.0.7",
@@ -124,6 +120,8 @@
     "@jam3/stats": "1.0.0",
     "why-did-you-update": "0.1.1"
   },
+  "devDependencies": {},
+  "optionalDependencies": {},
   "eslintConfig": {
     "extends": "react-app"
   },
