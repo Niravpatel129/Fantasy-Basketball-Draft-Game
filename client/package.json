@@ -73,7 +73,8 @@
     "react-router-redux": "5.0.0-alpha.9",
     "react-transition-group": "2.5.0",
     "redux": "4.0.1",
-    "npm-run-all": "4.1.2"
+    "npm-run-all": "4.1.2",
+    "json-sass-vars": "3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "6.2.0",
@@ -101,7 +102,6 @@
     "imagemin-mozjpeg": "8.0.0",
     "imagemin-pngquant": "6.0.1",
     "imagemin-svgo": "7.0.0",
-    "json-sass-vars": "3.0.0",
     "lint-staged": "8.1.0",
     "node-sass": "4.9.3",
     "prettier": "1.15.3",
