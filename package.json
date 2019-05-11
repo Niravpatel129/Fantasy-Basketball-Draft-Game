@@ -2,7 +2,7 @@
   "name": "example-create-react-app-express",
   "version": "1.0.0",
   "engines": {
-    "node": "10.3.0"
+    "node": "10.15.3"
   },
   "scripts": {
     "start": "node server.js",
