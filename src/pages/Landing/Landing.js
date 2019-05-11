@@ -51,8 +51,7 @@ class Landing extends React.PureComponent {
             Start
           </BaseLink> */}
           <div className="gamebutton">
-            <img src={require('../../../src/assets/svg/plain-button.svg')} />
-            <img src="https://files.slack.com/files-pri/T026JTKEW-FJ8UYC16W/play-button.png" />
+            <img className="play-btn" src={require('../../../src/assets/svg/plain-button.svg')} alt="play-button" />
           </div>
         </div>
       </section>
