@@ -14,5 +14,9 @@
   },
   "devDependencies": {
     "concurrently": "^4.0.1"
-  }
+  },
+  "main": "server.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
