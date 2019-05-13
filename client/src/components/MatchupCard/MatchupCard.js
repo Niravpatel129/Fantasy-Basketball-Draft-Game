@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import checkProps from '@jam3/react-check-extra-props';
+
 import './MatchupCard.scss';
 import TeamCard from '../TeamCard/TeamCard';
-
-import checkProps from '@jam3/react-check-extra-props';
 
 class MatchupCard extends React.PureComponent {
   state = {};
