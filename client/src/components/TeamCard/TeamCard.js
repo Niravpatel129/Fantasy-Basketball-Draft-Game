@@ -14,7 +14,19 @@ class TeamCard extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    return <div className={classnames(`TeamCard`, this.props.className)}>TeamCard component</div>;
+    return (
+      <div className={classnames(`TeamCard`, this.props.className)}>
+        <div class="ui card">
+          <div class="content">
+            <div class="header">{this.props.teamName}</div>
+          </div>
+          <div class="ui bottom attached button">
+            <i class="basketball ball icon" />
+            Cast Vote
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 

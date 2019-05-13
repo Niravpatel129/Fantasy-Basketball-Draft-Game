@@ -1,6 +1,17 @@
 @import 'shared.scss';
 
 #root {
+  .HamburgerButton .bars-container .bar {
+    background: white;
+  }
+  .nav-list .nav-item a.active {
+    color: $white;
+  }
+
+  .nav-list .nav-item a {
+    color: $white;
+  }
+
   .PageOverlay {
     @include z-index(page-overlay);
   }

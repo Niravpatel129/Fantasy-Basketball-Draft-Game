@@ -17,7 +17,14 @@ class MatchupCard extends React.PureComponent {
   render() {
     return (
       <div className={classnames(`MatchupCard`, this.props.className)}>
-        <TeamCard />
+        <div className="teamAssign">
+          <h1>Home</h1>
+          <TeamCard teamName="Milwaukee Bucks" />
+        </div>
+        <div className="teamAssign">
+          <h1>Away</h1>
+          <TeamCard teamName="Toronto Raptors" />
+        </div>
       </div>
     );
   }

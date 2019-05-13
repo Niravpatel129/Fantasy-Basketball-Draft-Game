@@ -1,4 +1,17 @@
 @import 'src/style/shared.scss';
 
 .TeamCard {
+  display: inline-block;
+}
+
+.ui.card {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.ui.card .content .header {
+  color: $white;
+}
+.ui.button {
+  color: $white;
+  background: transparent;
 }
