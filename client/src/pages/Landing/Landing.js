@@ -10,6 +10,7 @@ import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
 import Titletext from '../../components/Titletext/Titletext';
 import Arrow from '../../components/Arrow/Arrow';
+import GameButton from '../../components/GameButton/GameButton';
 
 class Landing extends React.PureComponent {
   componentDidMount() {
@@ -47,15 +48,8 @@ class Landing extends React.PureComponent {
     return (
       <section className="Landing-resources">
         <Titletext title="FANTASY BASKETBALL PICKER" />
-        <div className="container">
-          {/* <BaseLink className="resource" link="https://generator.jam3.net/components">
-            Start
-          </BaseLink> */}
-          <div className="gamebutton">
-            <img src={require('../../../src/assets/svg/plain-button.svg')} alt="Play" />
-            <Arrow />
-          </div>
-        </div>
+        <GameButton text="PRESS TO LOGIN" />
+        <Arrow />
       </section>
     );
   }

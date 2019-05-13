@@ -15,9 +15,15 @@ class Arrow extends React.PureComponent {
   render() {
     return (
       <div className={classnames(`Arrow`, this.props.className)}>
-        <img src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
-        <img src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
-        <img src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
+        <div>
+          <img className={this.props.direction} src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
+        </div>
+        <div>
+          <img className={this.props.direction} src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
+        </div>
+        <div>
+          <img className={this.props.direction} src={require('../../../src/assets/svg/Path.svg')} alt="Path" />
+        </div>
       </div>
     );
   }
