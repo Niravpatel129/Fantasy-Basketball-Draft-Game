@@ -56,6 +56,15 @@ class Landing extends React.PureComponent {
     return (
       <section className="Landing-resources">
         <h1>Landing Page</h1>
+        <div className="container">
+          {/* <BaseLink className="resource" link="https://generator.jam3.net/components">
+            Start
+          </BaseLink> */}
+          <div className="gamebutton">
+            <img src={require('../../../src/assets/svg/plain-button.svg')} alt="Play" />
+            <h1>Hello World</h1>
+          </div>
+        </div>
       </section>
     );
   }
