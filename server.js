@@ -9,7 +9,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mongoose
-
+app.get(
+  "https://slack.com/oauth/authorize?scope=identity.basic&client_id=2222937506.634323100293",
+  (req, res) => {
+    console.log(req.body);
+  }
+);
 //Route Practice
 app.get("/api/home", function(req, res) {
   res.send("Welcome!");
@@ -43,4 +48,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});

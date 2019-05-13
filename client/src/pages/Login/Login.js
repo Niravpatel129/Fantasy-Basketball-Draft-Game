@@ -46,8 +46,14 @@ class Login extends React.PureComponent {
     return (
       <section className="Login">
         <InfoBox />
-        <a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=your_client_id">
-          <img alt="Slack Login" src="https://api.slack.com/img/sign_in_with_slack.png" />
+        <a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=2222937506.634323100293">
+          <img
+            height="40"
+            width="172"
+            alt="slack"
+            src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+            srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
+          />
         </a>
       </section>
     );
