@@ -1,0 +1,15 @@
+@import 'src/style/shared.scss';
+
+.SubmitButton {
+}
+.visible.content {
+  width: 150px;
+}
+
+.hidden.content {
+  color: $white;
+}
+
+.ui.animated.fade.button {
+  background-color: rgba(255, 255, 255, 0.5);
+}

@@ -5,11 +5,13 @@
 }
 
 .ui.card {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 200px;
 }
 
 .ui.card .content .header {
   color: $white;
+  font-family: 'Rajdhani', sans-serif;
 }
 .ui.button {
   color: $white;

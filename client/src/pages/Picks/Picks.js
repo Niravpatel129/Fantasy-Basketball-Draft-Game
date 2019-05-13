@@ -47,9 +47,7 @@ class Picks extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-        <h1>Picks</h1>
         <MatchupCard />
-        <BaseLink link="/">Home</BaseLink>
       </section>
     );
   }
