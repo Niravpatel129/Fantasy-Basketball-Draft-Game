@@ -5,15 +5,16 @@
     @include z-index(page-overlay);
   }
   // background-color: wheat;
-  // background-image: url('../../src/assets/images/background-image.png');
-  // background-image: ;
+  background-image: url('../../src/assets/images/background-image.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  color: $white;
 
   .MainTopNav {
     @include z-index(main-nav);
+    color: $white;
     background: rgba(255, 255, 255, 0);
     border-bottom: 3px solid rgba($white, 1);
 
@@ -33,7 +34,7 @@
     @include z-index(sidebar);
     height: calc(100% - #{$navbar-height-mobile});
     border-left: none;
-    background-color: $white;
+    color: $white;
 
     @media (min-width: $layout-medium) {
       max-width: px-to-rem(300);
