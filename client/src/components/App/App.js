@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { Transition } from 'react-transition-group';
-import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
+// import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
 import { device } from '@jam3/detect';
 import checkProps from '@jam3/react-check-extra-props';
 import 'default-passive-events';
