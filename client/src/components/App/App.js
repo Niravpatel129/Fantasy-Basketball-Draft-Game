@@ -71,12 +71,7 @@ class App extends React.PureComponent {
         {this.props.ready && (
           <Fragment>
             {console.log(mainNavData)}
-            <MainTopNav
-              {...mainNavData}
-              showHamburger={!this.props.layout.large}
-              isMobileMenuOpen={this.props.isMobileMenuOpen}
-              setIsMobileMenuOpen={this.props.setIsMobileMenuOpen}
-            />
+
             {!this.props.layout.large && (
               <Fragment>
                 <PageOverlay
