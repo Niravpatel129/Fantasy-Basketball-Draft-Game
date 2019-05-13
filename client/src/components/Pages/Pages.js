@@ -11,7 +11,9 @@ import routeKeys from '../../routes/keys';
 import { getTransitionDuration } from '../../data/pages-transitions';
 
 const Landing = lazy(() => import('../../pages/Landing/Landing'));
-const About = lazy(() => import('../../pages/About/About'));
+const Picks = lazy(() => import('../../pages/Picks/Picks'));
+const Results = lazy(() => import('../../pages/Results/Results'));
+const Leaderboard = lazy(() => import('../../pages/Leaderboard/Leaderboard'));
 const NotFound = lazy(() => import('../../pages/NotFound/NotFound')).default;
 
 const Pages = ({ location, ...props }) => {
@@ -23,7 +25,9 @@ const Pages = ({ location, ...props }) => {
             <Suspense fallback={<div className="loading" />}>
               <Switch location={location}>
                 <Route exact path={routeKeys.Landing} render={() => <Landing transitionState={state} />} />
-                <Route exact path={routeKeys.About} render={() => <About transitionState={state} />} />
+                <Route exact path={routeKeys.Picks} render={() => <Picks transitionState={state} />} />
+                <Route exact path={routeKeys.Results} render={() => <Results transitionState={state} />} />
+                <Route exact path={routeKeys.Leaderboard} render={() => <Leaderboard transitionState={state} />} />
                 <Route component={NotFound} />
               </Switch>
             </Suspense>

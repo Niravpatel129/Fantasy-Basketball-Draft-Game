@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { Transition } from 'react-transition-group';
-// import { Footer, HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
+import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
 import { device } from '@jam3/detect';
 import checkProps from '@jam3/react-check-extra-props';
 import 'default-passive-events';
@@ -16,9 +16,8 @@ import { setPreviousRoute, setWindowSize, setLayout, batchActions } from '../../
 import { setIsMobileMenuOpen } from '../../redux/modules/main-nav';
 
 import settings from '../../data/settings';
-// import mainNavData from '../../data/main-nav';
-// import hamburgerNavData from '../../data/hamburger-menu';
-// import footerData from '../../data/footer';
+import mainNavData from '../../data/main-nav';
+import hamburgerNavData from '../../data/hamburger-menu';
 import rotateScreenData from '../../data/rotate-screen';
 import layout from '../../util/layout';
 
@@ -71,15 +70,15 @@ class App extends React.PureComponent {
       <Fragment>
         {this.props.ready && (
           <Fragment>
-            {/* <MainTopNav
+            <MainTopNav
               {...mainNavData}
               showHamburger={!this.props.layout.large}
               isMobileMenuOpen={this.props.isMobileMenuOpen}
               setIsMobileMenuOpen={this.props.setIsMobileMenuOpen}
-            /> */}
+            />
             {!this.props.layout.large && (
               <Fragment>
-                {/* <PageOverlay
+                <PageOverlay
                   isShowing={this.props.isMobileMenuOpen}
                   onClick={() => this.props.setIsMobileMenuOpen(false)}
                 />
@@ -87,7 +86,7 @@ class App extends React.PureComponent {
                   {...hamburgerNavData}
                   isMobileMenuOpen={this.props.isMobileMenuOpen}
                   setIsMobileMenuOpen={this.props.setIsMobileMenuOpen}
-                /> */}
+                />
               </Fragment>
             )}
             <Pages />

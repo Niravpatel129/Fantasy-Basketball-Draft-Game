@@ -6,12 +6,12 @@ import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 
-import './About.scss';
+import './Picks.scss';
 
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 
-class About extends React.PureComponent {
+class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -45,21 +45,21 @@ class About extends React.PureComponent {
 
   render() {
     return (
-      <section className={classnames('About', this.props.className)} ref={el => (this.container = el)}>
-        <h1>About</h1>
+      <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+        <h1>Picks</h1>
         <BaseLink link="/">Home</BaseLink>
       </section>
     );
   }
 }
 
-About.propTypes = checkProps({
+Picks.propTypes = checkProps({
   className: PropTypes.string,
   transitionState: PropTypes.string.isRequired,
   previousRoute: PropTypes.string
 });
 
-About.defaultProps = {};
+Picks.defaultProps = {};
 
 const mapStateToProps = state => ({
   previousRoute: state.previousRoute
@@ -70,4 +70,4 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Transition(About));
+)(Transition(Picks));

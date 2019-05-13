@@ -1,5 +1,7 @@
 export default {
   Landing: '/',
-  About: '/about',
-  Login: '/login'
+  Picks: '/picks',
+  Login: '/login',
+  Results: '/results',
+  Leaderboard: '/leaderboard'
 };
