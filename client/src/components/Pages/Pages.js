@@ -12,7 +12,6 @@ import { getTransitionDuration } from '../../data/pages-transitions';
 
 const Landing = lazy(() => import('../../pages/Landing/Landing'));
 const About = lazy(() => import('../../pages/About/About'));
-const Login = lazy(() => import('../../pages/Login/Login'));
 const NotFound = lazy(() => import('../../pages/NotFound/NotFound')).default;
 
 const Pages = ({ location, ...props }) => {
@@ -25,7 +24,6 @@ const Pages = ({ location, ...props }) => {
               <Switch location={location}>
                 <Route exact path={routeKeys.Landing} render={() => <Landing transitionState={state} />} />
                 <Route exact path={routeKeys.About} render={() => <About transitionState={state} />} />
-                <Route exact path={routeKeys.Login} render={() => <Login transitionState={state} />} />
                 <Route component={NotFound} />
               </Switch>
             </Suspense>

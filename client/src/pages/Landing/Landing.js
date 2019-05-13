@@ -41,17 +41,6 @@ class Landing extends React.PureComponent {
     animate.to(this.container, 0.3, { autoAlpha: 0 });
   };
 
-  onSubmit = event => {
-    event.preventDefault();
-    fetch('/login', {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  };
-
   render() {
     return (
       <section className="Landing-resources">
