@@ -1,4 +1,5 @@
 export default {
   Landing: '/',
-  About: '/about'
+  About: '/about',
+  Login: '/login'
 };

@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import classnames from 'classnames';
-// import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-
 import './Landing.scss';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
@@ -43,17 +41,21 @@ class Landing extends React.PureComponent {
     animate.to(this.container, 0.3, { autoAlpha: 0 });
   };
 
+  onSubmit = event => {
+    event.preventDefault();
+    fetch('/login', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  };
+
   render() {
     return (
       <section className="Landing-resources">
-        <div className="container">
-          {/* <BaseLink className="resource" link="https://generator.jam3.net/components">
-            Start
-          </BaseLink> */}
-          <div className="gamebutton">
-            <img src={require('../../../src/assets/svg/plain-button.svg')} alt="Play" />
-          </div>
-        </div>
+        <h1>Landing Page</h1>
       </section>
     );
   }
