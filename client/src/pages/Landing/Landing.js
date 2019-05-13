@@ -9,6 +9,7 @@ import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
 import Titletext from '../../components/Titletext/Titletext';
+import Arrow from '../../components/Arrow/Arrow';
 
 class Landing extends React.PureComponent {
   componentDidMount() {
@@ -52,6 +53,7 @@ class Landing extends React.PureComponent {
           </BaseLink> */}
           <div className="gamebutton">
             <img src={require('../../../src/assets/svg/plain-button.svg')} alt="Play" />
+            <Arrow />
           </div>
         </div>
       </section>
