@@ -13,6 +13,7 @@ import { getTransitionDuration } from '../../data/pages-transitions';
 const Landing = lazy(() => import('../../pages/Landing/Landing'));
 const Picks = lazy(() => import('../../pages/Picks/Picks'));
 const Results = lazy(() => import('../../pages/Results/Results'));
+const Login = lazy(() => import('../../pages/Login/Login'));
 const Leaderboard = lazy(() => import('../../pages/Leaderboard/Leaderboard'));
 const NotFound = lazy(() => import('../../pages/NotFound/NotFound')).default;
 
@@ -28,6 +29,7 @@ const Pages = ({ location, ...props }) => {
                 <Route exact path={routeKeys.Picks} render={() => <Picks transitionState={state} />} />
                 <Route exact path={routeKeys.Results} render={() => <Results transitionState={state} />} />
                 <Route exact path={routeKeys.Leaderboard} render={() => <Leaderboard transitionState={state} />} />
+                <Route exact path={routeKeys.Login} render={() => <Login transitionState={state} />} />
                 <Route component={NotFound} />
               </Switch>
             </Suspense>
