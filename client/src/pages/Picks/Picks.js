@@ -10,6 +10,7 @@ import './Picks.scss';
 
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
+import MatchupCard from '../../components/MatchupCard/MatchupCard';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -47,6 +48,7 @@ class Picks extends React.PureComponent {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
         <h1>Picks</h1>
+        <MatchupCard />
         <BaseLink link="/">Home</BaseLink>
       </section>
     );
