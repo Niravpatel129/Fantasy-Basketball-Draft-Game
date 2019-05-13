@@ -1,5 +1,7 @@
 @import 'src/style/shared.scss';
-
+.MainTopNav {
+  display: none;
+}
 .Landing {
   text-align: center;
   padding: px-to-rem(20) $navbar-padding-mobile;
