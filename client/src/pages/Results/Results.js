@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { BaseLink } from '@jam3/react-ui';
-import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
+// import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-import mainNavData from '../../data/main-nav';
+// import mainNavData from '../../data/main-nav';
 
 import './Results.scss';
 
