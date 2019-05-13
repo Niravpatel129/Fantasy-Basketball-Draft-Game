@@ -70,6 +70,7 @@ class App extends React.PureComponent {
       <Fragment>
         {this.props.ready && (
           <Fragment>
+            {console.log(mainNavData)}
             <MainTopNav
               {...mainNavData}
               showHamburger={!this.props.layout.large}

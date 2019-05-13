@@ -8,6 +8,7 @@ import './Landing.scss';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
+import Titletext from '../../components/Titletext/Titletext';
 
 class Landing extends React.PureComponent {
   componentDidMount() {
@@ -44,14 +45,13 @@ class Landing extends React.PureComponent {
   render() {
     return (
       <section className="Landing-resources">
-        <h1>Landing Page</h1>
+        <Titletext title="FANTASY BASKETBALL PICKER" />
         <div className="container">
           {/* <BaseLink className="resource" link="https://generator.jam3.net/components">
             Start
           </BaseLink> */}
           <div className="gamebutton">
             <img src={require('../../../src/assets/svg/plain-button.svg')} alt="Play" />
-            <h1>Hello World</h1>
           </div>
         </div>
       </section>
