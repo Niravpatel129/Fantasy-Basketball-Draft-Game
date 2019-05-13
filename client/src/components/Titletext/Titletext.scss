@@ -1,4 +1,9 @@
 @import 'src/style/shared.scss';
+@import url('https://fonts.googleapis.com/css?family=Muli');
 
 .Titletext {
+  font-family: 'Muli', sans-serif;
+  font-size: 44px;
+  padding-bottom: 80px;
+  font-weight: 300;
 }
