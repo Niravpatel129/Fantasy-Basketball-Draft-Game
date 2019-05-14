@@ -11,6 +11,7 @@ import './Picks.scss';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
+import Arrow from '../../components/Arrow/Arrow';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -47,6 +48,7 @@ class Picks extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+        <Arrow className="right" />
         <MatchupCard />
       </section>
     );
