@@ -84,15 +84,14 @@ class Login extends React.PureComponent {
   }
 
   onClickEvent = () => {
-    const response = this.authUser();
-    console.log(this.state.token);
+    this.authUser();
   };
 
   render() {
     return (
       <section className="Login">
         <InfoBox />
-        <LoginPrompt onClick={this.onClickEvent} />
+        <LoginPrompt />
       </section>
     );
   }

@@ -8,11 +8,11 @@ import checkProps from '@jam3/react-check-extra-props';
 
 import './Picks.scss';
 
+import axios from 'axios';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
-import Axios from 'axios';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -21,17 +21,24 @@ class Picks extends React.PureComponent {
   }
 
   componentDidMount() {
-    animate.set(this.container, { autoAlpha: 0 });
-
-    Axios.get('/picks')
-      .then(function(response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
+    let startdate = '2019-05-14';
+    let enddate = '2019-05-15';
+    axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + startdate + '&end_date=' + enddate).then(res => {
+      let data = res.data.data;
+      data.map(hello => {
+        console.log(
+          'Game ID: ' +
+            hello.id +
+            ' Home Team: ' +
+            hello.home_team.city +
+            ' Vs Visitor Team: ' +
+            hello.visitor_team.city
+        );
       });
+    });
+
+    animate.set(this.container, { autoAlpha: 0 });
+    // let code = window.location.href;
   }
   onAppear = () => {
     this.animateIn();
