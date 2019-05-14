@@ -4,13 +4,13 @@ import classnames from 'classnames';
 
 import checkProps from '@jam3/react-check-extra-props';
 
-import './MatchupCard.scss';
+import './ResultCard.scss';
 import TeamCard from '../TeamCard/TeamCard';
 import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
 
-class MatchupCard extends React.PureComponent {
+class ResultCard extends React.PureComponent {
   state = {
     gameInfo: this.props.gameInfo
   };
@@ -24,7 +24,6 @@ class MatchupCard extends React.PureComponent {
   }
 
   render() {
-    console.log(this.props.gameInfo.currentPickIndex);
     if (this.state.gameInfo.response) {
       const homeTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].homeTeam;
       const awayTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].awayTeam;
@@ -35,7 +34,7 @@ class MatchupCard extends React.PureComponent {
           <div className={classnames(`MatchupCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>
-              <TeamCard teamName={homeTeam} />
+              <TeamCard teamName={homeTeam} className="winner" />
             </div>
             <div className="teamAssign">
               <h2 className="teamTag">AWAY</h2>
@@ -58,11 +57,11 @@ class MatchupCard extends React.PureComponent {
   }
 }
 
-MatchupCard.propTypes = checkProps({
+ResultCard.propTypes = checkProps({
   className: PropTypes.string,
   gameInfo: PropTypes.object
 });
 
-MatchupCard.defaultProps = {};
+ResultCard.defaultProps = {};
 
-export default MatchupCard;
+export default ResultCard;

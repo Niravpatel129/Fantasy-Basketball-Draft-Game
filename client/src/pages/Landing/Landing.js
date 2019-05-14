@@ -61,6 +61,8 @@ class Landing extends React.PureComponent {
         <Titletext title="FANTASY BASKETBALL PICKER" />
         <GameButton text="PRESS TO LOGIN" />
         <Arrow />
+        <Arrow />
+        <Arrow />
       </section>
     );
   }

@@ -10,17 +10,56 @@ import checkProps from '@jam3/react-check-extra-props';
 
 import './Results.scss';
 
+import { gamesApi } from '../../api/gamesApi.js';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
+import ResultCard from '../../components/ResultCard/ResultCard';
+import Arrow from '../../components/Arrow/Arrow';
 
 class Results extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      response: 0,
+      date: '',
+      picks: [],
+      currentPickIndex: 0
+    };
   }
 
   componentDidMount() {
+    let startdate = '2019-02-13';
+    let enddate = '2019-02-13';
+
+    gamesApi(startdate, enddate)
+      .then(res => {
+        const teams = res.data.data;
+        console.log(teams);
+        teams.map(game => {
+          this.setState({
+            date: startdate,
+            picks: [
+              ...this.state.picks,
+              {
+                gameId: game.id,
+                homeTeam: game.home_team.city,
+                homeScore: game.home_team_score,
+                awayTeam: game.visitor_team.city,
+                awayScore: game.visitor_team_score,
+                selection: ''
+              }
+            ]
+          });
+          return true;
+        });
+        this.setState({ response: 1 });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     animate.set(this.container, { autoAlpha: 0 });
+    // let code = window.location.href;
   }
 
   onAppear = () => {
@@ -48,14 +87,9 @@ class Results extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-        {/* <MainTopNav
-          {...mainNavData}
-          showHamburger={!this.props.layout.large}
-          isMobileMenuOpen={this.props.isMobileMenuOpen}
-          setIsMobileMenuOpen={this.props.setIsMobileMenuOpen}
-        /> */}
-        <h1>Results</h1>
-        <BaseLink link="/">Home</BaseLink>
+        <Arrow className="left" onClick={this.prevPick} />
+        <ResultCard gameInfo={this.state} />
+        <Arrow className="right" onClick={this.nextPick} />
       </section>
     );
   }

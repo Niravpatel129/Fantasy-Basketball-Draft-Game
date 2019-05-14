@@ -1,0 +1,19 @@
+@import 'src/style/shared.scss';
+
+.MatchupCard {
+  .input {
+    padding: 15px;
+  }
+}
+.teamAssign {
+  display: inline-block;
+  margin: 10px;
+}
+
+.teamTag {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.winner {
+  background-color: MEDIUMSEAGREEN;
+}
