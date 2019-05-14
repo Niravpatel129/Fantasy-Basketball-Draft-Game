@@ -5,7 +5,6 @@ import classnames from 'classnames';
 // import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-import axios from 'axios';
 
 import './Picks.scss';
 import { gamesApi } from '../../api/gamesApi.js';
