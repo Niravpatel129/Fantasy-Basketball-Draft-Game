@@ -16,7 +16,17 @@ import Arrow from '../../components/Arrow/Arrow';
 class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      date: '',
+      picks: [
+        {
+          gameId: '',
+          homeTeam: 'NIRAV',
+          awayTeam: 'ADAM',
+          selection: ''
+        }
+      ]
+    };
   }
 
   componentDidMount() {
@@ -60,8 +70,9 @@ class Picks extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+        <Arrow className="left" />
+        <MatchupCard gameInfo={this.state} />
         <Arrow className="right" />
-        <MatchupCard />
       </section>
     );
   }

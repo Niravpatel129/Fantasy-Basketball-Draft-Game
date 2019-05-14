@@ -1,7 +1,9 @@
 @import 'src/style/shared.scss';
 
 .MatchupCard {
-  margin: 25px auto;
+  .input {
+    padding: 15px;
+  }
 }
 .teamAssign {
   display: inline-block;

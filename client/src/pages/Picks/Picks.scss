@@ -1,4 +1,15 @@
 @import 'src/style/shared.scss';
 
 .Picks {
+  display: flex;
+  align-content: space-between;
+  justify-content: center;
+
+  .MatchupCard {
+    padding-top: 15px;
+    margin: auto;
+  }
+  .Arrow {
+    margin: auto;
+  }
 }
