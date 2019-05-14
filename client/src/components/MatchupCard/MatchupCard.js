@@ -8,9 +8,20 @@ import './MatchupCard.scss';
 import TeamCard from '../TeamCard/TeamCard';
 import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import DateSelect from '../DateSelect/DateSelect';
 
 class MatchupCard extends React.PureComponent {
-  state = {};
+  state = {
+    date: '',
+    picks: [
+      {
+        gameId: '',
+        homeTeam: '',
+        awayTeam: '',
+        selection: ''
+      }
+    ]
+  };
 
   componentDidMount() {}
 
@@ -19,23 +30,26 @@ class MatchupCard extends React.PureComponent {
   render() {
     return (
       <div className={classnames(`MatchupCard`, this.props.className)}>
-        <div className="teamAssign">
-          <h2 className="teamTag">HOME</h2>
-          <TeamCard teamName="Milwaukee Bucks" />
+        <DateSelect />
+        <div className={classnames(`MatchupCard`, this.props.className)}>
+          <div className="teamAssign">
+            <h2 className="teamTag">HOME</h2>
+            <TeamCard teamName="Milwaukee Bucks" />
+          </div>
+          <div className="teamAssign">
+            <h2 className="teamTag">AWAY</h2>
+            <TeamCard teamName="Toronto Raptors" />
+          </div>
+          <h2 className="teamTag">THE MATCHUP</h2>
+          <div className="teamAssign">
+            <MatchupInfo teamName="Milwaukee Bucks" />
+          </div>
+          <div className="teamAssign">
+            <MatchupInfo teamName="Toronto Raptors" />
+          </div>
+          <h2 className="teamTag">swipe to view more games</h2>
+          <SubmitButton />
         </div>
-        <div className="teamAssign">
-          <h2 className="teamTag">AWAY</h2>
-          <TeamCard teamName="Toronto Raptors" />
-        </div>
-        <h2 className="teamTag">THE MATCHUP</h2>
-        <div className="teamAssign">
-          <MatchupInfo teamName="Milwaukee Bucks" />
-        </div>
-        <div className="teamAssign">
-          <MatchupInfo teamName="Toronto Raptors" />
-        </div>
-        <h2 className="teamTag">swipe to view more games</h2>
-        <SubmitButton />
       </div>
     );
   }

@@ -48,8 +48,9 @@ class Picks extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-        <Arrow className="right" />
+        <Arrow className="left" />
         <MatchupCard />
+        <Arrow className="right" />
       </section>
     );
   }
