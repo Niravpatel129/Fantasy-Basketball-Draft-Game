@@ -8,7 +8,7 @@ import checkProps from '@jam3/react-check-extra-props';
 import axios from 'axios';
 
 import './Picks.scss';
-
+import { gamesApi } from '../../api/gamesApi.js';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
@@ -23,16 +23,12 @@ class Picks extends React.PureComponent {
   componentDidMount() {
     let startdate = '2019-05-14';
     let enddate = '2019-05-15';
-    axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + startdate + '&end_date=' + enddate).then(res => {
-      let data = res.data.data;
-      data.map(hello => {
+
+    gamesApi(startdate, enddate).then(res => {
+      var teams = res.data.data;
+      teams.map(game => {
         console.log(
-          'Game ID: ' +
-            hello.id +
-            ' Home Team: ' +
-            hello.home_team.city +
-            ' Vs Visitor Team: ' +
-            hello.visitor_team.city
+          'Game ID: ' + game.id + ' Home Team: ' + game.home_team.city + ' Vs Visitor Team: ' + game.visitor_team.city
         );
       });
     });
