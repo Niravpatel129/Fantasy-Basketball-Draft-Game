@@ -17,7 +17,9 @@ class MatchupCard extends React.PureComponent {
 
   componentDidMount() {}
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    this.setState({ gameInfo: this.props.gameInfo });
+  }
 
   render() {
     return (

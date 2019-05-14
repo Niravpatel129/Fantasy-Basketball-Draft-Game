@@ -18,14 +18,7 @@ class Picks extends React.PureComponent {
     super(props);
     this.state = {
       date: '',
-      picks: [
-        {
-          gameId: '',
-          homeTeam: 'NIRAV',
-          awayTeam: 'ADAM',
-          selection: ''
-        }
-      ]
+      picks: []
     };
   }
 
@@ -36,9 +29,13 @@ class Picks extends React.PureComponent {
     gamesApi(startdate, enddate).then(res => {
       var teams = res.data.data;
       teams.map(game => {
-        console.log(
-          'Game ID: ' + game.id + ' Home Team: ' + game.home_team.city + ' Vs Visitor Team: ' + game.visitor_team.city
-        );
+        this.setState({
+          date: startdate,
+          picks: [
+            ...this.state.picks,
+            { gameId: game.id, homeTeam: game.home_team.city, awayTeam: game.visitor_team.city, selection: '' }
+          ]
+        });
       });
     });
 
