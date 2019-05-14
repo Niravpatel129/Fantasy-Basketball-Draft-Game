@@ -12,6 +12,7 @@ import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
+import Axios from 'axios';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -21,8 +22,17 @@ class Picks extends React.PureComponent {
 
   componentDidMount() {
     animate.set(this.container, { autoAlpha: 0 });
-  }
 
+    Axios.get('/picks')
+      .then(function(response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      });
+  }
   onAppear = () => {
     this.animateIn();
   };
