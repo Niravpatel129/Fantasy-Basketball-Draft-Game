@@ -17,7 +17,17 @@ import Arrow from '../../components/Arrow/Arrow';
 class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      date: '',
+      picks: [
+        {
+          gameId: '',
+          homeTeam: 'NIRAV',
+          awayTeam: 'ADAM',
+          selection: ''
+        }
+      ]
+    };
   }
 
   componentDidMount() {
@@ -25,16 +35,7 @@ class Picks extends React.PureComponent {
     let enddate = '2019-05-15';
     axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + startdate + '&end_date=' + enddate).then(res => {
       let data = res.data.data;
-      data.map(hello => {
-        console.log(
-          'Game ID: ' +
-            hello.id +
-            ' Home Team: ' +
-            hello.home_team.city +
-            ' Vs Visitor Team: ' +
-            hello.visitor_team.city
-        );
-      });
+      data.map(hello => {});
     });
 
     animate.set(this.container, { autoAlpha: 0 });
@@ -66,7 +67,7 @@ class Picks extends React.PureComponent {
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
         <Arrow className="left" />
-        <MatchupCard />
+        <MatchupCard gameInfo={this.state} />
         <Arrow className="right" />
       </section>
     );

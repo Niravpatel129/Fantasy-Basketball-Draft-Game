@@ -12,15 +12,7 @@ import DateSelect from '../DateSelect/DateSelect';
 
 class MatchupCard extends React.PureComponent {
   state = {
-    date: '',
-    picks: [
-      {
-        gameId: '',
-        homeTeam: '',
-        awayTeam: '',
-        selection: ''
-      }
-    ]
+    gameInfo: this.props.gameInfo
   };
 
   componentDidMount() {}
@@ -34,18 +26,18 @@ class MatchupCard extends React.PureComponent {
         <div className={classnames(`MatchupCard`, this.props.className)}>
           <div className="teamAssign">
             <h2 className="teamTag">HOME</h2>
-            <TeamCard teamName="Milwaukee Bucks" />
+            <TeamCard teamName={this.state.gameInfo.picks[0].homeTeam} />
           </div>
           <div className="teamAssign">
             <h2 className="teamTag">AWAY</h2>
-            <TeamCard teamName="Toronto Raptors" />
+            <TeamCard teamName={this.state.gameInfo.picks[0].awayTeam} />
           </div>
           <h2 className="teamTag">THE MATCHUP</h2>
           <div className="teamAssign">
-            <MatchupInfo teamName="Milwaukee Bucks" />
+            <MatchupInfo teamName={this.state.gameInfo.picks[0].homeTeam} />
           </div>
           <div className="teamAssign">
-            <MatchupInfo teamName="Toronto Raptors" />
+            <MatchupInfo teamName={this.state.gameInfo.picks[0].awayTeam} />
           </div>
           <h2 className="teamTag">swipe to view more games</h2>
           <SubmitButton />

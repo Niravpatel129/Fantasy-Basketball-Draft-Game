@@ -31,7 +31,8 @@ class TeamCard extends React.PureComponent {
 }
 
 TeamCard.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  teamName: PropTypes.string
 });
 
 TeamCard.defaultProps = {};
