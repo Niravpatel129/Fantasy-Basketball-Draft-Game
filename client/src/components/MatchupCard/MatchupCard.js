@@ -12,40 +12,51 @@ import DateSelect from '../DateSelect/DateSelect';
 
 class MatchupCard extends React.PureComponent {
   state = {
+    counter: 0,
     gameInfo: this.props.gameInfo
   };
 
   componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {
-    this.setState({ gameInfo: this.props.gameInfo });
+    this.setState({
+      gameInfo: this.props.gameInfo
+    });
+    console.log(this.props);
   }
 
   render() {
-    return (
-      <div className={classnames(`MatchupCard`, this.props.className)}>
-        <DateSelect />
-        <div className={classnames(`MatchupCard`, this.props.className)}>
-          <div className="teamAssign">
-            <h2 className="teamTag">HOME</h2>
-            <TeamCard teamName={this.state.gameInfo.picks[0].homeTeam} />
+    {
+      console.log(this.props);
+    }
+    if (!this.props.gameInfo.picks[0]) {
+      return <p>Loading..</p>;
+    } else {
+      return (
+        <div className={classnames(`MatchupCard`, this.props)}>
+          <DateSelect />
+          <div className={classnames(`MatchupCard`, this.props.className)}>
+            <div className="teamAssign">
+              <h2 className="teamTag">HOME</h2>
+              <TeamCard teamName={this.props.gameInfo.picks[0].homeTeam} />
+            </div>
+            <div className="teamAssign">
+              <h2 className="teamTag">AWAY</h2>
+              <TeamCard teamName={this.props.gameInfo.picks[0].awayTeam} />
+            </div>
+            <h2 className="teamTag">THE MATCHUP</h2>
+            <div className="teamAssign">
+              <MatchupInfo teamName={this.props.gameInfo.picks[0].homeTeam} />
+            </div>
+            <div className="teamAssign">
+              <MatchupInfo teamName={this.props.gameInfo.picks[0].awayTeam} />
+            </div>
+            <h2 className="teamTag">swipe to view more games</h2>
+            <SubmitButton />
           </div>
-          <div className="teamAssign">
-            <h2 className="teamTag">AWAY</h2>
-            <TeamCard teamName={this.state.gameInfo.picks[0].awayTeam} />
-          </div>
-          <h2 className="teamTag">THE MATCHUP</h2>
-          <div className="teamAssign">
-            <MatchupInfo teamName={this.state.gameInfo.picks[0].homeTeam} />
-          </div>
-          <div className="teamAssign">
-            <MatchupInfo teamName={this.state.gameInfo.picks[0].awayTeam} />
-          </div>
-          <h2 className="teamTag">swipe to view more games</h2>
-          <SubmitButton />
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
