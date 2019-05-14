@@ -9,37 +9,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mongoose
-app.get(
-  "https://slack.com/oauth/authorize?scope=identity.basic&client_id=2222937506.634323100293",
-  (req, res) => {
-    console.log(req.body);
-  }
+mongoose.connect(
+  "mongodb://dbadmin:dbadmin1@ds155076.mlab.com:55076/tournament",
+  { useNewUrlParser: true }
 );
-//Route Practice
-app.get("/api/home", function(req, res) {
-  res.send("Welcome!");
+
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function() {
+  console.log("connection success to database!");
+
+  // var Person1 = new User({ user: "Jon", teamPicked: "Toronto Raptors" });
+
+  // Person1.save();
 });
-app.get("/api/secret", function(req, res) {
-  console.log("Hello world!");
-  res.send("The password is potato");
+var personData = new mongoose.Schema({
+  user: String,
+  teamPicked: String
 });
 
+var User = mongoose.model("User", personData);
 // API calls
-app.get("/api/hello", (req, res) => {
-  res.send({ express: "Hello From Express" });
-});
-app.post("/api/world", (req, res) => {
-  console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`
-  );
+app.post("/vote", (req, res) => {
+  console.log(req.body, "was recieved by /vote");
+  var data = new User({ user: req.body.user, teamPicked: req.body.teamPicked });
+  data.save();
 });
 
-app.post("/login", (req, res) => {
-  console.log(
-    `I received your POST request. This is what you sent me: ${req.body}`
-  );
-});
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
   app.use(express.static(path.join(__dirname, "client/build")));
