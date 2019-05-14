@@ -17,7 +17,7 @@ class DateSelect extends React.PureComponent {
     return (
       <div className={classnames(`DateSelect`, this.props.className)}>
         <div className="ui label">
-          <i className="calendar outline icon" /> YYYY-MM-DD
+          <i className="calendar outline icon" /> {this.props.date}
         </div>
       </div>
     );

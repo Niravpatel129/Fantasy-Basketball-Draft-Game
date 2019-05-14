@@ -12,7 +12,6 @@ import DateSelect from '../DateSelect/DateSelect';
 
 class MatchupCard extends React.PureComponent {
   state = {
-    counter: 0,
     gameInfo: this.props.gameInfo
   };
 
@@ -22,34 +21,31 @@ class MatchupCard extends React.PureComponent {
     this.setState({
       gameInfo: this.props.gameInfo
     });
-    console.log(this.props);
   }
 
   render() {
-    {
-      console.log(this.props);
-    }
-    if (!this.props.gameInfo.picks[0]) {
-      return <p>Loading..</p>;
-    } else {
+    if (this.props.gameInfo.response) {
+      const homeTeam = this.props.gameInfo.picks[0].homeTeam;
+      const awayTeam = this.props.gameInfo.picks[0].awayTeam;
+
       return (
         <div className={classnames(`MatchupCard`, this.props)}>
-          <DateSelect />
+          <DateSelect date={this.props.gameInfo.date} />
           <div className={classnames(`MatchupCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>
-              <TeamCard teamName={this.props.gameInfo.picks[0].homeTeam} />
+              <TeamCard teamName={homeTeam} />
             </div>
             <div className="teamAssign">
               <h2 className="teamTag">AWAY</h2>
-              <TeamCard teamName={this.props.gameInfo.picks[0].awayTeam} />
+              <TeamCard teamName={awayTeam} />
             </div>
             <h2 className="teamTag">THE MATCHUP</h2>
             <div className="teamAssign">
-              <MatchupInfo teamName={this.props.gameInfo.picks[0].homeTeam} />
+              <MatchupInfo teamName={homeTeam} />
             </div>
             <div className="teamAssign">
-              <MatchupInfo teamName={this.props.gameInfo.picks[0].awayTeam} />
+              <MatchupInfo teamName={awayTeam} />
             </div>
             <h2 className="teamTag">swipe to view more games</h2>
             <SubmitButton />
@@ -57,11 +53,13 @@ class MatchupCard extends React.PureComponent {
         </div>
       );
     }
+    return <p>Loading..</p>;
   }
 }
 
 MatchupCard.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  gameInfo: PropTypes.object
 });
 
 MatchupCard.defaultProps = {};

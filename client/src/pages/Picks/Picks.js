@@ -17,6 +17,7 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      response: 0,
       date: '',
       picks: []
     };
@@ -27,7 +28,7 @@ class Picks extends React.PureComponent {
     let enddate = '2019-05-15';
 
     gamesApi(startdate, enddate).then(res => {
-      var teams = res.data.data;
+      const teams = res.data.data;
       teams.map(game => {
         this.setState({
           date: startdate,
@@ -37,6 +38,7 @@ class Picks extends React.PureComponent {
           ]
         });
       });
+      this.setState({ response: 1 });
     });
 
     animate.set(this.container, { autoAlpha: 0 });
@@ -65,6 +67,7 @@ class Picks extends React.PureComponent {
   };
 
   render() {
+    console.log(this.state);
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
         <Arrow className="left" />
