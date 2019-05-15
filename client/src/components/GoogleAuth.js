@@ -1,22 +1,60 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
 
-const responseGoogle = response => {
-  console.log(response);
-};
+class GoogleAuth extends React.Component {
+  componentDidMount() {
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client
+        .init({
+          clientId: '797401886567-9cumct9mrt3v2va409rasa7fa6fq02hh.apps.googleusercontent.com',
+          scope: 'email'
+        })
+        .then(() => {
+          this.auth = window.gapi.auth2.getAuthInstance();
 
-class GoogleAuth extends React.PureComponent {
+          this.onAuthChange(this.auth.isSignedIn.get());
+          this.auth.isSignedIn.listen(this.onAuthChange);
+        });
+    });
+  }
+
+  onAuthChange = isSignedIn => {
+    if (isSignedIn) {
+      console.log(this.auth.currentUser.get().getId());
+    } else {
+      this.props.signOut();
+    }
+  };
+
+  onSignInClick = () => {
+    console.log('sign in');
+  };
+
+  onSignOutClick = () => {
+    console.log('sign out');
+  };
+
+  renderAuthButton() {
+    if (this.props.isSignedIn === null) {
+      return null;
+    } else if (this.props.isSignedIn) {
+      return (
+        <button onClick={this.onSignOutClick} className="ui red google button">
+          <i className="google icon" />
+          Sign Out
+        </button>
+      );
+    } else {
+      return (
+        <button onClick={this.onSignInClick} className="ui red google button">
+          <i className="google icon" />
+          Sign In with Google
+        </button>
+      );
+    }
+  }
+
   render() {
-    console.log(this.state);
-    return (
-      <GoogleLogin
-        clientId="17567422693-0gbscl15be8fq1h276c614fop36e6euv.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={'single_host_origin'}
-      />
-    );
+    return <div>{this.renderAuthButton()}</div>;
   }
 }
 
