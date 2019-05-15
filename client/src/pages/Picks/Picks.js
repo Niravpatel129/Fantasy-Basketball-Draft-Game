@@ -7,12 +7,11 @@ import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 
 import './Picks.scss';
-import { gamesApi } from '../../api/gamesApi.js';
+import axios from 'axios';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
-import axios from 'axios';
 
 class Picks extends React.PureComponent {
   constructor(props) {
