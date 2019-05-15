@@ -26,11 +26,8 @@ class Picks extends React.PureComponent {
 
   componentDidMount() {
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
-    // var startdate = today.join('-'),
-    //   enddate = today.join('-');
-
-    var startdate = '2019-02-13',
-      enddate = '2019-02-13';
+    var startdate = today.join('-'),
+      enddate = today.join('-');
 
     gamesApi(startdate, enddate)
       .then(res => {

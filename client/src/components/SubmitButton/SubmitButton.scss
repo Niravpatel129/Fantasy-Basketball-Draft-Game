@@ -1,6 +1,7 @@
 @import 'src/style/shared.scss';
 
 .SubmitButton {
+  margin-top: 50px;
 }
 .visible.content {
   width: 150px;
@@ -11,5 +12,9 @@
 }
 
 .ui.animated.fade.button {
-  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  color: white;
+  background: transparent;
+  border-radius: 30px;
+  border: 1px solid $white;
 }

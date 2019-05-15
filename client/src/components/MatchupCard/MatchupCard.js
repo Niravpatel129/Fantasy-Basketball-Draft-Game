@@ -32,11 +32,11 @@ class MatchupCard extends React.PureComponent {
       //determine whether a card has been selected
       let homeClass = '';
       if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === homeTeam) {
-        homeClass += 'active';
+        homeClass += 'teamSelected';
       }
       let awayClass = '';
       if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === awayTeam) {
-        awayClass += 'active';
+        awayClass += 'teamSelected';
       }
 
       return (
@@ -58,7 +58,6 @@ class MatchupCard extends React.PureComponent {
             <div className="teamAssign">
               <MatchupInfo className={awayClass} teamName={awayTeam} />
             </div>
-            <h2 className="teamTag">swipe to view more games</h2>
             <SubmitButton />
           </div>
         </div>

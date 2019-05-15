@@ -16,6 +16,7 @@ class SubmitButton extends React.PureComponent {
   render() {
     return (
       <div className={classnames(`SubmitButton`, this.props.className)}>
+        <h2 className="teamTag">swipe to view more games</h2>
         <div className="ui animated fade button" tabIndex="0">
           <div className="visible content"> SUBMIT PICKS </div>
           <div className="hidden content">LET THE MADNESS BEGIN</div>

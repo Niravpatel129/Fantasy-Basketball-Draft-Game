@@ -5,7 +5,7 @@
     background: white;
   }
   .nav-list .nav-item a.active {
-    color: $white;
+    font-weight: bolder;
   }
 
   .nav-list .nav-item a {
@@ -28,6 +28,7 @@
     color: $white;
     background: rgba(255, 255, 255, 0);
     border-bottom: 3px solid rgba($white, 1);
+    font-family: 'Rajdhani', sans-serif;
 
     padding: 2rem $navbar-padding-mobile;
 
@@ -46,6 +47,7 @@
     height: calc(100% - #{$navbar-height-mobile});
     border-left: none;
     color: $white;
+    font-family: 'Rajdhani', sans-serif;
 
     @media (min-width: $layout-medium) {
       max-width: px-to-rem(300);

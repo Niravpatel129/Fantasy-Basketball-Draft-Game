@@ -47,7 +47,6 @@ class ResultCard extends React.PureComponent {
             <div className="teamAssign">
               <MatchupInfo teamName={awayTeam} />
             </div>
-            <h2 className="teamTag">swipe to view more games</h2>
             <SubmitButton />
           </div>
         </div>
