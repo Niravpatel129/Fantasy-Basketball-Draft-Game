@@ -63,6 +63,11 @@ class Picks extends React.PureComponent {
         // always executed
       });
 
+    axios.get('/data', { params: { team: 'Toronto Raptors' } }).then(res => {
+      console.log(res.data.data);
+      // dataSet.map(data => console.log('hello world'));
+    });
+
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
   }
@@ -151,7 +156,6 @@ class Picks extends React.PureComponent {
         </section>
       );
     }
-
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
         <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />

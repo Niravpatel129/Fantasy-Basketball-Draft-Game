@@ -1,23 +1,20 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const path = require("path");
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
-var mongoose = require("mongoose");
-const axios = require("axios");
+var mongoose = require('mongoose');
+const axios = require('axios');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mongoose
-mongoose.connect(
-  "mongodb://dbadmin:dbadmin1@ds155076.mlab.com:55076/tournament",
-  { useNewUrlParser: true }
-);
+mongoose.connect('mongodb://dbadmin:dbadmin1@ds155076.mlab.com:55076/tournament', { useNewUrlParser: true });
 
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
-  console.log("connection success to database!");
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('connection success to database!');
 
   // var Person1 = new User({ user: "Jon", date: "2019-05-12", picks: [
   //   {
@@ -44,47 +41,52 @@ var personData = new mongoose.Schema({
 });
 
 async function gamesApi(start, end) {
-  return await axios.get(
-    "https://www.balldontlie.io/api/v1/games?start_date=" +
-      start +
-      "&end_date=" +
-      end
-  );
+  return await axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + start + '&end_date=' + end);
 }
 
-var User = mongoose.model("User", personData);
+async function dataApi() {
+  return await axios.get('https://www.balldontlie.io/api/v1/players?per_page=100');
+}
 
-app.get("/games", (req, res) => {
+var User = mongoose.model('User', personData);
+
+app.get('/games', (req, res) => {
   // console.log(req.query.product);
   let date = req.query.product;
   gamesApi(date, date).then(data => res.send(data.data));
 });
 
-app.get("/results", (req, res) => {
+app.get('/results', (req, res) => {
   console.log(req.query.product);
   let date = req.query.product;
   gamesApi(date, date).then(data => res.send(data.data));
 });
 
+app.get('/data', (req, res) => {
+  console.log('getting data');
+  let team = req.query.team;
+  dataApi().then(data => res.send(data.data));
+});
+
 // API calls
-app.get("https://www.balldontlie.io/api/v1/players", (req, res) => {
+app.get('https://www.balldontlie.io/api/v1/players', (req, res) => {
   console.log(req.body);
 });
 
-app.post("/vote", (req, res) => {
-  console.log(req.body, "was recieved by /vote");
+app.post('/vote', (req, res) => {
+  console.log(req.body, 'was recieved by /vote');
   // var data = new User({ user: req.body.user, teamPicked: req.body.teamPicked });
   // data.save();
 
   var Person1 = new User({
-    username: "Jon",
-    date: "2019-05-12",
+    username: 'Jon',
+    date: '2019-05-12',
     picks: [
       {
-        gameId: "56",
-        homeTeam: "Toronto Raptors",
-        awayTeam: "Milwauke Bucks",
-        selection: "Toronto Raptors"
+        gameId: '56',
+        homeTeam: 'Toronto Raptors',
+        awayTeam: 'Milwauke Bucks',
+        selection: 'Toronto Raptors'
       }
     ]
   });
@@ -92,12 +94,12 @@ app.post("/vote", (req, res) => {
   Person1.save();
 });
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // Serve any static files
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
 app.listen(port, () => {
