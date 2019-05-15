@@ -25,7 +25,8 @@ class DateSelect extends React.PureComponent {
 }
 
 DateSelect.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  date: PropTypes.string
 });
 
 DateSelect.defaultProps = {};

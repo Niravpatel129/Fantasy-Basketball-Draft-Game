@@ -46,7 +46,7 @@ class Leaderboard extends React.PureComponent {
   render() {
     return (
       <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-        <h1>Leaderboard</h1>
+        <h1>PLACE HOLDER</h1>
         <BaseLink link="/">Home</BaseLink>
       </section>
     );

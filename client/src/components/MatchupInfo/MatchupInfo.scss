@@ -1,4 +1,21 @@
 @import 'src/style/shared.scss';
 
 .MatchupInfo {
+  .ui.card {
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 300px;
+  }
+  .ui.card.active {
+    background-color: rgba(25, 31, 51, 0.8);
+    width: 300px;
+  }
+
+  .ui.card .content .header {
+    color: $white;
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .ui.meta {
+    color: $white;
+    background: transparent;
+  }
 }

@@ -24,10 +24,20 @@ class MatchupCard extends React.PureComponent {
   }
 
   render() {
-    console.log(this.props.gameInfo.currentPickIndex);
+    //wait until the api has responded
     if (this.state.gameInfo.response) {
       const homeTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].homeTeam;
       const awayTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].awayTeam;
+
+      //determine whether a card has been selected
+      let homeClass = '';
+      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === homeTeam) {
+        homeClass += 'active';
+      }
+      let awayClass = '';
+      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === awayTeam) {
+        awayClass += 'active';
+      }
 
       return (
         <div className={classnames(`MatchupCard`, this.props)}>
@@ -35,18 +45,18 @@ class MatchupCard extends React.PureComponent {
           <div className={classnames(`MatchupCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>
-              <TeamCard teamName={homeTeam} />
+              <TeamCard className={homeClass} teamName={homeTeam} onVote={this.props.onVote} />
             </div>
             <div className="teamAssign">
               <h2 className="teamTag">AWAY</h2>
-              <TeamCard teamName={awayTeam} />
+              <TeamCard className={awayClass} teamName={awayTeam} onVote={this.props.onVote} />
             </div>
             <h2 className="teamTag">THE MATCHUP</h2>
             <div className="teamAssign">
-              <MatchupInfo teamName={homeTeam} />
+              <MatchupInfo className={homeClass} teamName={homeTeam} />
             </div>
             <div className="teamAssign">
-              <MatchupInfo teamName={awayTeam} />
+              <MatchupInfo className={awayClass} teamName={awayTeam} />
             </div>
             <h2 className="teamTag">swipe to view more games</h2>
             <SubmitButton />
@@ -60,7 +70,8 @@ class MatchupCard extends React.PureComponent {
 
 MatchupCard.propTypes = checkProps({
   className: PropTypes.string,
-  gameInfo: PropTypes.object
+  gameInfo: PropTypes.object,
+  onVote: PropTypes.func
 });
 
 MatchupCard.defaultProps = {};

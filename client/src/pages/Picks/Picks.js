@@ -25,8 +25,12 @@ class Picks extends React.PureComponent {
   }
 
   componentDidMount() {
-    let startdate = '2019-02-13';
-    let enddate = '2019-02-13';
+    var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
+    // var startdate = today.join('-'),
+    //   enddate = today.join('-');
+
+    var startdate = '2019-02-13',
+      enddate = '2019-02-13';
 
     gamesApi(startdate, enddate)
       .then(res => {
@@ -86,7 +90,6 @@ class Picks extends React.PureComponent {
     this.setState({
       currentPickIndex: index
     });
-    console.log(this.state.currentPickIndex);
   };
 
   nextPick = () => {
@@ -98,18 +101,41 @@ class Picks extends React.PureComponent {
     this.setState({
       currentPickIndex: index
     });
-    console.log(this.state.currentPickIndex);
+  };
+
+  onCastVoteEvent = team => {
+    this.setState(prevState => ({
+      picks: prevState.picks.map((pick, index) => {
+        return index === this.state.currentPickIndex ? Object.assign(pick, { selection: team }) : pick;
+      })
+    }));
+    console.log(this.state);
   };
 
   render() {
+    if (this.state.picks.length > 1) {
+      return (
+        <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+          <Arrow className="left" onClick={this.prevPick} />
+          <MatchupCard onVote={this.onCastVoteEvent} gameInfo={this.state} />
+          <Arrow className="right" onClick={this.nextPick} />
+        </section>
+      );
+    }
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-        <Arrow className="left" onClick={this.prevPick} />
-        <MatchupCard gameInfo={this.state} />
-        <Arrow className="right" onClick={this.nextPick} />
+        <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />
       </section>
     );
   }
+}
+
+function pad(number, length) {
+  var str = '' + number;
+  while (str.length < length) {
+    str = '0' + str;
+  }
+  return str;
 }
 
 Picks.propTypes = checkProps({

@@ -20,7 +20,12 @@ class TeamCard extends React.PureComponent {
           <div className="content">
             <div className="header">{this.props.teamName}</div>
           </div>
-          <div className="ui bottom attached button">
+          <div
+            className="ui bottom attached button"
+            onClick={() => {
+              this.props.onVote(this.props.teamName);
+            }}
+          >
             <i className="basketball ball icon" />
             Cast Vote
           </div>
@@ -32,7 +37,8 @@ class TeamCard extends React.PureComponent {
 
 TeamCard.propTypes = checkProps({
   className: PropTypes.string,
-  teamName: PropTypes.string
+  teamName: PropTypes.string,
+  onVote: PropTypes.func
 });
 
 TeamCard.defaultProps = {};

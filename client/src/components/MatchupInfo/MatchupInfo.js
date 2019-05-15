@@ -38,7 +38,8 @@ class MatchupInfo extends React.PureComponent {
 }
 
 MatchupInfo.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  teamName: PropTypes.string
 });
 
 MatchupInfo.defaultProps = {};

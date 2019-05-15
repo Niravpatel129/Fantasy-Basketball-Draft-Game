@@ -7,7 +7,7 @@ import './Login.scss';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
-import GoogleAuth from '../../components/GoogleAuth';
+// import GoogleAuth from '../../components/GoogleAuth';
 import InfoBox from '../../components/InfoBox/InfoBox';
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt';
 let hash = '';
@@ -89,7 +89,7 @@ class Login extends React.PureComponent {
       <section className="Login">
         <InfoBox />
         <LoginPrompt />
-        <GoogleAuth />
+        {/* <GoogleAuth /> */}
       </section>
     );
   }
