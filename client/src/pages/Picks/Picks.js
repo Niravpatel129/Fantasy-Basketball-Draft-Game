@@ -12,6 +12,7 @@ import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
+import axios from 'axios';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -26,10 +27,14 @@ class Picks extends React.PureComponent {
 
   componentDidMount() {
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
-    var startdate = today.join('-'),
-      enddate = today.join('-');
-
-    gamesApi(startdate, enddate)
+    var startdate = today.join('-');
+    // Make a request for a user with a given ID
+    axios
+      .get('/games', {
+        params: {
+          product: startdate
+        }
+      })
       .then(res => {
         const teams = res.data.data;
         teams.map(game => {
@@ -49,8 +54,12 @@ class Picks extends React.PureComponent {
         });
         this.setState({ response: 1 });
       })
-      .catch(error => {
+      .catch(function(error) {
+        // handle error
         console.log(error);
+      })
+      .finally(function() {
+        // always executed
       });
 
     animate.set(this.container, { autoAlpha: 0 });
@@ -106,7 +115,6 @@ class Picks extends React.PureComponent {
         return index === this.state.currentPickIndex ? Object.assign(pick, { selection: team }) : pick;
       })
     }));
-    console.log(this.state);
   };
 
   render() {
@@ -119,6 +127,8 @@ class Picks extends React.PureComponent {
         </section>
       );
     }
+    console.log(this.state);
+
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
         <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />

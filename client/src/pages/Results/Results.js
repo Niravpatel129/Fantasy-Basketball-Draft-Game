@@ -9,7 +9,7 @@ import checkProps from '@jam3/react-check-extra-props';
 // import mainNavData from '../../data/main-nav';
 
 import './Results.scss';
-
+import axios from 'axios';
 import { gamesApi } from '../../api/gamesApi.js';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
@@ -31,10 +31,19 @@ class Results extends React.PureComponent {
     let startdate = '2019-02-13';
     let enddate = '2019-02-13';
 
+    axios
+      .get('/results', {
+        params: {
+          product: startdate
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
+
     gamesApi(startdate, enddate)
       .then(res => {
         const teams = res.data.data;
-        console.log(teams);
         teams.map(game => {
           this.setState({
             date: startdate,

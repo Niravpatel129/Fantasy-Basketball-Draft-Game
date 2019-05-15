@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 5000;
 var mongoose = require("mongoose");
-
+const axios = require("axios");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,7 +43,29 @@ var personData = new mongoose.Schema({
   ]
 });
 
+async function gamesApi(start, end) {
+  return await axios.get(
+    "https://www.balldontlie.io/api/v1/games?start_date=" +
+      start +
+      "&end_date=" +
+      end
+  );
+}
+
 var User = mongoose.model("User", personData);
+
+app.get("/games", (req, res) => {
+  // console.log(req.query.product);
+  let date = req.query.product;
+  gamesApi(date, date).then(data => res.send(data.data));
+});
+
+app.get("/results", (req, res) => {
+  console.log(req.query.product);
+  let date = req.query.product;
+  gamesApi(date, date).then(data => res.send(data.data));
+});
+
 // API calls
 app.get("https://www.balldontlie.io/api/v1/players", (req, res) => {
   console.log(req.body);
