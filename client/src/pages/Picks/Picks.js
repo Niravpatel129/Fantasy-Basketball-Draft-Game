@@ -17,6 +17,7 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      accesstoken: '',
       response: 0,
       date: '',
       picks: [],
@@ -25,6 +26,7 @@ class Picks extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.CheckCode();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
     var startdate = today.join('-');
     // Make a request for a user with a given ID
@@ -64,6 +66,26 @@ class Picks extends React.PureComponent {
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
   }
+
+  CheckCode = async () => {
+    let str = window.location.href;
+    var code = str.substring(33, str.length - 7);
+
+    axios
+      .get(
+        'https://slack.com/api/oauth.access?client_id=2222937506.634323100293&client_secret=526319ccf98aac5aa4f81a31a8e4a4fd&code=' +
+          code
+      )
+      .then(data => {
+        this.setState({ access_token: data.data.access_token });
+        return false;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    return true;
+  };
+
   onAppear = () => {
     this.animateIn();
   };
@@ -117,6 +139,9 @@ class Picks extends React.PureComponent {
   };
 
   render() {
+    this.CheckCode().then(() => {
+      console.log('hello');
+    });
     if (this.state.picks.length > 1) {
       return (
         <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
@@ -126,7 +151,6 @@ class Picks extends React.PureComponent {
         </section>
       );
     }
-    console.log(this.state);
 
     return (
       <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>

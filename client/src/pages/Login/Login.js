@@ -89,7 +89,6 @@ class Login extends React.PureComponent {
       <section className="Login">
         <InfoBox />
         <LoginPrompt />
-        {/* <GoogleAuth /> */}
       </section>
     );
   }
