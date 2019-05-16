@@ -6,6 +6,8 @@ import './MatchupInfo.scss';
 
 import checkProps from '@jam3/react-check-extra-props';
 
+import StatsList from '../StatsList/StatsList';
+
 class MatchupInfo extends React.PureComponent {
   state = {};
 
@@ -20,15 +22,7 @@ class MatchupInfo extends React.PureComponent {
           <div className="content">
             <div className="header">{this.props.teamName}</div>
             <div className="meta">
-              <p>Leading Scorers</p>
-              <ul>
-                <li>G.Antetokounmpo</li>
-                <li>K.Middleton</li>
-                <li>K.Middleton</li>
-                <li>K.Middleton</li>
-                <li>K.Middleton</li>
-                <li>K.Middleton</li>
-              </ul>
+              <StatsList stats={this.props.teamStats} />
             </div>
           </div>
         </div>
@@ -39,7 +33,8 @@ class MatchupInfo extends React.PureComponent {
 
 MatchupInfo.propTypes = checkProps({
   className: PropTypes.string,
-  teamName: PropTypes.string
+  teamName: PropTypes.string,
+  teamStats: PropTypes.array
 });
 
 MatchupInfo.defaultProps = {};
