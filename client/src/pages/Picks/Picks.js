@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-// import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 
@@ -17,6 +16,7 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      authCode: '',
       response: 0,
       date: '',
       picks: [],
@@ -26,6 +26,7 @@ class Picks extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.checkAuth();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
     var startdate = today.join('-');
     // var startdate = '2019-02-13';
@@ -146,6 +147,39 @@ class Picks extends React.PureComponent {
     });
   };
 
+  checkAuth = () => {
+    if (!localStorage.getItem('token')) {
+      let url = window.location.href;
+      let spliturl = url.split('?');
+      let code = '';
+      if (spliturl[1]) {
+        code = spliturl[1].substring(5, spliturl[1].length - 7);
+      } else {
+        code = null;
+      }
+
+      axios
+        .get(
+          'https://slack.com/api/oauth.access?client_id=2222937506.634323100293&client_secret=526319ccf98aac5aa4f81a31a8e4a4fd&code=' +
+            code
+        )
+        .then(res => {
+          if (res.data.error) {
+            console.log(res.data.error);
+          } else {
+            this.setState({ authCode: res.data.access_token });
+          }
+          console.log(res.data.access_token);
+        });
+      this.setState({ authCode: code });
+      localStorage.setItem('token', code);
+      console.log('auth code is: ' + code);
+    } else {
+      this.setState({ authCode: localStorage.getItem('token') });
+      console.log('user is already logged in :)');
+    }
+  };
+
   onCastVoteEvent = team => {
     this.setState(prevState => ({
       picks: prevState.picks.map((pick, index) => {
@@ -155,20 +189,24 @@ class Picks extends React.PureComponent {
   };
 
   render() {
-    if (this.state.picks.length > 1) {
+    if (this.state.authCode) {
+      if (this.state.picks.length > 1) {
+        return (
+          <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+            <Arrow className="left" onClick={this.prevPick} />
+            <MatchupCard onVote={this.onCastVoteEvent} gameInfo={this.state} />
+            <Arrow className="right" onClick={this.nextPick} />
+          </section>
+        );
+      }
       return (
         <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-          <Arrow className="left" onClick={this.prevPick} />
-          <MatchupCard onVote={this.onCastVoteEvent} gameInfo={this.state} />
-          <Arrow className="right" onClick={this.nextPick} />
+          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />
         </section>
       );
+    } else {
+      return <h1>You need to login!</h1>;
     }
-    return (
-      <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-        <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />
-      </section>
-    );
   }
 }
 
