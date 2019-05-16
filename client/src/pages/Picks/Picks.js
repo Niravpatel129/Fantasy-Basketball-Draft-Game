@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
+// import { Redirect } from 'react-router-dom';
 
 import './Picks.scss';
 import axios from 'axios';
@@ -209,7 +210,11 @@ class Picks extends React.PureComponent {
         </section>
       );
     } else {
-      return <h1>You need to login!</h1>;
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
     }
   }
 }

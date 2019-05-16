@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
+import { Redirect } from 'react-router-dom';
 
 import './Leaderboard.scss';
 
@@ -44,12 +45,20 @@ class Leaderboard extends React.PureComponent {
   };
 
   render() {
-    return (
-      <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-        <h1>PLACE HOLDER</h1>
-        <BaseLink link="/">Home</BaseLink>
-      </section>
-    );
+    if (!localStorage.getItem('token')) {
+      return (
+        <div>
+          <h1>You need to login, sending you to the login page!</h1>
+          <Redirect to="/login" />
+        </div>
+      );
+    } else
+      return (
+        <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
+          <h1>PLACE HOLDER</h1>
+          <BaseLink link="/">Home</BaseLink>
+        </section>
+      );
   }
 }
 
