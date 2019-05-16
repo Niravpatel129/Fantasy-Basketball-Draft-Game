@@ -17,6 +17,7 @@ class Picks extends React.PureComponent {
     super(props);
     this.state = {
       authCode: '',
+      access_token: '',
       response: 0,
       date: '',
       picks: [],
@@ -149,14 +150,16 @@ class Picks extends React.PureComponent {
 
   checkAuth = () => {
     if (!localStorage.getItem('token')) {
+      console.log('Token not found: logging in..');
       let url = window.location.href;
       let spliturl = url.split('?');
       let code = '';
       if (spliturl[1]) {
         code = spliturl[1].substring(5, spliturl[1].length - 7);
       } else {
-        code = null;
+        code = '';
       }
+      this.setState({ authCode: code });
 
       axios
         .get(
@@ -167,16 +170,17 @@ class Picks extends React.PureComponent {
           if (res.data.error) {
             console.log(res.data.error);
           } else {
-            this.setState({ authCode: res.data.access_token });
+            this.setState({ access_token: res.data.access_token });
+            localStorage.setItem('token', res.data.access_token);
           }
-          console.log(res.data.access_token);
         });
-      this.setState({ authCode: code });
-      localStorage.setItem('token', code);
-      console.log('auth code is: ' + code);
     } else {
-      this.setState({ authCode: localStorage.getItem('token') });
-      console.log('user is already logged in :)');
+      console.log('User is already logged in, fetching user data :)');
+      console.log('Token is: ', localStorage.getItem('token'));
+      this.setState({ access_token: localStorage.getItem('token') });
+      axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
+        console.log(res);
+      });
     }
   };
 
@@ -189,7 +193,7 @@ class Picks extends React.PureComponent {
   };
 
   render() {
-    if (this.state.authCode) {
+    if (this.state.access_token) {
       if (this.state.picks.length > 1) {
         return (
           <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
