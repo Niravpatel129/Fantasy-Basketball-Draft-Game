@@ -11,11 +11,17 @@ class GameButton extends React.PureComponent {
   componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {}
-
+  pageRedirectChooser = () => {
+    if (!localStorage.getItem('token')) {
+      return '/login';
+    } else {
+      return '/picks';
+    }
+  };
   render() {
     return (
       <div className={classnames(`GameButton`, this.props.className)}>
-        <a href="/login">
+        <a href={this.pageRedirectChooser()}>
           <div className="button-box">
             <img className="button" src={require('../../../src/assets/svg/Button.svg')} alt="Play" />
           </div>
