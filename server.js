@@ -40,16 +40,9 @@ var personData = new mongoose.Schema({
   ]
 });
 
-async function gamesApi(start, end) {
-  return await axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + start + '&end_date=' + end);
-}
-
-async function dataApi() {
-  return await axios.get('https://www.balldontlie.io/api/v1/players?per_page=100');
-}
-
 var User = mongoose.model('User', personData);
 
+// Client API Calls
 app.get('/games', (req, res) => {
   // console.log(req.query.product);
   let date = req.query.product;
@@ -63,15 +56,60 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/data', (req, res) => {
-  console.log('getting data');
-  let team = req.query.team;
-  dataApi().then(data => res.send(data.data));
+  console.log('retrieving data');
+  let team_id = req.query.team_id;
+  prevGameApi(team_id)
+    .then(data => {
+      var currIdx = 0;
+      while (data.data.data[currIdx].status === 'Final' && currIdx != data.data.data.length - 1) {
+        currIdx++;
+      }
+      if (currIdx != data.data.data.length - 1) {
+        const game_id = data.data.data[currIdx - 1].id;
+        const game_data = statsApi(team_id, game_id)
+          .then(data => {
+            var currIdx;
+            var players = [];
+            data.data.data.map(player => {
+              if (player.player.team_id == team_id) {
+                players.push(player);
+              }
+            });
+            res.send(players.sort(compareByPoints));
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else res.send('no current games');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
-// API calls
-app.get('https://www.balldontlie.io/api/v1/players', (req, res) => {
-  console.log(req.body);
-});
+function compareByPoints(a, b) {
+  const playerA = a.pts;
+  const playerB = b.pts;
+
+  let comparison = 0;
+  if (playerA > playerB) comparison = -1;
+  else if (playerA < playerB) comparison = 1;
+
+  return comparison;
+}
+
+// BallDontLie API calls
+async function gamesApi(start, end) {
+  return await axios.get('https://www.balldontlie.io/api/v1/games?start_date=' + start + '&end_date=' + end);
+}
+
+async function prevGameApi(team_id) {
+  return await axios.get('https://www.balldontlie.io/api/v1/games?per_page=100&seasons[]=2018&team_ids[]=' + team_id);
+}
+
+async function statsApi(team_id, game_id) {
+  return await axios.get('https://www.balldontlie.io/api/v1/stats?per_page=100&game_ids[]=' + game_id);
+}
 
 app.post('/vote', (req, res) => {
   console.log(req.body, 'was recieved by /vote');

@@ -17,18 +17,19 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      accesstoken: '',
       response: 0,
       date: '',
       picks: [],
+      stats: [],
       currentPickIndex: 0
     };
   }
 
   componentDidMount() {
-    this.CheckCode();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
     var startdate = today.join('-');
+    // var startdate = '2019-02-13';
+
     // Make a request for a user with a given ID
     axios
       .get('/games', {
@@ -39,6 +40,7 @@ class Picks extends React.PureComponent {
       .then(res => {
         const teams = res.data.data;
         teams.map(game => {
+          console.log('getting todays games');
           this.setState({
             date: startdate,
             picks: [
@@ -46,12 +48,45 @@ class Picks extends React.PureComponent {
               {
                 gameId: game.id,
                 homeTeam: game.home_team.full_name,
+                homeTeamId: game.home_team.id,
                 awayTeam: game.visitor_team.full_name,
+                awayTeamId: game.visitor_team.id,
                 selection: ''
               }
             ]
           });
-          return true;
+        });
+
+        teams.map(game => {
+          axios
+            .get('/data', { params: { team_id: game.home_team.id } })
+            .then(res => {
+              this.setState({
+                stats: [
+                  ...this.state.stats,
+                  {
+                    teamId: game.home_team.id,
+                    playerStats: res.data
+                  }
+                ]
+              });
+            })
+            .catch(err => console.log(err));
+
+          axios
+            .get('/data', { params: { team_id: game.visitor_team.id } })
+            .then(res => {
+              this.setState({
+                stats: [
+                  ...this.state.stats,
+                  {
+                    teamId: game.visitor_team.id,
+                    playerStats: res.data
+                  }
+                ]
+              });
+            })
+            .catch(err => console.log(err));
         });
         this.setState({ response: 1 });
       })
@@ -63,33 +98,9 @@ class Picks extends React.PureComponent {
         // always executed
       });
 
-    axios.get('/data', { params: { team: 'Toronto Raptors' } }).then(res => {
-      console.log(res.data.data);
-      // dataSet.map(data => console.log('hello world'));
-    });
-
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
   }
-
-  CheckCode = async () => {
-    let str = window.location.href;
-    var code = str.substring(33, str.length - 7);
-
-    axios
-      .get(
-        'https://slack.com/api/oauth.access?client_id=2222937506.634323100293&client_secret=526319ccf98aac5aa4f81a31a8e4a4fd&code=' +
-          code
-      )
-      .then(data => {
-        this.setState({ access_token: data.data.access_token });
-        return false;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    return true;
-  };
 
   onAppear = () => {
     this.animateIn();
@@ -144,9 +155,6 @@ class Picks extends React.PureComponent {
   };
 
   render() {
-    this.CheckCode().then(() => {
-      console.log('hello');
-    });
     if (this.state.picks.length > 1) {
       return (
         <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
