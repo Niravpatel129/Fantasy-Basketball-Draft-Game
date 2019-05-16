@@ -26,18 +26,28 @@ class MatchupCard extends React.PureComponent {
   render() {
     //wait until the api has responded
     if (this.state.gameInfo.response) {
-      const homeTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].homeTeam;
-      const awayTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].awayTeam;
+      const teams = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex];
 
-      //determine whether a card has been selected
+      //determine whether a card has been selected for styling
       let homeClass = '';
-      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === homeTeam) {
+      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === teams.homeTeam) {
         homeClass += 'teamSelected';
       }
       let awayClass = '';
-      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === awayTeam) {
+      if (this.props.gameInfo.picks[this.props.gameInfo.currentPickIndex].selection === teams.awayTeam) {
         awayClass += 'teamSelected';
       }
+
+      // assign teams to playerData from stored data
+      var homeTeamData = [],
+        awayTeamData = [];
+      const stats = this.props.gameInfo.stats;
+
+      stats.map(stat => {
+        console.log();
+        if (stat.teamId === teams.homeTeamId) homeTeamData = stat.playerStats;
+        if (stat.teamId === teams.awayTeamId) awayTeamData = stat.playerStats;
+      });
 
       return (
         <div className={classnames(`MatchupCard`, this.props)}>
@@ -45,18 +55,18 @@ class MatchupCard extends React.PureComponent {
           <div className={classnames(`MatchupCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>
-              <TeamCard className={homeClass} teamName={homeTeam} onVote={this.props.onVote} />
+              <TeamCard className={homeClass} teamName={teams.homeTeam} onVote={this.props.onVote} />
             </div>
             <div className="teamAssign">
               <h2 className="teamTag">AWAY</h2>
-              <TeamCard className={awayClass} teamName={awayTeam} onVote={this.props.onVote} />
+              <TeamCard className={awayClass} teamName={teams.awayTeam} onVote={this.props.onVote} />
             </div>
             <h2 className="teamTag">THE MATCHUP</h2>
             <div className="teamAssign">
-              <MatchupInfo className={homeClass} teamName={homeTeam} />
+              <MatchupInfo className={homeClass} teamName={teams.homeTeam} teamStats={homeTeamData} />
             </div>
             <div className="teamAssign">
-              <MatchupInfo className={awayClass} teamName={awayTeam} />
+              <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
             </div>
             <SubmitButton />
           </div>
