@@ -7,7 +7,6 @@ import './Login.scss';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
-import googleAuth from '../../components/GoogleAuth';
 import InfoBox from '../../components/InfoBox/InfoBox';
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt';
 import GoogleAuth from '../../components/GoogleAuth';
