@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 // import mainNavData from '../../data/main-nav';
+import { Redirect } from 'react-router-dom';
 
 import './Results.scss';
 import axios from 'axios';
@@ -94,13 +95,22 @@ class Results extends React.PureComponent {
   };
 
   render() {
-    return (
-      <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-        <Arrow className="left" onClick={this.prevPick} />
-        <ResultCard gameInfo={this.state} />
-        <Arrow className="right" onClick={this.nextPick} />
-      </section>
-    );
+    if (!localStorage.getItem('token')) {
+      return (
+        <div>
+          <h1>You need to login, sending you to the login page!</h1>
+          <Redirect to="/login" />
+        </div>
+      );
+    } else {
+      return (
+        <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
+          <Arrow className="left" onClick={this.prevPick} />
+          <ResultCard gameInfo={this.state} />
+          <Arrow className="right" onClick={this.nextPick} />
+        </section>
+      );
+    }
   }
 }
 
