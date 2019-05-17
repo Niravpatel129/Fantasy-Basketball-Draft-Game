@@ -33,7 +33,8 @@ class SubmitButton extends React.PureComponent {
 }
 
 SubmitButton.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  onSubmit: PropTypes.func
 });
 
 SubmitButton.defaultProps = {};

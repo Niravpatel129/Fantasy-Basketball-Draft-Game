@@ -9,6 +9,7 @@ import TeamCard from '../TeamCard/TeamCard';
 import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
+import Indicator from '../Indicator/Indicator';
 
 class MatchupCard extends React.PureComponent {
   state = {
@@ -67,6 +68,7 @@ class MatchupCard extends React.PureComponent {
             <div className="teamAssign">
               <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
             </div>
+            <Indicator />
             <SubmitButton onSubmit={this.props.onSubmit} />
           </div>
         </div>
@@ -79,7 +81,8 @@ class MatchupCard extends React.PureComponent {
 MatchupCard.propTypes = checkProps({
   className: PropTypes.string,
   gameInfo: PropTypes.object,
-  onVote: PropTypes.func
+  onVote: PropTypes.func,
+  onSubmit: PropTypes.func
 });
 
 MatchupCard.defaultProps = {};
