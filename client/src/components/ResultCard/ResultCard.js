@@ -6,8 +6,8 @@ import checkProps from '@jam3/react-check-extra-props';
 
 import './ResultCard.scss';
 import TeamCard from '../TeamCard/TeamCard';
-import MatchupInfo from '../MatchupInfo/MatchupInfo';
-import SubmitButton from '../SubmitButton/SubmitButton';
+// import MatchupInfo from '../MatchupInfo/MatchupInfo';
+// import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
 
 class ResultCard extends React.PureComponent {
