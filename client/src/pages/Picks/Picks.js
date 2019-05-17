@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import './Picks.scss';
 import axios from 'axios';
@@ -65,7 +65,7 @@ class Picks extends React.PureComponent {
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
               console.log(res);
-              if (res.data != 'no current games') {
+              if (res.data !== 'no current games') {
                 this.setState({
                   stats: [
                     ...this.state.stats,
@@ -216,39 +216,45 @@ class Picks extends React.PureComponent {
       .then(response => {
         if (response.data === 'found') {
           this.setState({ alreadyPicked: true });
-          alert('you already picked!');
         } else {
           axios.post('/logPicks', {
             logPicks: this.state
           });
         }
       });
-
     console.log('submitting picks to database', this.state);
   };
 
+  alreadyPicked = () => {
+    return <Redirect to="/results" />;
+  };
+
   render() {
-    if (this.state.access_token) {
-      if (this.state.picks.length > 1) {
+    if (this.state.alreadyPicked) {
+      return this.alreadyPicked();
+    } else {
+      if (this.state.access_token) {
+        if (this.state.picks.length > 1) {
+          return (
+            <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+              <Arrow className="left" onClick={this.prevPick} />
+              <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
+              <Arrow className="right" onClick={this.nextPick} />
+            </section>
+          );
+        }
         return (
           <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-            <Arrow className="left" onClick={this.prevPick} />
-            <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
-            <Arrow className="right" onClick={this.nextPick} />
+            <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
           </section>
         );
+      } else {
+        return (
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        );
       }
-      return (
-        <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
-        </section>
-      );
-    } else {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
     }
   }
 }
