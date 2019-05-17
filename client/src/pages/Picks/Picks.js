@@ -65,7 +65,7 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
-              console.log(res);
+              console.table([res]);
               if (res.data !== 'no current games') {
                 this.setState({
                   stats: [
@@ -225,7 +225,6 @@ class Picks extends React.PureComponent {
         }
       });
     this.setState({ alreadyPicked: true });
-    console.log('submitting picks to database', this.state);
   };
 
   alreadyPicked = () => {
