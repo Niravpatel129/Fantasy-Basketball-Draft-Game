@@ -16,7 +16,6 @@ class MatchupInfo extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    console.log(this.props.teamStats);
     return (
       <div className={classnames(`MatchupInfo`, this.props.className)}>
         <div className="ui card">
