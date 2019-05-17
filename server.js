@@ -65,7 +65,6 @@ app.get("/data", (req, res) => {
         const game_id = data.data.data[currIdx - 1].id;
         const game_data = statsApi(team_id, game_id)
           .then(data => {
-            var currIdx;
             var players = [];
             data.data.data.map(player => {
               if (player.player.team_id == team_id) {

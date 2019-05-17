@@ -44,7 +44,6 @@ class MatchupCard extends React.PureComponent {
       const stats = this.props.gameInfo.stats;
 
       stats.map(stat => {
-        console.log();
         if (stat.teamId === teams.homeTeamId) homeTeamData = stat.playerStats;
         if (stat.teamId === teams.awayTeamId) awayTeamData = stat.playerStats;
       });

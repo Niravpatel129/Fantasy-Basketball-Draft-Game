@@ -40,14 +40,6 @@ class ResultCard extends React.PureComponent {
               <h2 className="teamTag">AWAY</h2>
               <TeamCard teamName={awayTeam} />
             </div>
-            <h2 className="teamTag">THE MATCHUP</h2>
-            <div className="teamAssign">
-              <MatchupInfo teamName={homeTeam} />
-            </div>
-            <div className="teamAssign">
-              <MatchupInfo teamName={awayTeam} />
-            </div>
-            <SubmitButton />
           </div>
         </div>
       );
