@@ -23,6 +23,7 @@ db.once("open", function() {
 });
 var personData = new mongoose.Schema({
   username: String,
+  Date: String,
   picks: [
     {
       gameId: String,
@@ -35,8 +36,6 @@ var User = mongoose.model("User", personData);
 
 // Client API Calls
 app.post("/logPicks", (req, res) => {
-  console.log(req.body.logPicks.picks);
-
   var picks = req.body.logPicks.picks.map(pick => {
     return {
       gameId: pick.gameId,
@@ -46,11 +45,27 @@ app.post("/logPicks", (req, res) => {
 
   var Person1 = new User({
     username: req.body.logPicks.user.name,
+    Date: req.body.logPicks.date,
     picks: picks
   });
 
   Person1.save();
   console.log("saved");
+});
+
+app.get("/checkIfAlreadyPickedToday", (req, res) => {
+  User.find(
+    { username: req.query.name, Date: req.query.date },
+    (err, response) => {
+      if (response.length > 0) {
+        console.log("found");
+        res.send("found");
+      } else {
+        console.log("not found");
+        res.send("not found");
+      }
+    }
+  );
 });
 
 app.get("/games", (req, res) => {
@@ -132,27 +147,6 @@ async function statsApi(team_id, game_id) {
     "https://www.balldontlie.io/api/v1/stats?per_page=100&game_ids[]=" + game_id
   );
 }
-
-app.post("/vote", (req, res) => {
-  console.log(req.body, "was recieved by /vote");
-  // var data = new User({ user: req.body.user, teamPicked: req.body.teamPicked });
-  // data.save();
-
-  var Person1 = new User({
-    username: "Jon",
-    date: "2019-05-12",
-    picks: [
-      {
-        gameId: "56",
-        homeTeam: "Toronto Raptors",
-        awayTeam: "Milwauke Bucks",
-        selection: "Toronto Raptors"
-      }
-    ]
-  });
-
-  Person1.save();
-});
 
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
