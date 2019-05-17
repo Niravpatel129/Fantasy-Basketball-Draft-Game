@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { BaseLink } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import { Redirect } from 'react-router-dom';
@@ -55,8 +54,23 @@ class Leaderboard extends React.PureComponent {
     } else
       return (
         <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-          <h1>PLACE HOLDER</h1>
-          <BaseLink link="/">Home</BaseLink>
+          <table>
+            <tr>
+              <th>Players</th>
+              <th>Record</th>
+              <th>Last Result</th>
+            </tr>
+            <tr>
+              <td>filler</td>
+              <td>filler</td>
+              <td>filler</td>
+            </tr>
+            <tr>
+              <td>filler</td>
+              <td>filler</td>
+              <td>filler</td>
+            </tr>
+          </table>
         </section>
       );
   }

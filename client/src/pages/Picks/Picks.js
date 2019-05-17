@@ -43,7 +43,6 @@ class Picks extends React.PureComponent {
       .then(res => {
         const teams = res.data.data;
         teams.map(game => {
-          console.log('getting todays games');
           this.setState({
             date: startdate,
             picks: [
@@ -173,13 +172,23 @@ class Picks extends React.PureComponent {
           } else {
             this.setState({ access_token: res.data.access_token });
             localStorage.setItem('token', res.data.access_token);
+            axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
+              console.log(res);
+              this.setState({
+                user: {
+                  email: res.data.user.email,
+                  id: res.data.user.id,
+                  name: res.data.user.name
+                }
+              });
+              console.log(this.state.user.name + ' has logged in.');
+            });
           }
         });
     } else {
-      console.log('User is already logged in, fetching user data :)');
-      console.log('Token is: ', localStorage.getItem('token'));
       this.setState({ access_token: localStorage.getItem('token') });
       axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
+        console.log(res);
         this.setState({
           user: {
             email: res.data.user.email,
@@ -187,6 +196,7 @@ class Picks extends React.PureComponent {
             name: res.data.user.name
           }
         });
+        console.log(this.state.user.name + ' is already logged in.');
       });
     }
   };
@@ -201,6 +211,10 @@ class Picks extends React.PureComponent {
 
   onSubmitPicksEvent = () => {
     console.log('submitting picks to database', this.state);
+
+    axios.post('/logPicks', {
+      logPicks: this.state
+    });
   };
 
   render() {

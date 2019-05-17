@@ -1,4 +1,10 @@
 @import 'src/style/shared.scss';
 
 .Leaderboard {
+  table {
+    color: white;
+
+    margin: 0 auto;
+    width: 60%;
+  }
 }
