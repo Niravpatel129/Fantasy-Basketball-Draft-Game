@@ -211,6 +211,10 @@ class Picks extends React.PureComponent {
 
   onSubmitPicksEvent = () => {
     console.log('submitting picks to database', this.state);
+
+    axios.post('/logPicks', {
+      logPicks: this.state
+    });
   };
 
   render() {

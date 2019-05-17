@@ -23,12 +23,9 @@ db.once("open", function() {
 });
 var personData = new mongoose.Schema({
   username: String,
-  date: String,
   picks: [
     {
       gameId: String,
-      homeTeam: String,
-      awayTeam: String,
       selection: String
     }
   ]
@@ -37,6 +34,25 @@ var personData = new mongoose.Schema({
 var User = mongoose.model("User", personData);
 
 // Client API Calls
+app.post("/logPicks", (req, res) => {
+  console.log(req.body.logPicks.picks);
+
+  var picks = req.body.logPicks.picks.map(pick => {
+    return {
+      gameId: pick.gameId,
+      selection: pick.selection
+    };
+  });
+
+  var Person1 = new User({
+    username: req.body.logPicks.user.name,
+    picks: picks
+  });
+
+  Person1.save();
+  console.log("saved");
+});
+
 app.get("/games", (req, res) => {
   // console.log(req.query.product);
   let date = req.query.product;
