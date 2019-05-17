@@ -222,6 +222,7 @@ class Picks extends React.PureComponent {
           });
         }
       });
+    this.setState({ alreadyPicked: true });
     console.log('submitting picks to database', this.state);
   };
 
