@@ -24,7 +24,8 @@ class Picks extends React.PureComponent {
       date: '',
       picks: [],
       stats: [],
-      currentPickIndex: 0
+      currentPickIndex: 0,
+      playersRendered: false
     };
   }
 
@@ -76,6 +77,7 @@ class Picks extends React.PureComponent {
                   ]
                 });
               }
+              this.setState({ playersRendered: true });
             })
             .catch(err => console.log(err));
 
@@ -234,7 +236,7 @@ class Picks extends React.PureComponent {
     if (this.state.alreadyPicked) {
       return this.alreadyPicked();
     } else {
-      if (this.state.access_token) {
+      if (this.state.access_token && this.state.playersRendered) {
         if (this.state.picks.length > 1) {
           return (
             <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
