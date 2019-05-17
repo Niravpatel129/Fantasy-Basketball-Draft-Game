@@ -12,6 +12,7 @@ import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
+import { EventEmitter } from 'events';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -64,7 +65,6 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
-              console.log(res);
               if (res.data != 'no current games') {
                 this.setState({
                   stats: [
@@ -93,10 +93,10 @@ class Picks extends React.PureComponent {
                   ]
                 });
               }
+              this.setState({ response: 1 });
             })
             .catch(err => console.log(err));
         });
-        this.setState({ response: 1 });
       })
       .catch(function(error) {
         // handle error
@@ -227,11 +227,25 @@ class Picks extends React.PureComponent {
     console.log('submitting picks to database', this.state);
   };
 
+  onKeyPress = event => {
+    console.log('arrow pressed');
+    if (event.keyCode === 37) {
+      this.prevPick();
+    } else if (event.keyCode === 39) {
+      this.nextPick();
+    }
+  };
+
   render() {
-    if (this.state.access_token) {
+    if (this.state.access_token && this.state.response) {
       if (this.state.picks.length > 1) {
         return (
-          <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+          <section
+            className={classnames('Picks', this.props.className)}
+            ref={el => (this.container = el)}
+            onKeyDown={this.onKeyPress}
+            tabIndex="0"
+          >
             <Arrow className="left" onClick={this.prevPick} />
             <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
             <Arrow className="right" onClick={this.nextPick} />
@@ -239,7 +253,11 @@ class Picks extends React.PureComponent {
         );
       }
       return (
-        <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
+        <section
+          className={classnames('Picks', this.props.className)}
+          ref={el => (this.container = el)}
+          onKeyDown={this.onKeyPress}
+        >
           <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
         </section>
       );

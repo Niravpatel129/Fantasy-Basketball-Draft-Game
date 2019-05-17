@@ -10,7 +10,6 @@ import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
 import Indicator from '../Indicator/Indicator';
-import Preloader from '../Preloader/Preloader';
 
 class MatchupCard extends React.PureComponent {
   state = {
@@ -84,9 +83,9 @@ class MatchupCard extends React.PureComponent {
       );
     }
     return (
-      <div class="ui segment">
-        <div class="ui active dimmer">
-          <div class="ui text loader">Loading...</div>
+      <div className="ui segment">
+        <div className="ui active dimmer">
+          <div className="ui text loader">Loading...</div>
         </div>
         <p />
       </div>
