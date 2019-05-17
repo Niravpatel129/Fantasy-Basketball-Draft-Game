@@ -33,7 +33,7 @@ class Picks extends React.PureComponent {
     var startdate = today.join('-');
     // var startdate = '2019-02-13';
 
-    // Make a request for a user with a given ID
+    // Make a request for a user with a given date
     axios
       .get('/games', {
         params: {
@@ -63,30 +63,35 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
-              this.setState({
-                stats: [
-                  ...this.state.stats,
-                  {
-                    teamId: game.home_team.id,
-                    playerStats: res.data
-                  }
-                ]
-              });
+              console.log(res);
+              if (res.data != 'no current games') {
+                this.setState({
+                  stats: [
+                    ...this.state.stats,
+                    {
+                      teamId: game.home_team.id,
+                      playerStats: res.data
+                    }
+                  ]
+                });
+              }
             })
             .catch(err => console.log(err));
 
           axios
             .get('/data', { params: { team_id: game.visitor_team.id } })
             .then(res => {
-              this.setState({
-                stats: [
-                  ...this.state.stats,
-                  {
-                    teamId: game.visitor_team.id,
-                    playerStats: res.data
-                  }
-                ]
-              });
+              if (res.data != 'no current games') {
+                this.setState({
+                  stats: [
+                    ...this.state.stats,
+                    {
+                      teamId: game.visitor_team.id,
+                      playerStats: res.data
+                    }
+                  ]
+                });
+              }
             })
             .catch(err => console.log(err));
         });
@@ -95,9 +100,6 @@ class Picks extends React.PureComponent {
       .catch(function(error) {
         // handle error
         console.log(error);
-      })
-      .finally(function() {
-        // always executed
       });
 
     animate.set(this.container, { autoAlpha: 0 });

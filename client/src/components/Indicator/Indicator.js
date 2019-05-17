@@ -14,18 +14,16 @@ class Indicator extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    const { length, position } = this.props;
-
+    console.log('indicator');
     return (
       <div className={classnames(`Indicator`, this.props.className)}>
         <li>
           <a
             className={
-              this.props.position == this.props.activeIndex
+              this.props.index === this.props.activeIndex
                 ? 'carousel__indicator carousel__indicator--active'
                 : 'carousel__indicator'
             }
-            onClick={this.props.onClick}
           />
         </li>
       </div>
@@ -35,9 +33,9 @@ class Indicator extends React.PureComponent {
 
 Indicator.propTypes = checkProps({
   className: PropTypes.string,
-  position: PropTypes.number,
+  activeIndex: PropTypes.number,
   length: PropTypes.number,
-  activeIndex: PropTypes.number
+  index: PropTypes.number
 });
 
 Indicator.defaultProps = {};

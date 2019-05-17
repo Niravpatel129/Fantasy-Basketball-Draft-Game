@@ -1,6 +1,10 @@
 @import 'src/style/shared.scss';
 
 .MatchupCard {
+  .ui.segment {
+    margin-top: 150px;
+  }
+
   .input {
     padding: 15px;
   }
@@ -12,4 +16,17 @@
 
 .teamTag {
   font-family: 'Rajdhani', sans-serif;
+}
+
+.carousel__indicators {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+
+  li {
+    &:nth-of-type(n + 2) {
+      margin-left: 9px;
+    }
+  }
 }

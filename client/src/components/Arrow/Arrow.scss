@@ -1,6 +1,8 @@
 @import 'src/style/shared.scss';
 
 .Arrow {
+  cursor: pointer;
+
   div {
     margin-top: -12px;
   }

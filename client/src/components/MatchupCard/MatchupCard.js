@@ -10,6 +10,7 @@ import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
 import Indicator from '../Indicator/Indicator';
+import Preloader from '../Preloader/Preloader';
 
 class MatchupCard extends React.PureComponent {
   state = {
@@ -68,13 +69,28 @@ class MatchupCard extends React.PureComponent {
             <div className="teamAssign">
               <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
             </div>
-            <Indicator />
+            <ul className="carousel__indicators">
+              {this.props.gameInfo.picks.map((pick, index) => (
+                <Indicator
+                  length={this.props.gameInfo.picks.length}
+                  index={index}
+                  activeIndex={this.props.gameInfo.currentPickIndex}
+                />
+              ))}
+            </ul>
             <SubmitButton onSubmit={this.props.onSubmit} />
           </div>
         </div>
       );
     }
-    return <p>Loading..</p>;
+    return (
+      <div class="ui segment">
+        <div class="ui active dimmer">
+          <div class="ui text loader">Loading...</div>
+        </div>
+        <p />
+      </div>
+    );
   }
 }
 
