@@ -7,9 +7,9 @@
         <g id="Landing-Page---Desktop-HD" transform="translate(-528.000000, -296.000000)">
             <g id="Button" transform="translate(535.000000, 299.000000)">
                 <path d="M15.0326659,97.8460599 L170.032666,8.61633016 C179.298081,3.28245606 190.701919,3.28245606 199.967334,8.61633016 L354.967334,97.8460599 C364.26777,103.200095 370,113.114215 370,123.845654 L370,302.154346 C370,312.885785 364.26777,322.799905 354.967334,328.15394 L204.956445,414.51156 C192.602559,421.623392 177.397441,421.623392 165.043555,414.51156 L15.0326659,328.15394 C5.73222986,322.799905 1.31422234e-15,312.885785 0,302.154346 L7.10542736e-15,123.845654 C1.05569216e-14,113.114215 5.73222986,103.200095 15.0326659,97.8460599 Z" id="Path" stroke="#FFFFFF" stroke-width="13.5"></path>
-                <text id="PRESS-TO-LOGIN" font-family="Helvetica" font-size="33" font-weight="normal" fill="#FFFFFF">
-                    <tspan x="103.645508" y="182">PRESS TO </tspan>
-                    <tspan x="135.155029" y="222">LOGIN</tspan>
+                <text id="PRESS-TO-LOGIN" font-family="Rajdhani-Light, Rajdhani Light" font-size="50" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="87.575" y="196">PRESS TO </tspan>
+                    <tspan x="126.975" y="259">LOGIN</tspan>
                 </text>
             </g>
         </g>
