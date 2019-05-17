@@ -180,7 +180,13 @@ class Picks extends React.PureComponent {
       console.log('Token is: ', localStorage.getItem('token'));
       this.setState({ access_token: localStorage.getItem('token') });
       axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
-        console.log(res);
+        this.setState({
+          user: {
+            email: res.data.user.email,
+            id: res.data.user.id,
+            name: res.data.user.name
+          }
+        });
       });
     }
   };
@@ -193,20 +199,24 @@ class Picks extends React.PureComponent {
     }));
   };
 
+  onSubmitPicksEvent = () => {
+    console.log('submitting picks to database', this.state);
+  };
+
   render() {
     if (this.state.access_token) {
       if (this.state.picks.length > 1) {
         return (
           <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
             <Arrow className="left" onClick={this.prevPick} />
-            <MatchupCard onVote={this.onCastVoteEvent} gameInfo={this.state} />
+            <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
             <Arrow className="right" onClick={this.nextPick} />
           </section>
         );
       }
       return (
         <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} />
+          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
         </section>
       );
     } else {

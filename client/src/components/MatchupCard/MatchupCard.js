@@ -67,7 +67,7 @@ class MatchupCard extends React.PureComponent {
             <div className="teamAssign">
               <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
             </div>
-            <SubmitButton />
+            <SubmitButton onSubmit={this.props.onSubmit} />
           </div>
         </div>
       );
