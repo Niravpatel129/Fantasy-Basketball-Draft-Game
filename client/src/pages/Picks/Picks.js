@@ -17,6 +17,7 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      alreadyPicked: false,
       authCode: '',
       access_token: '',
       response: 0,
@@ -175,7 +176,6 @@ class Picks extends React.PureComponent {
             this.setState({ access_token: res.data.access_token });
             localStorage.setItem('token', res.data.access_token);
             axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
-              console.log(res);
               this.setState({
                 user: {
                   email: res.data.user.email,
@@ -190,7 +190,6 @@ class Picks extends React.PureComponent {
     } else {
       this.setState({ access_token: localStorage.getItem('token') });
       axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
-        console.log(res);
         this.setState({
           user: {
             email: res.data.user.email,
@@ -212,11 +211,20 @@ class Picks extends React.PureComponent {
   };
 
   onSubmitPicksEvent = () => {
-    console.log('submitting picks to database', this.state);
+    axios
+      .get('/checkIfAlreadyPickedToday', { params: { name: this.state.user.name, date: this.state.date } })
+      .then(response => {
+        if (response.data === 'found') {
+          this.setState({ alreadyPicked: true });
+          alert('you already picked!');
+        } else {
+          axios.post('/logPicks', {
+            logPicks: this.state
+          });
+        }
+      });
 
-    axios.post('/logPicks', {
-      logPicks: this.state
-    });
+    console.log('submitting picks to database', this.state);
   };
 
   render() {
