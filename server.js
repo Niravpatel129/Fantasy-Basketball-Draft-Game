@@ -58,11 +58,9 @@ app.get("/checkIfAlreadyPickedToday", (req, res) => {
     { username: req.query.name, Date: req.query.date },
     (err, response) => {
       if (response.length > 0) {
-        console.log("found");
         res.send("found");
       } else {
-        console.log("not found");
-        res.send("not found");
+        res.send("notfound");
       }
     }
   );
