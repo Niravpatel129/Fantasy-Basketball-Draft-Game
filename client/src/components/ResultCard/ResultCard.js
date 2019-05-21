@@ -22,12 +22,8 @@ class ResultCard extends React.PureComponent {
       gameInfo: this.props.gameInfo
     });
   }
-  clearCards = () => {
-    React.unmountComponentAtNode(document.getElementById('teamCard'));
-  };
 
   renderCards = () => {
-    // this.clearCards();
     console.log(this.props.gameInfo.picks);
     return this.props.gameInfo.picks.map(game => {
       let homeClass = '';
