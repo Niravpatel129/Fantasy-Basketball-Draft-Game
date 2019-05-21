@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import './Picks.scss';
 import axios from 'axios';
@@ -220,7 +220,7 @@ class Picks extends React.PureComponent {
       .then(response => {
         if (response.data === 'found') {
           this.setState({ alreadyPicked: true });
-          alert('you already picked!');
+          alert('You already picked, redirecting to the results page!');
         } else {
           axios.post('/logPicks', {
             logPicks: this.state
@@ -240,6 +240,9 @@ class Picks extends React.PureComponent {
   };
 
   render() {
+    if (this.state.alreadyPicked) {
+      return <Redirect to="/results" />;
+    }
     if (this.state.access_token && this.state.response) {
       if (this.state.picks.length > 1) {
         return (
