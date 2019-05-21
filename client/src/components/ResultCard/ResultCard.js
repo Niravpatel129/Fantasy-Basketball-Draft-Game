@@ -5,10 +5,9 @@ import classnames from 'classnames';
 import checkProps from '@jam3/react-check-extra-props';
 
 import './ResultCard.scss';
-import TeamCard from '../TeamCard/TeamCard';
+import ResultsTeamCard from '../ResultsTeamCard/ResultsTeamCard';
 // import MatchupInfo from '../MatchupInfo/MatchupInfo';
 // import SubmitButton from '../SubmitButton/SubmitButton';
-import DateSelect from '../DateSelect/DateSelect';
 import LoadScreen from '../LoadScreen/LoadScreen';
 
 class ResultCard extends React.PureComponent {
@@ -23,29 +22,37 @@ class ResultCard extends React.PureComponent {
       gameInfo: this.props.gameInfo
     });
   }
+  clearCards = () => {
+    React.unmountComponentAtNode(document.getElementById('teamCard'));
+  };
 
-  render() {
-    if (this.state.gameInfo.response) {
-      const homeTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].homeTeam;
-      const awayTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].awayTeam;
+  renderCards = () => {
+    // this.clearCards();
+    console.log(this.props.gameInfo.picks);
+    return this.props.gameInfo.picks.map(game => {
+      let homeClass = '';
+      let awayClass = '';
+
+      if (game.selection === game.homeTeam) {
+        game.selection === game.winner ? (homeClass = 'correct') : (homeClass = 'incorrect');
+      } else if (game.selection === game.awayTeam) {
+        game.selection === game.winner ? (awayClass = 'correct') : (awayClass = 'incorrect');
+      }
 
       return (
         <div className={classnames(`ResultCard`, this.props)}>
-          <DateSelect date={this.props.gameInfo.date} onSubmit={this.props.onSubmit} />
-          <div className={classnames(`ResultCard`, this.props.className)}>
-            <div className="teamAssign">
-              <h2 className="teamTag">HOME</h2>
-              <TeamCard teamName={homeTeam} className="winner" />
-            </div>
-            <div className="teamAssign">
-              <h2 className="teamTag">AWAY</h2>
-              <TeamCard teamName={awayTeam} />
-            </div>
-          </div>
+          <ResultsTeamCard key={game.homeTeam} teamName={game.homeTeam} score={game.homeScore} className={homeClass} />
+          <ResultsTeamCard key={game.awayTeam} teamName={game.awayTeam} score={game.awayScore} className={awayClass} />
         </div>
       );
-    }
-    return <LoadScreen />;
+    });
+  };
+
+  render() {
+    if (this.state.gameInfo.response) {
+      console.log('getting cards');
+      return this.renderCards();
+    } else return <LoadScreen />;
   }
 }
 

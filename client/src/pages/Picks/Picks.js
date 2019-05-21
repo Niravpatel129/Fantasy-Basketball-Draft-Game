@@ -33,7 +33,7 @@ class Picks extends React.PureComponent {
     this.checkAuth();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
     // var startdate = today.join('-');
-    var startdate = '2019-05-20';
+    var startdate = '2019-02-13';
 
     // Make a request for a user with a given date
     axios
