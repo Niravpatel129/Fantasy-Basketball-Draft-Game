@@ -67,15 +67,68 @@ app.get("/checkIfAlreadyPickedToday", (req, res) => {
 });
 
 app.get("/games", (req, res) => {
-  // console.log(req.query.product);
-  let date = req.query.product;
-  gamesApi(date, date).then(data => res.send(data.data));
+  console.log(req.query);
 });
 
 app.get("/results", (req, res) => {
-  console.log(req.query.product);
-  let date = req.query.product;
-  gamesApi(date, date).then(data => res.send(data.data));
+  // console.log(req.query);
+  var results = [];
+  {
+    User.find(
+      { username: req.query.name, Date: req.query.date },
+      (err, response) => {
+        if (response.length > 0) {
+          response[0].picks.map(pick => {
+            // console.log(pick.gameId);
+            // console.log(pick.selection);
+            axios
+              .get("https://www.balldontlie.io/api/v1/games/" + pick.gameId)
+              .then(dat => {
+                var homeTeam = {
+                  team: dat.data.home_team.full_name,
+                  score: dat.data.home_team_score,
+                  gameResult: "",
+                  selected: false
+                };
+
+                var visitorTeam = {
+                  team: dat.data.visitor_team.full_name,
+                  score: dat.data.visitor_team_score,
+                  gameResult: "",
+                  selected: false
+                };
+
+                var didHomeTeamWin =
+                  homeTeam.score > visitorTeam.score ? true : false;
+
+                if (didHomeTeamWin) {
+                  homeTeam.gameResult = "win";
+                  visitorTeam.gameResult = "lose";
+                } else {
+                  homeTeam.gameResult = "lose";
+                  visitorTeam.gameResult = "win";
+                }
+
+                if (pick.selection === homeTeam.team) {
+                  homeTeam.selected = true;
+                } else {
+                  visitorTeam.selected = true;
+                }
+
+                results.push({ homeTeam: homeTeam, visitorTeam: visitorTeam });
+                if (results.length == response[0].picks.length) {
+                  console.log(results);
+                  res.send(results);
+                }
+              });
+          });
+        } else {
+          console.log("not found");
+          res.send("not found any data for this date");
+        }
+      }
+    );
+  }
 });
 
 app.get("/data", (req, res) => {

@@ -65,7 +65,8 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
-              if (res.data != 'no current games') {
+              console.table([res]);
+              if (res.data !== 'no current games') {
                 this.setState({
                   stats: [
                     ...this.state.stats,
@@ -183,6 +184,7 @@ class Picks extends React.PureComponent {
                   name: res.data.user.name
                 }
               });
+              localStorage.setItem('user', this.state.user.name);
               console.log(this.state.user.name + ' has logged in.');
             });
           }
@@ -197,6 +199,8 @@ class Picks extends React.PureComponent {
             name: res.data.user.name
           }
         });
+        localStorage.setItem('user', this.state.user.name);
+        console.log(localStorage.getItem('user'));
         console.log(this.state.user.name + ' is already logged in.');
       });
     }
@@ -223,8 +227,7 @@ class Picks extends React.PureComponent {
           });
         }
       });
-
-    console.log('submitting picks to database', this.state);
+    this.setState({ alreadyPicked: true });
   };
 
   onKeyPress = event => {
