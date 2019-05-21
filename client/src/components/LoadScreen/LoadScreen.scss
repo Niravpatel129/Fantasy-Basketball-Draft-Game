@@ -1,0 +1,7 @@
+@import 'src/style/shared.scss';
+
+.LoadScreen {
+  .ui.active.dimmer {
+    background: red;
+  }
+}
