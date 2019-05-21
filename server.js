@@ -72,18 +72,64 @@ app.get("/games", (req, res) => {
 
 app.get("/results", (req, res) => {
   // console.log(req.query);
-  User.find(
-    { username: req.query.name, Date: req.query.date },
-    (err, response) => {
-      if (response.length > 0) {
-        response[0].picks.map(pick => {
-          console.log(pick.selection);
-        });
-      } else {
-        console.log("not found");
+  var results = [];
+  async function getData() {
+    User.find(
+      { username: req.query.name, Date: req.query.date },
+      (err, response) => {
+        if (response.length > 0) {
+          response[0].picks.map(pick => {
+            // console.log(pick.gameId);
+            // console.log(pick.selection);
+            axios
+              .get("https://www.balldontlie.io/api/v1/games/" + pick.gameId)
+              .then(dat => {
+                var homeTeam = {
+                  team: dat.data.home_team.full_name,
+                  score: dat.data.home_team_score,
+                  gameResult: "",
+                  selected: false
+                };
+
+                var visitorTeam = {
+                  team: dat.data.visitor_team.full_name,
+                  score: dat.data.visitor_team_score,
+                  gameResult: "",
+                  selected: false
+                };
+
+                var didHomeTeamWin =
+                  homeTeam.score > visitorTeam.score ? true : false;
+
+                if (didHomeTeamWin) {
+                  homeTeam.gameResult = "win";
+                  visitorTeam.gameResult = "lose";
+                } else {
+                  homeTeam.gameResult = "lose";
+                  visitorTeam.gameResult = "win";
+                }
+
+                if (pick.selection === homeTeam.team) {
+                  homeTeam.selected = true;
+                } else {
+                  visitorTeam.selected = true;
+                }
+
+                results.push({ homeTeam: homeTeam, visitorTeam: visitorTeam });
+              });
+          });
+          let value = res.send(results);
+        } else {
+          console.log("not found");
+          res.send("not found any data for this date");
+        }
       }
-    }
-  );
+    );
+  }
+
+  getData().then(res => {
+    console.log(res);
+  });
 });
 
 app.get("/data", (req, res) => {
