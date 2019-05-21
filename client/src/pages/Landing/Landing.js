@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import './Landing.scss';
-import axios from 'axios';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
@@ -15,22 +14,12 @@ import GameButton from '../../components/GameButton/GameButton';
 class Landing extends React.PureComponent {
   componentDidMount() {
     animate.set(this.container, { autoAlpha: 0 });
+    this.onAppear();
 
     if (!this.props.loaded) {
       // await for data to be loaded here e.g. via fetch
       this.props.setLandingLoaded(true);
     }
-    axios
-      .post('/vote', {
-        user: 'Fred',
-        teamPicked: 'TeamB'
-      })
-      .then(function(response) {
-        // console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   }
   x;
   onAppear = () => {
@@ -59,7 +48,7 @@ class Landing extends React.PureComponent {
     return (
       <section className="Landing-resources">
         <Titletext title="FANTASY BASKETBALL PICKER" />
-        <GameButton text="PRESS TO LOGIN" />
+        <GameButton />
         <Arrow />
         <Arrow />
         <Arrow />

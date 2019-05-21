@@ -17,7 +17,7 @@
       no-repeat;
     width: 180px; /* Width of new image */
     height: 236px; /* Height of new image */
-    padding-left: 180px; /* Equal to width of new image */
+    padding: 180px; /* Equal to width of new image */
   }
 
   &-header {
@@ -51,7 +51,7 @@
 }
 .login {
   background-color: white;
-  font-family: sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   width: 100px;
   margin: 8px auto;
 }
@@ -61,6 +61,7 @@
 }
 
 .button {
+  padding-top: 50px;
   padding-bottom: 27px;
   // margin-bottom: 10px;
 }

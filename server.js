@@ -52,6 +52,7 @@ app.post("/logPicks", (req, res) => {
   Person1.save();
   console.log("saved");
 });
+// Function to get data from api
 
 app.get("/checkIfAlreadyPickedToday", (req, res) => {
   User.find(

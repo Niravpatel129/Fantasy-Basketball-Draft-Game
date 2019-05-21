@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 import './Picks.scss';
 import axios from 'axios';
@@ -24,8 +24,7 @@ class Picks extends React.PureComponent {
       date: '',
       picks: [],
       stats: [],
-      currentPickIndex: 0,
-      playersRendered: false
+      currentPickIndex: 0
     };
   }
 
@@ -77,7 +76,6 @@ class Picks extends React.PureComponent {
                   ]
                 });
               }
-              this.setState({ playersRendered: true });
             })
             .catch(err => console.log(err));
 
@@ -95,10 +93,10 @@ class Picks extends React.PureComponent {
                   ]
                 });
               }
+              this.setState({ response: 1 });
             })
             .catch(err => console.log(err));
         });
-        this.setState({ response: 1 });
       })
       .catch(function(error) {
         // handle error
@@ -218,6 +216,7 @@ class Picks extends React.PureComponent {
       .then(response => {
         if (response.data === 'found') {
           this.setState({ alreadyPicked: true });
+          alert('you already picked!');
         } else {
           axios.post('/logPicks', {
             logPicks: this.state
@@ -227,36 +226,46 @@ class Picks extends React.PureComponent {
     this.setState({ alreadyPicked: true });
   };
 
-  alreadyPicked = () => {
-    return <Redirect to="/results" />;
+  onKeyPress = event => {
+    console.log('arrow pressed');
+    if (event.keyCode === 37) {
+      this.prevPick();
+    } else if (event.keyCode === 39) {
+      this.nextPick();
+    }
   };
 
   render() {
-    if (this.state.alreadyPicked) {
-      return this.alreadyPicked();
-    } else {
-      if (this.state.access_token && this.state.playersRendered) {
-        if (this.state.picks.length > 1) {
-          return (
-            <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-              <Arrow className="left" onClick={this.prevPick} />
-              <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
-              <Arrow className="right" onClick={this.nextPick} />
-            </section>
-          );
-        }
+    if (this.state.access_token && this.state.response) {
+      if (this.state.picks.length > 1) {
         return (
-          <section className={classnames('Picks', this.props.className)} ref={el => (this.container = el)}>
-            <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
+          <section
+            className={classnames('Picks', this.props.className)}
+            ref={el => (this.container = el)}
+            onKeyDown={this.onKeyPress}
+            tabIndex="0"
+          >
+            <Arrow className="left" onClick={this.prevPick} />
+            <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
+            <Arrow className="right" onClick={this.nextPick} />
           </section>
         );
-      } else {
-        return (
-          <div>
-            <h1>Loading...</h1>
-          </div>
-        );
       }
+      return (
+        <section
+          className={classnames('Picks', this.props.className)}
+          ref={el => (this.container = el)}
+          onKeyDown={this.onKeyPress}
+        >
+          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
+        </section>
+      );
+    } else {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
     }
   }
 }

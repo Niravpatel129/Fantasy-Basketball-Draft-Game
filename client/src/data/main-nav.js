@@ -1,5 +1,5 @@
 import routeKeys from '../routes/keys';
-import logo from '../assets/images/jam3-logo.png';
+import logo from '../assets/images/picker-logo.png';
 
 export default {
   logoSrc: logo,

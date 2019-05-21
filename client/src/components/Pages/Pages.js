@@ -23,16 +23,7 @@ const Pages = ({ location, ...props }) => {
       <TransitionGroup component={Fragment}>
         <Transition appear key={location.pathname} timeout={getTransitionDuration(location.pathname)}>
           {state => (
-            <Suspense
-              fallback={
-                <div className="ui segment">
-                  <div className="ui active dimmer">
-                    <div className="ui text loader">Loading</div>
-                  </div>
-                  <p />
-                </div>
-              }
-            >
+            <Suspense fallback={<div className="loading" />}>
               <Switch location={location}>
                 <Route exact path={routeKeys.Landing} render={() => <Landing transitionState={state} />} />
                 <Route exact path={routeKeys.Picks} render={() => <Picks transitionState={state} />} />
