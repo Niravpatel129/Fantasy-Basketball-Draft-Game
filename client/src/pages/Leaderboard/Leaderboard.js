@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 import './Leaderboard.scss';
 
@@ -18,6 +19,9 @@ class Leaderboard extends React.PureComponent {
   }
 
   componentDidMount() {
+    axios.get('/leaderboards').then(data => {
+      console.log(data);
+    });
     animate.set(this.container, { autoAlpha: 0 });
   }
 

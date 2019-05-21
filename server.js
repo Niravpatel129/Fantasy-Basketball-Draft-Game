@@ -29,7 +29,8 @@ var personData = new mongoose.Schema({
       gameId: String,
       selection: String
     }
-  ]
+  ],
+  Points: { type: Number, default: 0 }
 });
 
 var User = mongoose.model("User", personData);
@@ -51,6 +52,24 @@ app.post("/logPicks", (req, res) => {
 
   Person1.save();
   console.log("saved");
+});
+
+//leaderboards
+app.get("/leaderboards", (req, res) => {
+  var leaderboards = [];
+  User.find({}, function(err, docs) {
+    docs.map(data => {
+      var points = data.Points;
+      for (var i = 0; i < leaderboards.length; i++) {
+        if (docs[i].username == data.username) {
+          console.log(docs[i].username, data.username);
+        }
+      }
+      var user = { username: data.username, points: points };
+      leaderboards.push(user);
+    });
+  });
+  console.log(leaderboards);
 });
 
 app.get("/checkIfAlreadyPickedToday", (req, res) => {
@@ -88,7 +107,7 @@ app.get("/results", (req, res) => {
               .then(dat => {
                 let gameWinner;
                 let selectionTeam;
-                console.log(dat.data.date);
+                // console.log(dat.data.date);
                 var homeTeam = {
                   team: dat.data.home_team.full_name,
                   score: dat.data.home_team_score,
@@ -120,8 +139,20 @@ app.get("/results", (req, res) => {
                   gameWinner,
                   selectionTeam
                 });
+
+                function addPointsToUser() {
+                  if (selectionTeam == gameWinner) {
+                    User.findOneAndUpdate(
+                      { name: req.query.name },
+                      { $inc: { Points: 1 } }
+                    );
+                    console.log("updated point :D");
+                  }
+                }
+                addPointsToUser();
+
                 if (results.length == response[0].picks.length) {
-                  console.log(results);
+                  // console.log(results);
                   res.send(results);
                 }
               });
