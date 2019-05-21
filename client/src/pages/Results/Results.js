@@ -15,7 +15,6 @@ import { gamesApi } from '../../api/gamesApi.js';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import ResultCard from '../../components/ResultCard/ResultCard';
-import Arrow from '../../components/Arrow/Arrow';
 
 class Results extends React.PureComponent {
   constructor(props) {
