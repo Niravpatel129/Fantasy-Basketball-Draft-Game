@@ -2,20 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-// import { BaseLink } from '@jam3/react-ui';
-// import { HamburgerMenu, MainTopNav, PageOverlay } from '@jam3/react-ui';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
-// import mainNavData from '../../data/main-nav';
 import { Redirect } from 'react-router-dom';
 
 import './Results.scss';
+
 import axios from 'axios';
-import { gamesApi } from '../../api/gamesApi.js';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import ResultCard from '../../components/ResultCard/ResultCard';
-// import Arrow from '../../components/Arrow/Arrow';
+import DateSelect from '../../components/DateSelect/DateSelect';
 
 class Results extends React.PureComponent {
   constructor(props) {
@@ -34,22 +31,32 @@ class Results extends React.PureComponent {
     var mm = String(yesterday.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = yesterday.getFullYear();
     yesterday = yyyy + '-' + mm + '-' + dd;
+    console.log(yesterday);
 
     console.log(localStorage.getItem('user'), 'is the user.');
 
-    axios.get('/results', { params: { name: localStorage.getItem('user'), date: yesterday } }).then(response => {
+    this.getResults(yesterday);
+
+    animate.set(this.container, { autoAlpha: 0 });
+    // let code = window.location.href;
+  }
+
+  getResults = date => {
+    axios.get('/results', { params: { name: localStorage.getItem('user'), date: date } }).then(response => {
       console.log(response);
       const scores = response.data;
       scores.map(game => {
         this.setState({
-          date: yesterday,
+          date: date,
           picks: [
             ...this.state.picks,
             {
               homeTeam: game.homeTeam.team,
               homeScore: game.homeTeam.score,
               awayTeam: game.visitorTeam.team,
-              awayScore: game.visitorTeam.score
+              awayScore: game.visitorTeam.score,
+              selection: game.selectionTeam,
+              winner: game.gameWinner
             }
           ]
         });
@@ -57,9 +64,7 @@ class Results extends React.PureComponent {
       });
       this.setState({ response: 1 });
     });
-    animate.set(this.container, { autoAlpha: 0 });
-    // let code = window.location.href;
-  }
+  };
 
   onAppear = () => {
     this.animateIn();
@@ -87,7 +92,9 @@ class Results extends React.PureComponent {
     if (event.keyCode === 13) {
       let date = event.target.value.split('-');
       if (parseInt(date[1], 10) <= 12 && parseInt(date[2], 10) <= 31) {
-        this.setState({ date: event.target.value });
+        console.log('getting data', event.target.value);
+        this.setState({ picks: [] });
+        this.getResults(event.target.value);
       }
     }
   };
@@ -103,7 +110,15 @@ class Results extends React.PureComponent {
     } else {
       return (
         <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-          {/* <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} /> */}
+          <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
+          <div className="teamCard">
+            <div className="teamAssign">
+              <h2 className="teamTag">HOME</h2>
+              <h2 className="teamTag">AWAY</h2>
+            </div>
+            <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
+          </div>
+          <h2 className="teamTag scroll">scroll to see more results</h2>
         </section>
       );
     }
