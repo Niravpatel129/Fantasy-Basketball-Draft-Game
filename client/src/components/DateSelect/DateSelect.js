@@ -13,14 +13,6 @@ class DateSelect extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  // initEditor = () => {
-  //   this.editor =
-  // }
-
-  // onEdit = () => {
-  //   console.log('help');
-  // };
-
   render() {
     return (
       <div className={classnames(`DateSelect`, this.props.className)}>
