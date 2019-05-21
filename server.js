@@ -67,7 +67,9 @@ app.get("/checkIfAlreadyPickedToday", (req, res) => {
 });
 
 app.get("/games", (req, res) => {
-  console.log(req.query);
+  // console.log(req.query.product);	  console.log(req.query);
+  let date = req.query.product;
+  gamesApi(date, date).then(data => res.send(data.data));
 });
 
 app.get("/results", (req, res) => {
