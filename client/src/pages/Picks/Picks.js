@@ -12,6 +12,7 @@ import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import MatchupCard from '../../components/MatchupCard/MatchupCard';
 import Arrow from '../../components/Arrow/Arrow';
+import LoadScreen from '../../components/LoadScreen/LoadScreen';
 
 class Picks extends React.PureComponent {
   constructor(props) {
@@ -264,11 +265,7 @@ class Picks extends React.PureComponent {
         </section>
       );
     } else {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
+      return <LoadScreen />;
     }
   }
 }

@@ -82,14 +82,7 @@ class MatchupCard extends React.PureComponent {
         </div>
       );
     }
-    return (
-      <div className="ui segment">
-        <div className="ui active dimmer">
-          <div className="ui text loader">Loading...</div>
-        </div>
-        <p />
-      </div>
-    );
+    return <div />;
   }
 }
 
