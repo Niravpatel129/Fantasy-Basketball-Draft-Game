@@ -29,44 +29,33 @@ class Results extends React.PureComponent {
   }
 
   componentDidMount() {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
+    var yesterday = new Date();
+    var dd = String(yesterday.getDate() - 1).padStart(2, '0');
+    var mm = String(yesterday.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = yesterday.getFullYear();
+    yesterday = yyyy + '-' + mm + '-' + dd;
 
-    let startdate = '2019-02-13';
-    let enddate = '2019-02-13';
     console.log(localStorage.getItem('user'), 'is the user.');
 
-    gamesApi(startdate, enddate)
-      .then(res => {
-        const teams = res.data.data;
-        teams.map(game => {
-          console.log('setting state');
-          this.setState({
-            date: startdate,
-            picks: [
-              ...this.state.picks,
-              {
-                gameId: game.id,
-                homeTeam: game.home_team.city,
-                homeScore: game.home_team_score,
-                awayTeam: game.visitor_team.city,
-                awayScore: game.visitor_team_score,
-                selection: ''
-              }
-            ]
-          });
-          return true;
-        });
-        this.setState({ response: 1 });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    axios.get('/results', { params: { name: localStorage.getItem('user'), date: today } }).then(response => {
+    axios.get('/results', { params: { name: localStorage.getItem('user'), date: yesterday } }).then(response => {
       console.log(response);
+      const scores = response.data;
+      scores.map(game => {
+        this.setState({
+          date: yesterday,
+          picks: [
+            ...this.state.picks,
+            {
+              homeTeam: game.homeTeam.team,
+              homeScore: game.homeTeam.score,
+              awayTeam: game.visitorTeam.team,
+              awayScore: game.visitorTeam.score
+            }
+          ]
+        });
+        return true;
+      });
+      this.setState({ response: 1 });
     });
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
@@ -114,7 +103,7 @@ class Results extends React.PureComponent {
     } else {
       return (
         <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-          <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
+          {/* <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} /> */}
         </section>
       );
     }
