@@ -73,7 +73,7 @@ app.get("/games", (req, res) => {
 app.get("/results", (req, res) => {
   // console.log(req.query);
   var results = [];
-  async function getData() {
+  {
     User.find(
       { username: req.query.name, Date: req.query.date },
       (err, response) => {
@@ -116,9 +116,12 @@ app.get("/results", (req, res) => {
                 }
 
                 results.push({ homeTeam: homeTeam, visitorTeam: visitorTeam });
+                if (results.length == response[0].picks.length) {
+                  console.log(results);
+                  res.send(results);
+                }
               });
           });
-          let value = res.send(results);
         } else {
           console.log("not found");
           res.send("not found any data for this date");
@@ -126,10 +129,6 @@ app.get("/results", (req, res) => {
       }
     );
   }
-
-  getData().then(res => {
-    console.log(res);
-  });
 });
 
 app.get("/data", (req, res) => {
