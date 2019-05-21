@@ -33,7 +33,8 @@ class ResultsTeamCard extends React.PureComponent {
 ResultsTeamCard.propTypes = checkProps({
   className: PropTypes.string,
   teamName: PropTypes.string,
-  onVote: PropTypes.func
+  onVote: PropTypes.func,
+  score: PropTypes.number
 });
 
 ResultsTeamCard.defaultProps = {};
