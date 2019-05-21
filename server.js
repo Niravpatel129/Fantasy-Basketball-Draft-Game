@@ -29,9 +29,15 @@ var personData = new mongoose.Schema({
       gameId: String,
       selection: String
     }
-  ],
-  Points: { type: Number, default: 0 }
+  ]
 });
+
+var scoreData = new mongoose.Schema({
+  username: String,
+  score: Number
+});
+
+var Scores = mongoose.model("Scores", scoreData);
 
 var User = mongoose.model("User", personData);
 
@@ -50,6 +56,12 @@ app.post("/logPicks", (req, res) => {
     picks: picks
   });
 
+  var Score1 = new Scores({
+    username: req.body.logPicks.user.name,
+    score: 0
+  });
+
+  Score1.save();
   Person1.save();
   console.log("saved");
 });
@@ -140,16 +152,13 @@ app.get("/results", (req, res) => {
                   selectionTeam
                 });
 
-                function addPointsToUser() {
-                  if (selectionTeam == gameWinner) {
-                    User.findOneAndUpdate(
-                      { name: req.query.name },
-                      { $inc: { Points: 1 } }
-                    );
-                    console.log("updated point :D");
-                  }
+                if (selectionTeam == gameWinner) {
+                  Scores.findOneAndUpdate(
+                    { name: req.query.name },
+                    { $inc: { score: 100 } }
+                  );
+                  console.log("updated point :D");
                 }
-                addPointsToUser();
 
                 if (results.length == response[0].picks.length) {
                   // console.log(results);
