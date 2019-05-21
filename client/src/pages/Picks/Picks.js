@@ -183,6 +183,7 @@ class Picks extends React.PureComponent {
                   name: res.data.user.name
                 }
               });
+              localStorage.setItem('user', this.state.user.name);
               console.log(this.state.user.name + ' has logged in.');
             });
           }
@@ -197,6 +198,8 @@ class Picks extends React.PureComponent {
             name: res.data.user.name
           }
         });
+        localStorage.setItem('user', this.state.user.name);
+        console.log(localStorage.getItem('user'));
         console.log(this.state.user.name + ' is already logged in.');
       });
     }

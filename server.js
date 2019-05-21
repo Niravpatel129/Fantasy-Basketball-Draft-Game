@@ -52,7 +52,6 @@ app.post("/logPicks", (req, res) => {
   Person1.save();
   console.log("saved");
 });
-// Function to get data from api
 
 app.get("/checkIfAlreadyPickedToday", (req, res) => {
   User.find(
@@ -68,15 +67,23 @@ app.get("/checkIfAlreadyPickedToday", (req, res) => {
 });
 
 app.get("/games", (req, res) => {
-  // console.log(req.query.product);
-  let date = req.query.product;
-  gamesApi(date, date).then(data => res.send(data.data));
+  console.log(req.query);
 });
 
 app.get("/results", (req, res) => {
-  console.log(req.query.product);
-  let date = req.query.product;
-  gamesApi(date, date).then(data => res.send(data.data));
+  // console.log(req.query);
+  User.find(
+    { username: req.query.name, Date: req.query.date },
+    (err, response) => {
+      if (response.length > 0) {
+        response[0].picks.map(pick => {
+          console.log(pick.selection);
+        });
+      } else {
+        console.log("not found");
+      }
+    }
+  );
 });
 
 app.get("/data", (req, res) => {

@@ -29,18 +29,15 @@ class Results extends React.PureComponent {
   }
 
   componentDidMount() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+
     let startdate = '2019-02-13';
     let enddate = '2019-02-13';
-
-    axios
-      .get('/results', {
-        params: {
-          product: startdate
-        }
-      })
-      .then(res => {
-        console.log(res);
-      });
+    console.log(localStorage.getItem('user'), 'is the user.');
 
     gamesApi(startdate, enddate)
       .then(res => {
@@ -67,7 +64,9 @@ class Results extends React.PureComponent {
       .catch(error => {
         console.log(error);
       });
-
+    axios.get('/results', { params: { name: localStorage.getItem('user'), date: today } }).then(response => {
+      console.log(response);
+    });
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
   }
