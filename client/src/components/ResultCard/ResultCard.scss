@@ -1,24 +1,28 @@
 @import 'src/style/shared.scss';
 
 .ResultsCard {
-}
-.teamAssign {
-  display: inline-block;
-  margin: 10px;
-}
+  .teamAssign {
+    display: inline-block;
+    margin: 10px;
+  }
 
-.teamCard {
-  height: 570px;
-  overflow: auto;
-}
+  .teamCard {
+    height: 570px;
+    overflow: auto;
+  }
 
-.teamTag {
-  margin: auto 175px;
-  display: inline-block;
-  font-family: 'Rajdhani', sans-serif;
+  .teamTag {
+    margin: auto 175px;
+    font-family: 'Rajdhani', sans-serif;
+  }
 }
 .scroll {
   margin-top: 30px;
+}
+
+.error {
+  margin-top: 50px;
+  font-size: 36px;
 }
 
 .correct {

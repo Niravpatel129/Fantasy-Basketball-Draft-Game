@@ -65,7 +65,6 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.home_team.id } })
             .then(res => {
-              console.table([res]);
               if (res.data !== 'no current games') {
                 this.setState({
                   stats: [

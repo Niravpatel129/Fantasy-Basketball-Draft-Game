@@ -45,10 +45,12 @@ class ResultCard extends React.PureComponent {
   };
 
   render() {
-    if (this.state.gameInfo.response) {
+    if (this.state.gameInfo.response === 1) {
       console.log('getting cards');
       return this.renderCards();
-    } else return <LoadScreen />;
+    } else if (this.state.gameInfo.response === -1)
+      return <div className="teamTag error">There is no pick history for this date</div>;
+    else return <LoadScreen />;
   }
 }
 

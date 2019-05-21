@@ -73,6 +73,7 @@ class MatchupCard extends React.PureComponent {
                 <Indicator
                   length={this.props.gameInfo.picks.length}
                   index={index}
+                  key={index}
                   activeIndex={this.props.gameInfo.currentPickIndex}
                 />
               ))}
