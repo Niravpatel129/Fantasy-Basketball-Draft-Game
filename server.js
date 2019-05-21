@@ -155,7 +155,7 @@ app.get("/results", (req, res) => {
                 if (selectionTeam == gameWinner) {
                   Scores.findOneAndUpdate(
                     { name: req.query.name },
-                    { $inc: { Points: 1 } }
+                    { $inc: { score: 100 } }
                   );
                   console.log("updated point :D");
                 }
