@@ -13,11 +13,20 @@ class DateSelect extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {}
 
+  // initEditor = () => {
+  //   this.editor =
+  // }
+
+  // onEdit = () => {
+  //   console.log('help');
+  // };
+
   render() {
     return (
       <div className={classnames(`DateSelect`, this.props.className)}>
         <div className="ui label">
-          <i className="calendar outline icon" /> {this.props.date}
+          <i className="calendar outline icon" />
+          <input type="text" defaultValue={this.props.date} onKeyDown={this.props.onSubmit} />
         </div>
       </div>
     );
@@ -26,7 +35,8 @@ class DateSelect extends React.PureComponent {
 
 DateSelect.propTypes = checkProps({
   className: PropTypes.string,
-  date: PropTypes.string
+  date: PropTypes.string,
+  onSubmit: PropTypes.func
 });
 
 DateSelect.defaultProps = {};

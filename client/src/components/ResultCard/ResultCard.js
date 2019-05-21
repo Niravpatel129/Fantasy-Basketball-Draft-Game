@@ -9,6 +9,7 @@ import TeamCard from '../TeamCard/TeamCard';
 // import MatchupInfo from '../MatchupInfo/MatchupInfo';
 // import SubmitButton from '../SubmitButton/SubmitButton';
 import DateSelect from '../DateSelect/DateSelect';
+import LoadScreen from '../LoadScreen/LoadScreen';
 
 class ResultCard extends React.PureComponent {
   state = {
@@ -29,9 +30,9 @@ class ResultCard extends React.PureComponent {
       const awayTeam = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex].awayTeam;
 
       return (
-        <div className={classnames(`MatchupCard`, this.props)}>
-          <DateSelect date={this.props.gameInfo.date} />
-          <div className={classnames(`MatchupCard`, this.props.className)}>
+        <div className={classnames(`ResultCard`, this.props)}>
+          <DateSelect date={this.props.gameInfo.date} onSubmit={this.props.onSubmit} />
+          <div className={classnames(`ResultCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>
               <TeamCard teamName={homeTeam} className="winner" />
@@ -44,13 +45,14 @@ class ResultCard extends React.PureComponent {
         </div>
       );
     }
-    return <p>Loading..</p>;
+    return <LoadScreen />;
   }
 }
 
 ResultCard.propTypes = checkProps({
   className: PropTypes.string,
-  gameInfo: PropTypes.object
+  gameInfo: PropTypes.object,
+  onSubmit: PropTypes.func
 });
 
 ResultCard.defaultProps = {};

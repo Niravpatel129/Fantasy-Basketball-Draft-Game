@@ -8,7 +8,7 @@ import './MatchupCard.scss';
 import TeamCard from '../TeamCard/TeamCard';
 import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
-import DateSelect from '../DateSelect/DateSelect';
+import Date from '../Date/Date';
 import Indicator from '../Indicator/Indicator';
 
 class MatchupCard extends React.PureComponent {
@@ -51,7 +51,7 @@ class MatchupCard extends React.PureComponent {
 
       return (
         <div className={classnames(`MatchupCard`, this.props)}>
-          <DateSelect date={this.props.gameInfo.date} />
+          <Date date={this.props.gameInfo.date} />
           <div className={classnames(`MatchupCard`, this.props.className)}>
             <div className="teamAssign">
               <h2 className="teamTag">HOME</h2>

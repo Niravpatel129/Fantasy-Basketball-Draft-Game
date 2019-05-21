@@ -43,6 +43,7 @@ class Results extends React.PureComponent {
       .then(res => {
         const teams = res.data.data;
         teams.map(game => {
+          console.log('setting state');
           this.setState({
             date: startdate,
             picks: [
@@ -93,6 +94,15 @@ class Results extends React.PureComponent {
     animate.to(this.container, 0.3, { autoAlpha: 0 });
   };
 
+  onDateChange = event => {
+    if (event.keyCode === 13) {
+      let date = event.target.value.split('-');
+      if (parseInt(date[1], 10) <= 12 && parseInt(date[2], 10) <= 31) {
+        this.setState({ date: event.target.value });
+      }
+    }
+  };
+
   render() {
     if (!localStorage.getItem('token')) {
       return (
@@ -104,9 +114,7 @@ class Results extends React.PureComponent {
     } else {
       return (
         <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-          <Arrow className="left" onClick={this.prevPick} />
-          <ResultCard gameInfo={this.state} />
-          <Arrow className="right" onClick={this.nextPick} />
+          <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
         </section>
       );
     }
