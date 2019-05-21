@@ -86,6 +86,9 @@ app.get("/results", (req, res) => {
             axios
               .get("https://www.balldontlie.io/api/v1/games/" + pick.gameId)
               .then(dat => {
+                let gameWinner;
+                let selectionTeam;
+                console.log(dat.data.date);
                 var homeTeam = {
                   team: dat.data.home_team.full_name,
                   score: dat.data.home_team_score,
@@ -104,20 +107,19 @@ app.get("/results", (req, res) => {
                   homeTeam.score > visitorTeam.score ? true : false;
 
                 if (didHomeTeamWin) {
-                  homeTeam.gameResult = "win";
-                  visitorTeam.gameResult = "lose";
+                  gameWinner = dat.data.home_team.full_name;
                 } else {
-                  homeTeam.gameResult = "lose";
-                  visitorTeam.gameResult = "win";
+                  gameWinner = dat.data.visitor_team.full_name;
                 }
 
-                if (pick.selection === homeTeam.team) {
-                  homeTeam.selected = true;
-                } else {
-                  visitorTeam.selected = true;
-                }
+                selectionTeam = pick.selection;
 
-                results.push({ homeTeam: homeTeam, visitorTeam: visitorTeam });
+                results.push({
+                  homeTeam: homeTeam,
+                  visitorTeam: visitorTeam,
+                  gameWinner,
+                  selectionTeam
+                });
                 if (results.length == response[0].picks.length) {
                   console.log(results);
                   res.send(results);

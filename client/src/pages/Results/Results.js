@@ -66,7 +66,7 @@ class Results extends React.PureComponent {
         console.log(error);
       });
     axios.get('/results', { params: { name: localStorage.getItem('user'), date: today } }).then(response => {
-      console.log(response);
+      console.log(response.data[0]);
     });
     animate.set(this.container, { autoAlpha: 0 });
     // let code = window.location.href;
