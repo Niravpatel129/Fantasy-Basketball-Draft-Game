@@ -9,7 +9,6 @@ import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
 import InfoBox from '../../components/InfoBox/InfoBox';
 import LoginPrompt from '../../components/LoginPrompt/LoginPrompt';
-import GoogleAuth from '../../components/GoogleAuth';
 // import Axios from 'axios';
 let hash = '';
 
@@ -91,7 +90,6 @@ class Login extends React.PureComponent {
         <InfoBox />
         <LoginPrompt />
         <br />
-        <GoogleAuth />
       </section>
     );
   }
