@@ -12,16 +12,29 @@ import './Leaderboard.scss';
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
 import UserScore from '../../components/UserScore/UserScore';
+import LoadScreen from '../../components/LoadScreen/LoadScreen';
 
 class Leaderboard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {
+    response: 0,
+    users: []
+  };
 
   componentDidMount() {
     axios.get('/leaderboards').then(data => {
-      console.table(data.data);
+      data.data.map(user => {
+        this.setState({
+          users: [
+            ...this.state.users,
+            {
+              username: user.username,
+              score: user.pts,
+              avatar: user.avatar
+            }
+          ]
+        });
+      });
+      this.setState({ response: 1 });
     });
     animate.set(this.container, { autoAlpha: 0 });
   }
@@ -56,29 +69,26 @@ class Leaderboard extends React.PureComponent {
           <Redirect to="/login" />
         </div>
       );
-    } else
-      return (
-        <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-          <div className="leaderboardDisplay">
-            <h1>
-              <i class="trophy icon" />
-              Leaderboard
-            </h1>
-            <ol>
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-              <UserScore />
-            </ol>
-          </div>
-        </section>
-      );
+    } else {
+      console.log(this.state);
+      if (this.state.response) {
+        return (
+          <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
+            <div className="leaderboardDisplay">
+              <h1>
+                <i className="trophy icon" />
+                Leaderboard
+              </h1>
+              <ol>
+                <UserScore data={this.state} />
+              </ol>
+            </div>
+          </section>
+        );
+      } else {
+        return <LoadScreen />;
+      }
+    }
   }
 }
 

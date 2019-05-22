@@ -13,18 +13,29 @@ class UserScore extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {}
 
+  renderUsers = data => {
+    console.log('mapping');
+    return data.map(user => {
+      console.log(user.avatar);
+      return (
+        <li>
+          <mark>{user.username}</mark>
+          <small>{user.score}</small>
+          <img src={user.avatar} alt="avatar" />
+        </li>
+      );
+    });
+  };
+
   render() {
-    return (
-      <li className={classnames(`UserScore`, this.props.className)}>
-        <mark>Player Name</mark>
-        <small>Player Record</small>
-      </li>
-    );
+    const leaders = this.renderUsers(this.props.data.users);
+    return leaders;
   }
 }
 
 UserScore.propTypes = checkProps({
-  className: PropTypes.string
+  className: PropTypes.string,
+  data: PropTypes.object
 });
 
 UserScore.defaultProps = {};
