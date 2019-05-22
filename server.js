@@ -26,7 +26,8 @@ var personData = new mongoose.Schema({
       gameId: String,
       selection: String
     }
-  ]
+  ],
+  ScoredAlready: { type: Boolean, default: false }
 });
 
 var scoreData = new mongoose.Schema({
@@ -117,10 +118,10 @@ app.get('/results', (req, res) => {
   mongoose.set('useFindAndModify', false);
   // console.log(req.query);
   var results = [];
-
+  console.log(req.query.date);
   {
     User.find({ username: req.query.name, Date: req.query.date }, (err, response) => {
-      if (response.length > 0) {
+      if (response.length > 0 && !response[0].ScoredAlready) {
         response[0].picks.map(pick => {
           // console.log(pick.gameId);
           // console.log(pick.selection);
@@ -171,8 +172,8 @@ app.get('/results', (req, res) => {
             }
           });
         });
+        response[0].ScoredAlready = true;
       } else {
-        console.log('not found');
         res.send('no data for this date');
       }
     });
