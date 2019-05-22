@@ -129,7 +129,7 @@ app.get("/results", (req, res) => {
     User.find(
       { username: req.query.name, Date: req.query.date },
       (err, response) => {
-        if (response.length > 0 && !response[0].ScoredAlready) {
+        if (response.length > 0) {
           response[0].picks.map(pick => {
             // console.log(pick.gameId);
             // console.log(pick.selection);
