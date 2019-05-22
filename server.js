@@ -34,7 +34,8 @@ var personData = new mongoose.Schema({
 
 var scoreData = new mongoose.Schema({
   username: String,
-  score: Number
+  score: Number,
+  avatar: String
 });
 
 var Scores = mongoose.model("Scores", scoreData);
@@ -61,13 +62,15 @@ app.post("/logPicks", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+  console.log(req.query.avatar);
   Scores.find({ username: req.query.name }, (err, response) => {
     if (response.length > 0) {
       res.send("found");
     } else {
       var Score1 = new Scores({
         username: req.query.name,
-        score: 0
+        score: 0,
+        avatar: req.query.avatar
       });
 
       Score1.save();
@@ -81,10 +84,13 @@ app.get("/leaderboards", (req, res) => {
   var userScores = [];
   Scores.find({}, (err, response) => {
     response.map(data => {
-      let user = { username: data.username, score: data.score };
+      let user = {
+        username: data.username,
+        score: data.score,
+        avatar: data.avatar
+      };
       userScores.push(user);
     });
-    console.log(userScores);
     res.send(userScores);
   });
 });
