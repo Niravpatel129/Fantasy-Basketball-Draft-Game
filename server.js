@@ -105,7 +105,12 @@ app.get('/checkIfAlreadyPickedToday', (req, res) => {
 app.get('/games', (req, res) => {
   // console.log(req.query.product);	  console.log(req.query);
   let date = req.query.product;
-  gamesApi(date, date).then(data => res.send(data.data));
+  gamesApi(date, date)
+    .then(data => {
+      if (data.data.meta.total_count) res.send(data.data);
+      else res.send('no games today');
+    })
+    .catch(err => console.log(err));
 });
 
 app.get('/results', (req, res) => {
@@ -168,14 +173,13 @@ app.get('/results', (req, res) => {
         });
       } else {
         console.log('not found');
-        res.send('not found any data for this date');
+        res.send('no data for this date');
       }
     });
   }
 });
 
 app.get('/data', (req, res) => {
-  console.log('retrieving data');
   let team_id = req.query.team_id;
   prevGameApi(team_id)
     .then(data => {

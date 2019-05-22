@@ -14,7 +14,6 @@ class Indicator extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    console.log('indicator');
     return (
       <div className={classnames(`Indicator`, this.props.className)}>
         <li>

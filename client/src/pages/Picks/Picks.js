@@ -34,8 +34,8 @@ class Picks extends React.PureComponent {
   componentDidMount() {
     this.checkAuth();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
-    var startdate = today.join('-');
-    // var startdate = '2019-02-13';
+    // var startdate = today.join('-');
+    var startdate = '2019-02-15';
 
     // Make a request for a user with a given date
     axios
@@ -45,62 +45,67 @@ class Picks extends React.PureComponent {
         }
       })
       .then(res => {
-        const teams = res.data.data;
-        teams.map(game => {
-          this.setState({
-            date: startdate,
-            picks: [
-              ...this.state.picks,
-              {
-                gameId: game.id,
-                homeTeam: game.home_team.full_name,
-                homeTeamId: game.home_team.id,
-                awayTeam: game.visitor_team.full_name,
-                awayTeamId: game.visitor_team.id,
-                selection: ''
-              }
-            ]
+        console.log(res);
+        if (res.data === 'no games today') {
+          this.setState({ response: -1 });
+        } else {
+          const teams = res.data.data;
+          teams.map(game => {
+            this.setState({
+              date: startdate,
+              picks: [
+                ...this.state.picks,
+                {
+                  gameId: game.id,
+                  homeTeam: game.home_team.full_name,
+                  homeTeamId: game.home_team.id,
+                  awayTeam: game.visitor_team.full_name,
+                  awayTeamId: game.visitor_team.id,
+                  selection: ''
+                }
+              ]
+            });
+            return 0;
           });
-          return 0;
-        });
 
-        teams.map(game => {
-          axios
-            .get('/data', { params: { team_id: game.home_team.id } })
-            .then(res => {
-              if (res.data !== 'no current games') {
-                this.setState({
-                  stats: [
-                    ...this.state.stats,
-                    {
-                      teamId: game.home_team.id,
-                      playerStats: res.data
-                    }
-                  ]
-                });
-              }
-            })
-            .catch(err => console.log(err));
+          teams.map(game => {
+            axios
+              .get('/data', { params: { team_id: game.home_team.id } })
+              .then(res => {
+                if (res.data !== 'no current games') {
+                  this.setState({
+                    stats: [
+                      ...this.state.stats,
+                      {
+                        teamId: game.home_team.id,
+                        playerStats: res.data
+                      }
+                    ]
+                  });
+                }
+              })
+              .catch(err => console.log(err));
 
-          axios
-            .get('/data', { params: { team_id: game.visitor_team.id } })
-            .then(res => {
-              if (res.data !== 'no current games') {
-                this.setState({
-                  stats: [
-                    ...this.state.stats,
-                    {
-                      teamId: game.visitor_team.id,
-                      playerStats: res.data
-                    }
-                  ]
-                });
-              }
-              this.setState({ response: 1 });
-            })
-            .catch(err => console.log(err));
-          return 0;
-        });
+            axios
+              .get('/data', { params: { team_id: game.visitor_team.id } })
+              .then(res => {
+                if (res.data !== 'no current games') {
+                  this.setState({
+                    stats: [
+                      ...this.state.stats,
+                      {
+                        teamId: game.visitor_team.id,
+                        playerStats: res.data
+                      }
+                    ]
+                  });
+                }
+                this.setState({ response: 1 });
+              })
+              .catch(err => console.log(err));
+            return 0;
+          });
+        }
       })
       .catch(function(error) {
         // handle error
@@ -280,16 +285,17 @@ class Picks extends React.PureComponent {
               <Arrow className="right" onClick={this.nextPick} />
             </section>
           );
+        } else {
+          return (
+            <section
+              className={classnames('Picks', this.props.className)}
+              ref={el => (this.container = el)}
+              onKeyDown={this.onKeyPress}
+            >
+              <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
+            </section>
+          );
         }
-        return (
-          <section
-            className={classnames('Picks', this.props.className)}
-            ref={el => (this.container = el)}
-            onKeyDown={this.onKeyPress}
-          >
-            <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
-          </section>
-        );
       } else {
         return <LoadScreen />;
       }

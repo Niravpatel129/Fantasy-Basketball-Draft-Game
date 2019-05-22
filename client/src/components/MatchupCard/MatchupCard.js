@@ -26,7 +26,7 @@ class MatchupCard extends React.PureComponent {
 
   render() {
     //wait until the api has responded
-    if (this.state.gameInfo.response) {
+    if (this.state.gameInfo.response === 1) {
       const teams = this.state.gameInfo.picks[this.props.gameInfo.currentPickIndex];
 
       //determine whether a card has been selected for styling
@@ -84,7 +84,7 @@ class MatchupCard extends React.PureComponent {
         </div>
       );
     }
-    return <div />;
+    return <div className="noData">There are no games being played today</div>;
   }
 }
 

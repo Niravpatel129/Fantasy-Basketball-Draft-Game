@@ -4,10 +4,6 @@
   .ui.segment {
     margin-top: 150px;
   }
-
-  .input {
-    padding: 15px;
-  }
 }
 .teamAssign {
   display: inline-block;
@@ -16,6 +12,12 @@
 
 .teamTag {
   font-family: 'Rajdhani', sans-serif;
+}
+
+.noData {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 40px;
+  margin-top: 100px;
 }
 
 .carousel__indicators {

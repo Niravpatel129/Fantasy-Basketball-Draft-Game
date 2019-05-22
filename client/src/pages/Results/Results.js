@@ -43,7 +43,7 @@ class Results extends React.PureComponent {
 
   getResults = date => {
     axios.get('/results', { params: { name: localStorage.getItem('user'), date: date } }).then(response => {
-      if (response.data !== 'not found any data for this date') {
+      if (response.data !== 'no data for this date') {
         const scores = response.data;
         scores.map(game => {
           this.setState({
