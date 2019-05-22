@@ -18,6 +18,7 @@ class Picks extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: true,
       alreadyPicked: false,
       authCode: '',
       access_token: '',
@@ -60,6 +61,7 @@ class Picks extends React.PureComponent {
               }
             ]
           });
+          return 0;
         });
 
         teams.map(game => {
@@ -83,7 +85,7 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.visitor_team.id } })
             .then(res => {
-              if (res.data != 'no current games') {
+              if (res.data !== 'no current games') {
                 this.setState({
                   stats: [
                     ...this.state.stats,
@@ -97,6 +99,7 @@ class Picks extends React.PureComponent {
               this.setState({ response: 1 });
             })
             .catch(err => console.log(err));
+          return 0;
         });
       })
       .catch(function(error) {
@@ -116,9 +119,7 @@ class Picks extends React.PureComponent {
           avatar: this.state.user.avatar
         }
       })
-      .then(res => {
-        console.log(res);
-      });
+      .then(res => {});
 
     // axios
     //   .get('https://slack.com/api/users.profile.get?token=' + localStorage.getItem('token') + '&scope=identify.avatar')
@@ -191,14 +192,13 @@ class Picks extends React.PureComponent {
             '&scope=identify.avatar'
         )
         .then(res => {
-          console.log(res);
           if (res.data.error) {
             console.log(res.data.error);
+            this.setState({ loggedIn: false });
           } else {
             this.setState({ access_token: res.data.access_token });
             localStorage.setItem('token', res.data.access_token);
             axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
-              console.log(res.data.user.image_1024);
               this.setState({
                 user: {
                   email: res.data.user.email,
@@ -216,8 +216,6 @@ class Picks extends React.PureComponent {
       axios
         .get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token') + '&scope=identify.avatar')
         .then(res => {
-          console.log(res.data.user.image_1024);
-
           this.setState({
             user: {
               email: res.data.user.email,
@@ -245,7 +243,7 @@ class Picks extends React.PureComponent {
       .then(response => {
         if (response.data === 'found') {
           this.setState({ alreadyPicked: true });
-          alert('You already picked, redirecting to the results page!');
+          console.log('Pick invalid already picked');
         } else {
           axios.post('/logPicks', {
             logPicks: this.state
@@ -264,35 +262,39 @@ class Picks extends React.PureComponent {
   };
 
   render() {
-    if (this.state.alreadyPicked) {
-      return <Redirect to="/results" />;
-    }
-    if (this.state.access_token && this.state.response) {
-      if (this.state.picks.length > 1) {
+    if (this.state.loggedIn) {
+      if (this.state.alreadyPicked) {
+        return <Redirect to="/results" />;
+      }
+      if (this.state.access_token && this.state.response) {
+        if (this.state.picks.length > 1) {
+          return (
+            <section
+              className={classnames('Picks', this.props.className)}
+              ref={el => (this.container = el)}
+              onKeyDown={this.onKeyPress}
+              tabIndex="0"
+            >
+              <Arrow className="left" onClick={this.prevPick} />
+              <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
+              <Arrow className="right" onClick={this.nextPick} />
+            </section>
+          );
+        }
         return (
           <section
             className={classnames('Picks', this.props.className)}
             ref={el => (this.container = el)}
             onKeyDown={this.onKeyPress}
-            tabIndex="0"
           >
-            <Arrow className="left" onClick={this.prevPick} />
-            <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
-            <Arrow className="right" onClick={this.nextPick} />
+            <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
           </section>
         );
+      } else {
+        return <LoadScreen />;
       }
-      return (
-        <section
-          className={classnames('Picks', this.props.className)}
-          ref={el => (this.container = el)}
-          onKeyDown={this.onKeyPress}
-        >
-          <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
-        </section>
-      );
     } else {
-      return <LoadScreen />;
+      return <Redirect to="/results" />;
     }
   }
 }

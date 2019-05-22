@@ -18,7 +18,8 @@ class Indicator extends React.PureComponent {
     return (
       <div className={classnames(`Indicator`, this.props.className)}>
         <li>
-          <a
+          <div
+            href="/"
             className={
               this.props.index === this.props.activeIndex
                 ? 'carousel__indicator carousel__indicator--active'
