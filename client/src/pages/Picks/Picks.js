@@ -210,6 +210,10 @@ class Picks extends React.PureComponent {
               localStorage.setItem('user', this.state.user.name);
             });
           }
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({ loggedIn: false });
         });
     } else {
       this.setState({ access_token: localStorage.getItem('token') });
