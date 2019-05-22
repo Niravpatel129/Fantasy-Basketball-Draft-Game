@@ -17,6 +17,7 @@
   }
   // background-color: wheat;
   background-image: url('../../src/assets/images/background-image.png');
+  background-repeat: repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -27,6 +28,9 @@
     @include z-index(main-nav);
     color: $white;
     background-image: url('../../src/assets/images/background-image.png');
+    background-repeat: repeat;
+    background-size: 2000px auto;
+
     border-bottom: 3px solid rgba($white, 1);
     font-family: 'Rajdhani', sans-serif;
 

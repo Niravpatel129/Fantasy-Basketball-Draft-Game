@@ -60,6 +60,7 @@ class Picks extends React.PureComponent {
               }
             ]
           });
+          return 0;
         });
 
         teams.map(game => {
@@ -83,7 +84,7 @@ class Picks extends React.PureComponent {
           axios
             .get('/data', { params: { team_id: game.visitor_team.id } })
             .then(res => {
-              if (res.data != 'no current games') {
+              if (res.data !== 'no current games') {
                 this.setState({
                   stats: [
                     ...this.state.stats,
@@ -97,6 +98,7 @@ class Picks extends React.PureComponent {
               this.setState({ response: 1 });
             })
             .catch(err => console.log(err));
+          return 0;
         });
       })
       .catch(function(error) {
@@ -245,7 +247,7 @@ class Picks extends React.PureComponent {
       .then(response => {
         if (response.data === 'found') {
           this.setState({ alreadyPicked: true });
-          alert('You already picked, redirecting to the results page!');
+          console.log('Pick invalid already picked');
         } else {
           axios.post('/logPicks', {
             logPicks: this.state

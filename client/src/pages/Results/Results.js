@@ -43,7 +43,7 @@ class Results extends React.PureComponent {
 
   getResults = date => {
     axios.get('/results', { params: { name: localStorage.getItem('user'), date: date } }).then(response => {
-      if (response.data != 'not found any data for this date') {
+      if (response.data !== 'not found any data for this date') {
         const scores = response.data;
         scores.map(game => {
           this.setState({
@@ -101,6 +101,8 @@ class Results extends React.PureComponent {
   };
 
   render() {
+    console.log(this.state.response);
+
     if (!localStorage.getItem('token')) {
       return (
         <div>
@@ -109,19 +111,23 @@ class Results extends React.PureComponent {
         </div>
       );
     } else {
-      return (
-        <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-          <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
-          <div className="teamCard">
-            <div className="teamAssign">
-              <h2 className="teamTag">HOME</h2>
-              <h2 className="teamTag">AWAY</h2>
+      if (this.state.response === 1) {
+        return (
+          <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
+            <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
+            <div className="teamCard">
+              <div className="teamAssign">
+                <h2 className="teamTag">HOME</h2>
+                <h2 className="teamTag">AWAY</h2>
+              </div>
+              <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
             </div>
-            <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
-          </div>
-          <h2 className="teamTag scroll">scroll to see more results</h2>
-        </section>
-      );
+            <h2 className="teamTag scroll">scroll to see more results</h2>
+          </section>
+        );
+      } else {
+        return <h1>no results</h1>;
+      }
     }
   }
 }
