@@ -187,14 +187,13 @@ app.get("/results", (req, res) => {
                 }
               });
           });
-          var conditions = { username: req.query.name };
-          User.findOneAndUpdate(
-            { username: req.query.name, date: req.body.date },
-            { $set: { ScoredAlready: true } },
-            (err, res) => {
-              console.log(req.query.name, "has scoredAlready");
-            }
-          );
+          // User.findOneAndUpdate(
+          //   { username: req.query.name, date: req.body.date },
+          //   { $set: { ScoredAlready: true } },
+          //   (err, res) => {
+          //     console.log(req.query.name, "has scoredAlready");
+          //   }
+          // );
         } else {
           res.send("no data for this date");
         }
