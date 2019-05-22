@@ -25,7 +25,8 @@ class Picks extends React.PureComponent {
       date: '',
       picks: [],
       stats: [],
-      currentPickIndex: 0
+      currentPickIndex: 0,
+      userAvatar: ''
     };
   }
 
@@ -108,7 +109,6 @@ class Picks extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    console.log(this.state);
     axios
       .get('/login', {
         params: {
@@ -118,7 +118,12 @@ class Picks extends React.PureComponent {
       .then(res => {
         console.log(res);
       });
+
+    axios.get('https://slack.com/api/users.profile?token=' + localStorage.getItem('token')).then(res => {
+      console.log(res);
+    });
   }
+
   onAppear = () => {
     this.animateIn();
   };
@@ -196,7 +201,6 @@ class Picks extends React.PureComponent {
                 }
               });
               localStorage.setItem('user', this.state.user.name);
-              console.log(this.state.user.name + ' has logged in.');
             });
           }
         });
@@ -211,8 +215,6 @@ class Picks extends React.PureComponent {
           }
         });
         localStorage.setItem('user', this.state.user.name);
-        console.log(localStorage.getItem('user'));
-        console.log(this.state.user.name + ' is already logged in.');
       });
     }
   };
@@ -242,7 +244,6 @@ class Picks extends React.PureComponent {
   };
 
   onKeyPress = event => {
-    console.log('arrow pressed');
     if (event.keyCode === 37) {
       this.prevPick();
     } else if (event.keyCode === 39) {
