@@ -11,6 +11,7 @@ import './Leaderboard.scss';
 
 import Transition from '../PagesTransitionWrapper';
 import animate from '../../util/gsap-animate';
+import UserScore from '../../components/UserScore/UserScore';
 
 class Leaderboard extends React.PureComponent {
   constructor(props) {
@@ -58,25 +59,15 @@ class Leaderboard extends React.PureComponent {
     } else
       return (
         <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-          <table>
-            <thead>
+          <table className="leaderboardDisplay">
+            <thead className="label">
               <tr>
                 <th>Players</th>
                 <th>Record</th>
-                <th>Last Result</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>filler</td>
-                <td>filler</td>
-                <td>filler</td>
-              </tr>
-              <tr>
-                <td>filler</td>
-                <td>filler</td>
-                <td>filler</td>
-              </tr>
+              <UserScore />
             </tbody>
           </table>
         </section>

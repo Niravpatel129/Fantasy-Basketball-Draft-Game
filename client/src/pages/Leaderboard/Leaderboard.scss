@@ -7,4 +7,16 @@
     margin: 0 auto;
     width: 60%;
   }
+
+  .leaderboardDisplay {
+    font-family: 'Rajdhani', sans-serif;
+    overflow: auto;
+    margin: 50px auto;
+  }
+
+  .label {
+    font-size: 30px;
+    text-decoration: underline;
+    margin: 20px;
+  }
 }
