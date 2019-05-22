@@ -9,8 +9,10 @@
     border-radius: 10px;
     box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
     background-color: rgba(88, 102, 116, 0.5);
+    font-family: 'Rajdhani', sans-serif;
 
     h1 {
+      font-family: 'Rajdhani', sans-serif;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       margin: 0;
@@ -58,10 +60,8 @@
           height: 30px;
           width: 30px;
           border-radius: 25%;
-          position: absolute;
+          position: relative;
           text-align: right;
-          top: 0;
-          right: 50;
         }
 
         mark {

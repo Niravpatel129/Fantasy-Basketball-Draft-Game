@@ -1,11 +1,11 @@
 {
   "default": {
-    "title": "Jam3 App",
+    "title": "Fantasy Picker",
     "description": "Default description",
     "keywords": "Jam3,web App,React",
     "og:image": "https://jam3.com/static/media/share.jpg",
     "og:url": "https://generator.jam3.net",
-    "og:site_name": "Jam3",
+    "og:site_name": "Fantasy Picker",
     "twitter:image": "https://jam3.com/static/media/share.jpg",
     "twitter:site": "@jam3",
     "twitter:creator": "@jam3"

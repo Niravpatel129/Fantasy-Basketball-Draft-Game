@@ -1,6 +1,11 @@
 @import 'src/style/shared.scss';
 
 .Results {
+  .error {
+    margin-top: 100px;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
   .teamCard {
     height: 570px;
     overflow: auto;

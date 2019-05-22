@@ -126,7 +126,12 @@ class Results extends React.PureComponent {
           </section>
         );
       } else {
-        return <h1>no results</h1>;
+        return (
+          <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
+            <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
+            <h2 className="teamTag error">There are no picks for the selected date</h2>
+          </section>
+        );
       }
     }
   }
