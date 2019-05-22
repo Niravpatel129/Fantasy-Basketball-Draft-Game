@@ -34,8 +34,8 @@ class Picks extends React.PureComponent {
   componentDidMount() {
     this.checkAuth();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
-    // var startdate = today.join('-');
-    var startdate = '2019-02-15';
+    var startdate = today.join('-');
+    // var startdate = '2019-02-23';
 
     // Make a request for a user with a given date
     axios
@@ -215,6 +215,10 @@ class Picks extends React.PureComponent {
               localStorage.setItem('user', this.state.user.name);
             });
           }
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({ loggedIn: false });
         });
     } else {
       this.setState({ access_token: localStorage.getItem('token') });
