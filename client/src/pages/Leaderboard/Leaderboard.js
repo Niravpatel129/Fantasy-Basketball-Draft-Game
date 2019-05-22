@@ -21,7 +21,7 @@ class Leaderboard extends React.PureComponent {
 
   componentDidMount() {
     axios.get('/leaderboards').then(data => {
-      console.log(data);
+      console.table(data.data);
     });
     animate.set(this.container, { autoAlpha: 0 });
   }
