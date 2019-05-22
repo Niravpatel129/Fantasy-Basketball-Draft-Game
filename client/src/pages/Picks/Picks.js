@@ -107,6 +107,18 @@ class Picks extends React.PureComponent {
     // let code = window.location.href;
   }
 
+  componentWillUnmount() {
+    console.log(this.state);
+    axios
+      .get('/login', {
+        params: {
+          name: this.state.user.name
+        }
+      })
+      .then(res => {
+        console.log(res);
+      });
+  }
   onAppear = () => {
     this.animateIn();
   };

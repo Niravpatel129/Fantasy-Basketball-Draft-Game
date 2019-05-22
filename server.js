@@ -56,32 +56,37 @@ app.post("/logPicks", (req, res) => {
     picks: picks
   });
 
-  var Score1 = new Scores({
-    username: req.body.logPicks.user.name,
-    score: 0
-  });
-
-  Score1.save();
   Person1.save();
   console.log("saved");
 });
 
+app.get("/login", (req, res) => {
+  Scores.find({ username: req.query.name }, (err, response) => {
+    if (response.length > 0) {
+      res.send("found");
+    } else {
+      var Score1 = new Scores({
+        username: req.query.name,
+        score: 0
+      });
+
+      Score1.save();
+      console.log("users score data has saved");
+    }
+  });
+});
+
 //leaderboards
 app.get("/leaderboards", (req, res) => {
-  var leaderboards = [];
-  User.find({}, function(err, docs) {
-    docs.map(data => {
-      var points = data.Points;
-      for (var i = 0; i < leaderboards.length; i++) {
-        if (docs[i].username == data.username) {
-          console.log(docs[i].username, data.username);
-        }
-      }
-      var user = { username: data.username, points: points };
-      leaderboards.push(user);
+  var userScores = [];
+  Scores.find({}, (err, response) => {
+    response.map(data => {
+      let user = { username: data.username, score: data.score };
+      userScores.push(user);
     });
+    console.log(userScores);
+    res.send(userScores);
   });
-  console.log(leaderboards);
 });
 
 app.get("/checkIfAlreadyPickedToday", (req, res) => {
