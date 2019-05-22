@@ -111,23 +111,19 @@ class Results extends React.PureComponent {
         </div>
       );
     } else {
-      if (this.state.response === 1) {
-        return (
-          <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
-            <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
-            <div className="teamCard">
-              <div className="teamAssign">
-                <h2 className="teamTag">HOME</h2>
-                <h2 className="teamTag">AWAY</h2>
-              </div>
-              <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
+      return (
+        <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
+          <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
+          <div className="teamCard">
+            <div className="teamAssign">
+              <h2 className="teamTag">HOME</h2>
+              <h2 className="teamTag">AWAY</h2>
             </div>
-            <h2 className="teamTag scroll">scroll to see more results</h2>
-          </section>
-        );
-      } else {
-        return <h1>no results</h1>;
-      }
+            <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
+          </div>
+          <h2 className="teamTag scroll">scroll to see more results</h2>
+        </section>
+      );
     }
   }
 }
