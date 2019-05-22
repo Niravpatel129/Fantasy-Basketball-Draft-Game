@@ -9,7 +9,7 @@
   }
 
   .nav-list .nav-item a {
-    color: $white;
+    color: white;
   }
 
   .PageOverlay {
@@ -47,8 +47,9 @@
     @include z-index(sidebar);
     height: calc(100% - #{$navbar-height-mobile});
     border-left: none;
-    color: $white;
+    color: #1d1c38;
     font-family: 'Rajdhani', sans-serif;
+    background-color: #0d101c;
 
     @media (min-width: $layout-medium) {
       max-width: px-to-rem(300);

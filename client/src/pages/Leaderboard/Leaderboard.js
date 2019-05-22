@@ -59,17 +59,24 @@ class Leaderboard extends React.PureComponent {
     } else
       return (
         <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-          <table className="leaderboardDisplay">
-            <thead className="label">
-              <tr>
-                <th>Players</th>
-                <th>Record</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div className="leaderboardDisplay">
+            <h1>
+              <i class="trophy icon" />
+              Leaderboard
+            </h1>
+            <ol>
               <UserScore />
-            </tbody>
-          </table>
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+              <UserScore />
+            </ol>
+          </div>
         </section>
       );
   }

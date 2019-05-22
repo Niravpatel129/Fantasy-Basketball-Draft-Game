@@ -1,4 +1,8 @@
 @import 'src/style/shared.scss';
 
 .Results {
+  .teamCard {
+    height: 570px;
+    overflow: auto;
+  }
 }

@@ -15,10 +15,10 @@ class UserScore extends React.PureComponent {
 
   render() {
     return (
-      <tr className={classnames(`UserScore`, this.props.className)}>
-        <th>Player Name</th>
-        <th>Player Record</th>
-      </tr>
+      <li className={classnames(`UserScore`, this.props.className)}>
+        <mark>Player Name</mark>
+        <small>Player Record</small>
+      </li>
     );
   }
 }
