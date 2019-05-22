@@ -25,7 +25,8 @@ class Picks extends React.PureComponent {
       date: '',
       picks: [],
       stats: [],
-      currentPickIndex: 0
+      currentPickIndex: 0,
+      avatar: ''
     };
   }
 
@@ -108,17 +109,24 @@ class Picks extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    console.log(this.state);
     axios
       .get('/login', {
         params: {
-          name: this.state.user.name
+          name: this.state.user.name,
+          avatar: this.state.user.avatar
         }
       })
       .then(res => {
         console.log(res);
       });
+
+    // axios
+    //   .get('https://slack.com/api/users.profile.get?token=' + localStorage.getItem('token') + '&scope=identify.avatar')
+    //   .then(res => {
+    //     console.log('AVATAR info:', res);
+    //   });
   }
+
   onAppear = () => {
     this.animateIn();
   };
@@ -179,41 +187,47 @@ class Picks extends React.PureComponent {
       axios
         .get(
           'https://slack.com/api/oauth.access?client_id=2222937506.634323100293&client_secret=526319ccf98aac5aa4f81a31a8e4a4fd&code=' +
-            code
+            code +
+            '&scope=identify.avatar'
         )
         .then(res => {
+          console.log(res);
           if (res.data.error) {
             console.log(res.data.error);
           } else {
             this.setState({ access_token: res.data.access_token });
             localStorage.setItem('token', res.data.access_token);
             axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
+              console.log(res.data.user.image_1024);
               this.setState({
                 user: {
                   email: res.data.user.email,
                   id: res.data.user.id,
-                  name: res.data.user.name
+                  name: res.data.user.name,
+                  avatar: res.data.user.image_1024
                 }
               });
               localStorage.setItem('user', this.state.user.name);
-              console.log(this.state.user.name + ' has logged in.');
             });
           }
         });
     } else {
       this.setState({ access_token: localStorage.getItem('token') });
-      axios.get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token')).then(res => {
-        this.setState({
-          user: {
-            email: res.data.user.email,
-            id: res.data.user.id,
-            name: res.data.user.name
-          }
+      axios
+        .get('https://slack.com/api/users.identity?token=' + localStorage.getItem('token') + '&scope=identify.avatar')
+        .then(res => {
+          console.log(res.data.user.image_1024);
+
+          this.setState({
+            user: {
+              email: res.data.user.email,
+              id: res.data.user.id,
+              name: res.data.user.name,
+              avatar: res.data.user.image_1024
+            }
+          });
+          localStorage.setItem('user', this.state.user.name);
         });
-        localStorage.setItem('user', this.state.user.name);
-        console.log(localStorage.getItem('user'));
-        console.log(this.state.user.name + ' is already logged in.');
-      });
     }
   };
 
@@ -242,7 +256,6 @@ class Picks extends React.PureComponent {
   };
 
   onKeyPress = event => {
-    console.log('arrow pressed');
     if (event.keyCode === 37) {
       this.prevPick();
     } else if (event.keyCode === 39) {
