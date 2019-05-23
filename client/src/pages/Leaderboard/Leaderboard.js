@@ -73,14 +73,16 @@ class Leaderboard extends React.PureComponent {
       if (this.state.response) {
         return (
           <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>
-            <div className="leaderboardDisplay">
-              <h1>
-                <i className="trophy icon" />
-                Leaderboard
-              </h1>
-              <ol>
-                <UserScore data={this.state} />
-              </ol>
+            <div className="holder">
+              <div className="leaderboardDisplay">
+                <h1>
+                  <i className="trophy icon" />
+                  Leaderboard
+                </h1>
+                <ol>
+                  <UserScore data={this.state} />
+                </ol>
+              </div>
             </div>
           </section>
         );

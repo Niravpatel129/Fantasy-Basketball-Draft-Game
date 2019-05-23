@@ -33,9 +33,17 @@ class Picks extends React.PureComponent {
 
   componentDidMount() {
     this.checkAuth();
-    var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
+    var date = new Date();
+    var lastDate = new Date();
+    lastDate.setDate(date.getDate() - 1);
+    console.log(lastDate.getDate());
+    var today = [pad(date.getFullYear(), 4), pad(date.getMonth() + 1, 2), pad(date.getDate(), 2)];
+    var yesterday = [pad(lastDate.getFullYear(), 4), pad(lastDate.getMonth() + 1, 2), pad(lastDate.getDate(), 2)];
+    console.log(today, yesterday);
     // var startdate = today.join('-');
+    // var enddate = yesterday.join('-')
     var startdate = '2019-02-13';
+    var enddate = '2019-02-12';
 
     // Make a request for a user with a given date
     axios
@@ -45,7 +53,6 @@ class Picks extends React.PureComponent {
         }
       })
       .then(res => {
-        console.log(res);
         if (res.data === 'no games today') {
           this.setState({ response: -1 });
         } else {
@@ -70,8 +77,9 @@ class Picks extends React.PureComponent {
 
           teams.map(game => {
             axios
-              .get('/data', { params: { team_id: game.home_team.id } })
+              .get('/data', { params: { team_id: game.home_team.id, date: enddate } })
               .then(res => {
+                console.log(res);
                 if (res.data !== 'no current games') {
                   this.setState({
                     stats: [
@@ -87,7 +95,7 @@ class Picks extends React.PureComponent {
               .catch(err => console.log('idealy do something with the .catch error here'));
 
             axios
-              .get('/data', { params: { team_id: game.visitor_team.id } })
+              .get('/data', { params: { team_id: game.visitor_team.id, date: enddate } })
               .then(res => {
                 if (res.data !== 'no current games') {
                   this.setState({
@@ -116,19 +124,7 @@ class Picks extends React.PureComponent {
     // let code = window.location.href;
   }
 
-  componentWillUnmount() {
-    // axios
-    //   .get('/login', {
-    //     params: {
-    //       name: this.state.user.name,
-    //       avatar: this.state.user.avatar
-    //     }
-    //   })
-    //   .then(res => {})
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  }
+  componentWillUnmount() {}
 
   onAppear = () => {
     this.animateIn();
@@ -286,7 +282,7 @@ class Picks extends React.PureComponent {
   };
 
   goToSlide = index => {
-    console.log('clicked');
+    console.log('index');
     this.setState({
       currentPickIndex: index
     });
@@ -323,7 +319,12 @@ class Picks extends React.PureComponent {
               ref={el => (this.container = el)}
               onKeyDown={this.onKeyPress}
             >
-              <MatchupCard gameInfo={this.state} onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} />
+              <MatchupCard
+                gameInfo={this.state}
+                onVote={this.onCastVoteEvent}
+                onSubmit={this.onSubmitPicksEvent}
+                goToSlide={this.goToSlide}
+              />
             </section>
           );
         }

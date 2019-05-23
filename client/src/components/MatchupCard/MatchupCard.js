@@ -10,7 +10,6 @@ import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import Date from '../Date/Date';
 import Indicator from '../Indicator/Indicator';
-import Arrow from '../../components/Arrow/Arrow';
 
 class MatchupCard extends React.PureComponent {
   state = {

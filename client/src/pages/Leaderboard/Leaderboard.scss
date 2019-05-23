@@ -1,11 +1,17 @@
 @import 'src/style/shared.scss';
 
 .Leaderboard {
+  .holder {
+    display: inline-block;
+    width: 700px;
+    height: 800px;
+    overflow: auto;
+    margin: 60px;
+  }
   .leaderboardDisplay {
     display: inline-block;
-    margin-top: 60px;
     width: 350px;
-    height: 800px;
+    height: auto;
     border-radius: 10px;
     box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
     background-color: rgba(88, 102, 116, 0.5);
