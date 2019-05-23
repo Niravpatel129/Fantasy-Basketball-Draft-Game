@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import classnames from 'classnames';
+import { TransitionGroup } from 'react-transition-group';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import './Landing.scss';
-// import { TweenLite } from 'gsap';
+import { TweenMax } from 'gsap';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
@@ -15,7 +16,22 @@ import GameButton from '../../components/GameButton/GameButton';
 
 class Landing extends React.PureComponent {
   componentDidMount() {
-    console.log('landing page');
+    TweenMax.to('#myID', 1, {
+      scaleX: 1.2,
+      scaleY: 1.2,
+      glowFilter: { color: 0x91e600, alpha: 1, blurX: 50, blurY: 50 },
+      repeat: -1,
+      yoyo: true
+    });
+
+    TweenMax.to('#gamebutton', 1, {
+      scaleX: 1.01,
+      scaleY: 1.01,
+      glowFilter: { color: 0x91e600, alpha: 2, blurX: 50, blurY: 50 },
+      repeat: -1,
+      yoyo: true
+    });
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     animate.set(this.container, { autoAlpha: 0 });
@@ -54,10 +70,15 @@ class Landing extends React.PureComponent {
     return (
       <section className="Landing-resources">
         <Titletext title="FANTASY BASKETBALL PICKER" />
-        <GameButton />
-        <Arrow />
-        <Arrow />
-        <Arrow />
+        <TransitionGroup>
+          <GameButton key="game-button" id="gamebutton" />
+          {/* <div id="myID">Hello!</div> */}
+          <div id="myID">
+            <Arrow />
+            <Arrow />
+            <Arrow />
+          </div>
+        </TransitionGroup>
       </section>
     );
   }
