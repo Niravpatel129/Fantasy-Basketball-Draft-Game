@@ -5,12 +5,7 @@
 
   .ui.card {
     background-color: rgba(255, 255, 255, 0.3);
-    width: 400px;
-  }
-
-  .ui.card.active {
-    background-color: rgba(25, 31, 51, 0.8);
-    width: 400px;
+    width: 300px;
   }
 
   .ui.card .content .header {
@@ -22,7 +17,25 @@
     background: transparent;
     border: 0.5px solid rgba(255, 255, 255, 0.6);
   }
+
+  @media screen and (min-width: 1024px) {
+    .ui.card {
+      background-color: rgba(255, 255, 255, 0.3);
+      width: 400px;
+    }
+
+    .ui.card .content .header {
+      color: $white;
+      font-family: 'Rajdhani', sans-serif;
+    }
+    .ui.button {
+      color: $white;
+      background: transparent;
+      border: 0.5px solid rgba(255, 255, 255, 0.6);
+    }
+  }
 }
+
 .teamSelected {
   border: 3px solid $white;
   border-radius: 0.28571429rem;

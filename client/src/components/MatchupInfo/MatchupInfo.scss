@@ -3,11 +3,7 @@
 .MatchupInfo {
   .ui.card {
     background-color: rgba(255, 255, 255, 0.3);
-    width: 400px;
-  }
-  .ui.card.active {
-    background-color: rgba(25, 31, 51, 0.8);
-    width: 400px;
+    width: 300px;
   }
 
   .ui.card .content .header {
@@ -24,7 +20,6 @@
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: transparent;
-    // width: 250px;
   }
 
   .ui.table td {
@@ -36,7 +31,49 @@
     color: white;
     font-weight: bold;
     background: transparent;
-    column-width: 100px;
+    column-width: 75px;
     column-gap: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .ui.card {
+      background-color: rgba(255, 255, 255, 0.3);
+      width: 400px;
+      height: auto;
+    }
+    .ui.card.active {
+      background-color: rgba(25, 31, 51, 0.8);
+      width: 400px;
+    }
+
+    .ui.card .content .header {
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+    }
+    .ui.meta {
+      color: $white;
+      background: transparent;
+    }
+    .ui.celled.table {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      // width: 250px;
+    }
+
+    .ui.table td {
+      table-layout: fixed;
+      background: transparent;
+      column-width: 100px;
+    }
+    .ui.table th {
+      color: white;
+      font-weight: bold;
+      background: transparent;
+      column-width: 100px;
+      column-gap: 0;
+    }
   }
 }

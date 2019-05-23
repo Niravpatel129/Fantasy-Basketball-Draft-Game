@@ -2,8 +2,11 @@
 
 .Titletext {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 60px;
-  padding-top: 100px;
-  padding-bottom: 80px;
+  font-size: 30px;
+  padding: 100px 10px 50px 10px;
   font-weight: 300;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 60px;
+  }
 }

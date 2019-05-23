@@ -115,11 +115,17 @@ class Results extends React.PureComponent {
         return (
           <section className={classnames('Results', this.props.className)} ref={el => (this.container = el)}>
             <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
+            <div className="headings">
+              <h2 className="" id="home">
+                HOME
+              </h2>
+              <h2 className="" id="away">
+                AWAY
+              </h2>
+              <br />
+            </div>
+
             <div className="teamCard">
-              <div className="teamAssign">
-                <h2 className="teamTag">HOME</h2>
-                <h2 className="teamTag">AWAY</h2>
-              </div>
               <ResultCard gameInfo={this.state} onSubmit={this.onDateChange} />
             </div>
             <h2 className="teamTag scroll">scroll to see more results</h2>

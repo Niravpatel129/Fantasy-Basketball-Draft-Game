@@ -20,7 +20,7 @@ class ResultsTeamCard extends React.PureComponent {
           <div className="content">
             <div className="header">{this.props.teamName}</div>
           </div>
-          <div>
+          <div className="points">
             <i className="spinner icon" />
             {this.props.score + ' pts'}
           </div>

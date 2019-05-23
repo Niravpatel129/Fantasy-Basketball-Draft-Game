@@ -16,11 +16,13 @@ class MatchupInfo extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
+    let team = this.props.teamName.split(' ');
+    console.log(team[team.length - 1]);
     return (
       <div className={classnames(`MatchupInfo`, this.props.className)}>
         <div className="ui card">
           <div className="content">
-            <div className="header">{this.props.teamName} Top Performers</div>
+            <div className="header">{team[team.length - 1]}'s Top Players</div>
             <table className="ui celled table">
               <thead>
                 <tr>

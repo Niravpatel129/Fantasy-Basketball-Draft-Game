@@ -4,22 +4,25 @@
   .ui.segment {
     margin-top: 150px;
   }
-}
-.teamAssign {
-  display: inline-block;
-  margin: 10px;
-}
 
-.teamTag {
-  font-family: 'Rajdhani', sans-serif;
-}
+  .teamAssign {
+    display: inline-block;
+    margin: 10px;
+  }
 
-.noData {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 40px;
-  margin-top: 100px;
-}
+  .teamTag {
+    font-family: 'Rajdhani', sans-serif;
+  }
 
+  .noData {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 40px;
+    margin-top: 100px;
+  }
+
+  @media screen and (max-width: 411px) {
+  }
+}
 .carousel__indicators {
   display: flex;
   flex-direction: row;
