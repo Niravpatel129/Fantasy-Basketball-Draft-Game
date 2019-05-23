@@ -122,17 +122,13 @@ app.get("/games", (req, res) => {
 
 app.get("/results", (req, res) => {
   mongoose.set("useFindAndModify", false);
-  // console.log(req.query);
   var results = [];
-  console.log(req.query.date);
   {
     User.find(
       { username: req.query.name, Date: req.query.date },
       (err, response) => {
         if (response.length > 0) {
           response[0].picks.map(pick => {
-            // console.log(pick.gameId);
-            // console.log(pick.selection);
             axios
               .get("https://www.balldontlie.io/api/v1/games/" + pick.gameId)
               .then(dat => {
@@ -170,30 +166,28 @@ app.get("/results", (req, res) => {
                   gameWinner,
                   selectionTeam
                 });
-                if (selectionTeam == gameWinner) {
+                if (selectionTeam == gameWinner && !response[0].ScoredAlready) {
                   Scores.findOneAndUpdate(
                     { username: req.query.name },
                     { $inc: { score: 100 } },
                     (err, res) => {
                       console.log("updated point for user:", req.query.name);
-                      console.log(err);
                     }
                   );
                 }
 
                 if (results.length == response[0].picks.length) {
-                  // console.log(results);
                   res.send(results);
                 }
               });
           });
-          // User.findOneAndUpdate(
-          //   { username: req.query.name, date: req.body.date },
-          //   { $set: { ScoredAlready: true } },
-          //   (err, res) => {
-          //     console.log(req.query.name, "has scoredAlready");
-          //   }
-          // );
+          User.findOneAndUpdate(
+            { username: req.query.name, date: req.body.date },
+            { $set: { ScoredAlready: true } },
+            (err, res) => {
+              console.log(req.query.name, "has scoredAlready");
+            }
+          );
         } else {
           res.send("no data for this date");
         }
