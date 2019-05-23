@@ -291,6 +291,7 @@ class Picks extends React.PureComponent {
   render() {
     if (this.state.loggedIn) {
       if (this.state.alreadyPicked) {
+        alert('You already picked!');
         return <Redirect to="/results" />;
       }
       if (this.state.access_token && this.state.response) {
