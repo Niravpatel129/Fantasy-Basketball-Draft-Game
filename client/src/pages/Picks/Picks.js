@@ -84,7 +84,7 @@ class Picks extends React.PureComponent {
                   });
                 }
               })
-              .catch(err => console.log(err));
+              .catch(err => console.log('idealy do something with the .catch error here'));
 
             axios
               .get('/data', { params: { team_id: game.visitor_team.id } })
@@ -117,19 +117,16 @@ class Picks extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    axios
-      .get('/login', {
-        params: {
-          name: this.state.user.name,
-          avatar: this.state.user.avatar
-        }
-      })
-      .then(res => {});
-
     // axios
-    //   .get('https://slack.com/api/users.profile.get?token=' + localStorage.getItem('token') + '&scope=identify.avatar')
-    //   .then(res => {
-    //     console.log('AVATAR info:', res);
+    //   .get('/login', {
+    //     params: {
+    //       name: this.state.user.name,
+    //       avatar: this.state.user.avatar
+    //     }
+    //   })
+    //   .then(res => {})
+    //   .catch(err => {
+    //     console.log(err);
     //   });
   }
 
@@ -213,6 +210,7 @@ class Picks extends React.PureComponent {
                 }
               });
               localStorage.setItem('user', this.state.user.name);
+              this.updateUserAvatar();
             });
           }
         })
@@ -234,8 +232,25 @@ class Picks extends React.PureComponent {
             }
           });
           localStorage.setItem('user', this.state.user.name);
+          this.updateUserAvatar();
         });
     }
+  };
+
+  updateUserAvatar = () => {
+    axios
+      .get('/login', {
+        params: {
+          name: this.state.user.name,
+          avatar: this.state.user.avatar
+        }
+      })
+      .then(res => {
+        console.log('added user avatar');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   onCastVoteEvent = team => {

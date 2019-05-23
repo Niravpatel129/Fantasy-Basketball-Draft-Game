@@ -13,6 +13,9 @@ import Arrow from '../../components/Arrow/Arrow';
 import GameButton from '../../components/GameButton/GameButton';
 class Landing extends React.PureComponent {
   componentDidMount() {
+    console.log('landing page');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     animate.set(this.container, { autoAlpha: 0 });
     this.onAppear();
 
@@ -23,6 +26,7 @@ class Landing extends React.PureComponent {
   }
   x;
   onAppear = () => {
+    console.log('this is called');
     this.animateIn();
   };
 
