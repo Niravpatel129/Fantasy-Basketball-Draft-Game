@@ -6,7 +6,7 @@ import { TransitionGroup } from 'react-transition-group';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import './Landing.scss';
-import { TweenMax } from 'gsap';
+import { TweenMax, Power3 } from 'gsap';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
@@ -16,11 +16,13 @@ import GameButton from '../../components/GameButton/GameButton';
 
 class Landing extends React.PureComponent {
   componentDidMount() {
+    TweenMax.staggerTo('#arrow', 1, { y: +40, repeat: -1, yoyo: true, ease: Power3.easeOut }, 1);
+
     TweenMax.to('#myID', 1, {
-      scaleX: 1.2,
-      scaleY: 1.2,
+      y: +40,
       glowFilter: { color: 0x91e600, alpha: 1, blurX: 50, blurY: 50 },
       repeat: -1,
+      ease: Power3.easeOut,
       yoyo: true
     });
 
@@ -73,10 +75,10 @@ class Landing extends React.PureComponent {
         <TransitionGroup>
           <GameButton key="game-button" id="gamebutton" />
           {/* <div id="myID">Hello!</div> */}
-          <div id="myID">
-            <Arrow />
-            <Arrow />
-            <Arrow />
+          <div id="">
+            <Arrow id="arrow" />
+            <Arrow id="arrow" />
+            <Arrow id="arrow" />
           </div>
         </TransitionGroup>
       </section>
