@@ -5,12 +5,14 @@ import { connect } from 'react-redux';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import './Landing.scss';
+// import { TweenLite } from 'gsap';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
 import Titletext from '../../components/Titletext/Titletext';
 import Arrow from '../../components/Arrow/Arrow';
 import GameButton from '../../components/GameButton/GameButton';
+
 class Landing extends React.PureComponent {
   componentDidMount() {
     console.log('landing page');
