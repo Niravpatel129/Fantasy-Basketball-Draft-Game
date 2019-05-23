@@ -17,7 +17,6 @@ class MatchupInfo extends React.PureComponent {
 
   render() {
     let team = this.props.teamName.split(' ');
-    console.log(team[team.length - 1]);
     return (
       <div className={classnames(`MatchupInfo`, this.props.className)}>
         <div className="ui card">

@@ -135,7 +135,13 @@ class Results extends React.PureComponent {
         return (
           <div>
             <DateSelect date={this.state.date} onSubmit={this.onDateChange} />
-            <h2 className="teamTag error">There are no picks for the selected date</h2>
+            <h2 className="teamTag error">
+              There are no picks for the selected date
+              <br />
+              <br />
+              <br />
+              Select a different date above to see more results
+            </h2>
           </div>
         );
       }

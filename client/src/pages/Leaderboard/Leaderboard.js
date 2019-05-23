@@ -70,7 +70,6 @@ class Leaderboard extends React.PureComponent {
         </div>
       );
     } else {
-      console.log(this.state);
       if (this.state.response) {
         return (
           <section className={classnames('Leaderboard', this.props.className)} ref={el => (this.container = el)}>

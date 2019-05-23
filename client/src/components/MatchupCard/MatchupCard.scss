@@ -20,18 +20,22 @@
     margin-top: 100px;
   }
 
-  @media screen and (max-width: 411px) {
-  }
-}
-.carousel__indicators {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 20px;
+  .carousel__indicators {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
 
-  li {
-    &:nth-of-type(n + 2) {
-      margin-left: 9px;
+    li {
+      &:nth-of-type(n + 2) {
+        margin-left: 9px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .carousel__indicators {
+      flex-direction: row;
     }
   }
 }

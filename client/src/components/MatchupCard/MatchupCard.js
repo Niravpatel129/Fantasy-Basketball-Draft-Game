@@ -10,6 +10,7 @@ import MatchupInfo from '../MatchupInfo/MatchupInfo';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import Date from '../Date/Date';
 import Indicator from '../Indicator/Indicator';
+import Arrow from '../../components/Arrow/Arrow';
 
 class MatchupCard extends React.PureComponent {
   state = {
@@ -50,24 +51,54 @@ class MatchupCard extends React.PureComponent {
         return 0;
       });
 
-      return (
-        <div className={classnames(`MatchupCard`, this.props)}>
-          <Date date={this.props.gameInfo.date} />
-          <div className={classnames(`MatchupCard`, this.props.className)}>
-            <div className="teamAssign">
-              <h2 className="teamTag">HOME</h2>
-              <TeamCard className={homeClass} teamName={teams.homeTeam} onVote={this.props.onVote} />
+      if (window.innerWidth > 1024) {
+        return (
+          <div className={classnames(`MatchupCard`, this.props)}>
+            <Date date={this.props.gameInfo.date} />
+            <div className={classnames(`MatchupCard`, this.props.className)}>
+              <div className="teamAssign">
+                <h2 className="teamTag">HOME</h2>
+                <TeamCard className={homeClass} teamName={teams.homeTeam} onVote={this.props.onVote} />
+              </div>
+              <div className="teamAssign">
+                <h2 className="teamTag">AWAY</h2>
+                <TeamCard className={awayClass} teamName={teams.awayTeam} onVote={this.props.onVote} />
+              </div>
+              <h2 className="teamTag">THE MATCHUP</h2>
+              <div className="teamAssign">
+                <MatchupInfo className={homeClass} teamName={teams.homeTeam} teamStats={homeTeamData} />
+              </div>
+              <div className="teamAssign">
+                <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
+              </div>
+              <ul className="carousel__indicators">
+                {this.props.gameInfo.picks.map((pick, index) => (
+                  <Indicator
+                    length={this.props.gameInfo.picks.length}
+                    index={index}
+                    key={index}
+                    activeIndex={this.props.gameInfo.currentPickIndex}
+                    onClick={e => this.props.goToSlide(index)}
+                  />
+                ))}
+              </ul>
+              <SubmitButton onSubmit={this.props.onSubmit} />
             </div>
-            <div className="teamAssign">
-              <h2 className="teamTag">AWAY</h2>
-              <TeamCard className={awayClass} teamName={teams.awayTeam} onVote={this.props.onVote} />
-            </div>
-            <h2 className="teamTag">THE MATCHUP</h2>
-            <div className="teamAssign">
-              <MatchupInfo className={homeClass} teamName={teams.homeTeam} teamStats={homeTeamData} />
-            </div>
-            <div className="teamAssign">
-              <MatchupInfo className={awayClass} teamName={teams.awayTeam} teamStats={awayTeamData} />
+          </div>
+        );
+      } else {
+        return (
+          <div className={classnames(`MatchupCard`, this.props)}>
+            <Date date={this.props.gameInfo.date} />
+            <div className={classnames(`MatchupCard`, this.props.className)}>
+              <div className="teamAssign">
+                <h2 className="teamTag">HOME</h2>
+                <TeamCard className={homeClass} teamName={teams.homeTeam} onVote={this.props.onVote} />
+              </div>
+              <div className="teamAssign">
+                <h2 className="teamTag">AWAY</h2>
+                <TeamCard className={awayClass} teamName={teams.awayTeam} onVote={this.props.onVote} />
+              </div>
             </div>
             <ul className="carousel__indicators">
               {this.props.gameInfo.picks.map((pick, index) => (
@@ -76,13 +107,14 @@ class MatchupCard extends React.PureComponent {
                   index={index}
                   key={index}
                   activeIndex={this.props.gameInfo.currentPickIndex}
+                  onClick={e => this.props.goToSlide(index)}
                 />
               ))}
             </ul>
             <SubmitButton onSubmit={this.props.onSubmit} />
           </div>
-        </div>
-      );
+        );
+      }
     }
     return <div className="noData">There are no games being played today</div>;
   }
@@ -92,7 +124,8 @@ MatchupCard.propTypes = checkProps({
   className: PropTypes.string,
   gameInfo: PropTypes.object,
   onVote: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  goToSlide: PropTypes.func
 });
 
 MatchupCard.defaultProps = {};

@@ -34,8 +34,8 @@ class Picks extends React.PureComponent {
   componentDidMount() {
     this.checkAuth();
     var today = [pad(new Date().getFullYear(), 4), pad(new Date().getMonth() + 1, 2), pad(new Date().getDate(), 2)];
-    var startdate = today.join('-');
-    // var startdate = '2019-02-23';
+    // var startdate = today.join('-');
+    var startdate = '2019-02-13';
 
     // Make a request for a user with a given date
     axios
@@ -285,6 +285,13 @@ class Picks extends React.PureComponent {
     }
   };
 
+  goToSlide = index => {
+    console.log('clicked');
+    this.setState({
+      currentPickIndex: index
+    });
+  };
+
   render() {
     if (this.state.loggedIn) {
       if (this.state.alreadyPicked) {
@@ -300,7 +307,12 @@ class Picks extends React.PureComponent {
               tabIndex="0"
             >
               <Arrow className="left" onClick={this.prevPick} />
-              <MatchupCard onVote={this.onCastVoteEvent} onSubmit={this.onSubmitPicksEvent} gameInfo={this.state} />
+              <MatchupCard
+                onVote={this.onCastVoteEvent}
+                onSubmit={this.onSubmitPicksEvent}
+                gameInfo={this.state}
+                goToSlide={this.goToSlide}
+              />
               <Arrow className="right" onClick={this.nextPick} />
             </section>
           );
