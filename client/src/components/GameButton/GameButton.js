@@ -21,7 +21,7 @@ class GameButton extends React.PureComponent {
   render() {
     return (
       <div className={classnames(`GameButton`, this.props.className)}>
-        <div className="button-box">
+        <div className="button-box" id={this.props.id}>
           <a href={this.pageRedirectChooser()}>
             <img className="button" src={require('../../../src/assets/images/play-button.png')} alt="Play" />
           </a>
