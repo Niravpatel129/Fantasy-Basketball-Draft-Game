@@ -20,10 +20,10 @@ class InfoBox extends React.PureComponent {
             Welcome to the JAM3 Fantasy Basketball Picker. Make your predictions, track the games and rule to office.
             <br />
             <br />
-            Playing is easy. After the picker has randomly selected your opponent for the night, simply make and submit
-            your predicitions.
+            Playing is easy. Simply make and submit your predicitions, follow along and earn points for guessing
+            correctly.
             <br />
-            <br /> The winner is decided based on the number of correct picks. <br />
+            <br /> Check out the leaderboard to see how you stack up. <br />
             <br />
             Sign in to slack to step into the action.
           </div>
