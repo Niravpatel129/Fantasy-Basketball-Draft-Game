@@ -40,10 +40,10 @@ class Picks extends React.PureComponent {
     var today = [pad(date.getFullYear(), 4), pad(date.getMonth() + 1, 2), pad(date.getDate(), 2)];
     var yesterday = [pad(lastDate.getFullYear(), 4), pad(lastDate.getMonth() + 1, 2), pad(lastDate.getDate(), 2)];
     console.log(today, yesterday);
-    // var startdate = today.join('-');
-    // var enddate = yesterday.join('-')
-    var startdate = '2019-02-13';
-    var enddate = '2019-02-12';
+    var startdate = today.join('-');
+    var enddate = yesterday.join('-');
+    // var startdate = '2019-02-13';
+    // var enddate = '2019-02-12';
 
     // Make a request for a user with a given date
     axios
