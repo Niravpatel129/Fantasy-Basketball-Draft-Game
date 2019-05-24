@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import { Redirect } from 'react-router-dom';
-
+import swal from 'sweetalert';
 import './Picks.scss';
 import axios from 'axios';
 import Transition from '../PagesTransitionWrapper';
@@ -40,9 +40,9 @@ class Picks extends React.PureComponent {
     var today = [pad(date.getFullYear(), 4), pad(date.getMonth() + 1, 2), pad(date.getDate(), 2)];
     var yesterday = [pad(lastDate.getFullYear(), 4), pad(lastDate.getMonth() + 1, 2), pad(lastDate.getDate(), 2)];
     console.log(today, yesterday);
-    var startdate = today.join('-');
+    // var startdate = today.join('-');
     var enddate = yesterday.join('-');
-    // var startdate = '2019-02-13';
+    var startdate = '2019-02-13';
     // var enddate = '2019-02-12';
 
     // Make a request for a user with a given date
@@ -229,6 +229,9 @@ class Picks extends React.PureComponent {
           });
           localStorage.setItem('user', this.state.user.name);
           this.updateUserAvatar();
+        })
+        .catch(() => {
+          this.setState({ loggedIn: false });
         });
     }
   };
@@ -245,7 +248,7 @@ class Picks extends React.PureComponent {
         console.log('added user avatar');
       })
       .catch(err => {
-        console.log(err);
+        console.log('unable to add avatar for some reason, hmm');
       });
   };
 
@@ -291,7 +294,7 @@ class Picks extends React.PureComponent {
   render() {
     if (this.state.loggedIn) {
       if (this.state.alreadyPicked) {
-        alert('You already picked!');
+        swal('You already Voted!', '', 'error');
         return <Redirect to="/results" />;
       }
       if (this.state.access_token && this.state.response) {
@@ -333,7 +336,7 @@ class Picks extends React.PureComponent {
         return <LoadScreen />;
       }
     } else {
-      return <Redirect to="/results" />;
+      return <Redirect to="/login" />;
     }
   }
 }

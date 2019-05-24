@@ -119,6 +119,7 @@
     "storybook-addon-jsx": "6.0.0",
     "stylelint": "9.10.0",
     "stylelint-config-jam3": "0.1.2",
+    "sweetalert": "^2.1.2",
     "webpack-bundle-analyzer": "3.0.3",
     "why-did-you-update": "0.1.1"
   },

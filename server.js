@@ -7,7 +7,12 @@ var mongoose = require("mongoose");
 const axios = require("axios");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+var schedule = require("node-schedule");
 
+var j = schedule.scheduleJob("4 * * *", function() {
+  console.log("The answer to life, the universe, and everything!");
+  updateScores();
+});
 // Mongoose
 mongoose.connect(
   "mongodb://dbadmin:dbadmin1@ds155076.mlab.com:55076/tournament",
@@ -47,6 +52,15 @@ var Scores = mongoose.model("Scores", scoreData);
 var User = mongoose.model("User", personData);
 
 // Client API Calls
+
+function pad(number, length) {
+  var str = "" + number;
+  while (str.length < length) {
+    str = "0" + str;
+  }
+  return str;
+}
+
 app.post("/logPicks", (req, res) => {
   var picks = req.body.logPicks.picks.map(pick => {
     return {
@@ -75,9 +89,9 @@ app.get("/login", (req, res) => {
         score: 0,
         avatar: req.query.avatar
       });
-
-      Score1.save();
-      console.log("users score data has saved");
+      if (req.query.name) {
+        Score1.save();
+      }
     }
   });
 });
@@ -171,7 +185,7 @@ app.get("/results", (req, res) => {
                 if (selectionTeam == gameWinner && !response[0].ScoredAlready) {
                   Scores.findOneAndUpdate(
                     { username: req.query.name },
-                    { $inc: { score: 100 } },
+                    { $inc: { score: 50 } },
                     (err, res) => {
                       console.log("updated point for user:", req.query.name);
                     }
@@ -197,6 +211,99 @@ app.get("/results", (req, res) => {
     );
   }
 });
+
+function updateScores() {
+  mongoose.set("useFindAndModify", false);
+  var myUsers;
+  console.log("made it to /checkToday");
+  var date = new Date();
+  var today = [
+    pad(date.getFullYear(), 4),
+    pad(date.getMonth() + 1, 2),
+    pad(date.getDate(), 2) - 1 // THIS WILL MAKE IT GET "YESTERDAYS GAME"
+  ];
+  var startdate = today.join("-");
+  User.find({ Date: startdate }, (err, response) => {
+    myUsers = response;
+  }).then(() => {
+    if (myUsers != null)
+      myUsers.map(data => {
+        // console.log("something", data.username, data.Date);
+        if (!data.ScoredAlready) {
+          // console.log(data.username, data.ScoredAlready);
+          User.find(
+            { username: data.username, Date: startdate },
+            (err, response) => {
+              if (response.length > 0) {
+                if (response[0].picks != null)
+                  response[0].picks.map(pick => {
+                    axios
+                      .get(
+                        "https://www.balldontlie.io/api/v1/games/" + pick.gameId
+                      )
+                      .then(dat => {
+                        let gameWinner;
+                        let selectionTeam;
+                        // console.log(dat.data.date);
+                        var homeTeam = {
+                          team: dat.data.home_team.full_name,
+                          score: dat.data.home_team_score,
+                          gameResult: "",
+                          selected: false
+                        };
+
+                        var visitorTeam = {
+                          team: dat.data.visitor_team.full_name,
+                          score: dat.data.visitor_team_score,
+                          gameResult: "",
+                          selected: false
+                        };
+
+                        var didHomeTeamWin =
+                          homeTeam.score > visitorTeam.score ? true : false;
+
+                        if (didHomeTeamWin) {
+                          gameWinner = dat.data.home_team.full_name;
+                        } else {
+                          gameWinner = dat.data.visitor_team.full_name;
+                        }
+                        selectionTeam = pick.selection;
+
+                        if (
+                          selectionTeam == gameWinner &&
+                          !response[0].ScoredAlready &&
+                          !data.ScoredAlready
+                        ) {
+                          Scores.findOneAndUpdate(
+                            { username: response[0].username },
+                            { $inc: { score: 50 } },
+                            (err, res) => {
+                              console.log(res.score);
+                              console.log(
+                                "updated point for user:",
+                                response[0].username
+                              );
+                            }
+                          ).then(() => {});
+                          User.findOneAndUpdate(
+                            { username: data.username, Date: data.Date },
+                            { $set: { ScoredAlready: true } },
+                            (err, res) => {
+                              console.log(data.username, "can no longer vote");
+                            }
+                          );
+                        }
+                      });
+                  });
+              }
+            }
+          );
+        } else {
+          // console.log("ELSE STATEMENT:", data.username, data.ScoredAlready);
+        }
+      });
+  });
+}
 
 app.get("/data", (req, res) => {
   let team_id = req.query.team_id;
