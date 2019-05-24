@@ -7,7 +7,6 @@ import wait from '@jam3/wait';
 import checkProps from '@jam3/react-check-extra-props';
 import './Landing.scss';
 import { TweenMax, Power3 } from 'gsap';
-import Axios from 'axios';
 import Transition from '../PagesTransitionWrapper';
 import { setLandingLoaded } from '../../redux/modules/landing';
 import animate from '../../util/gsap-animate';
