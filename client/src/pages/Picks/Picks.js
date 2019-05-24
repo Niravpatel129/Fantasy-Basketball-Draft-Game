@@ -265,9 +265,11 @@ class Picks extends React.PureComponent {
       .get('/checkIfAlreadyPickedToday', { params: { name: this.state.user.name, date: this.state.date } })
       .then(response => {
         if (response.data === 'found') {
+          swal('You already Voted!', '', 'error');
           this.setState({ alreadyPicked: true });
           console.log('Pick invalid already picked');
         } else {
+          swal('Pick Submited!', 'Check back after the game to see how you did!', 'success');
           axios.post('/logPicks', {
             logPicks: this.state
           });
@@ -294,7 +296,6 @@ class Picks extends React.PureComponent {
   render() {
     if (this.state.loggedIn) {
       if (this.state.alreadyPicked) {
-        swal('You already Voted!', '', 'error');
         return <Redirect to="/results" />;
       }
       if (this.state.access_token && this.state.response) {

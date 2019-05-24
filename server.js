@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var schedule = require("node-schedule");
 
-var j = schedule.scheduleJob("4 * * *", function() {
+var j = schedule.scheduleJob("1 * * *", function() {
   console.log("The answer to life, the universe, and everything!");
   updateScores();
 });
