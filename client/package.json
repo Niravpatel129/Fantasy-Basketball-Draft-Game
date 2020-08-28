@@ -66,7 +66,7 @@
     "classnames": "2.2.6",
     "cross-env": "5.1.6",
     "default-passive-events": "1.0.10",
-    "dompurify": "1.0.8",
+    "dompurify": "2.0.3",
     "eslint": "5.12.0",
     "eslint-config-postcss": "3.0.7",
     "eslint-config-prettier": "3.3.0",
