@@ -98,7 +98,7 @@
     "minimist": "1.2.0",
     "mkdirp": "0.5.1",
     "no-op": "1.0.3",
-    "node-sass": "4.9.3",
+    "node-sass": "7.0.0",
     "normalize.css": "8.0.1",
     "npm-run-all": "^4.1.2",
     "preloader": "4.0.2",
